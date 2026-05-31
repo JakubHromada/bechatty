@@ -1,0 +1,23 @@
+User-agent: *
+Allow: /
+
+# AI / LLM crawlers — explicitly allow indexing for discoverability
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://bechatty.pl/sitemap.xml
