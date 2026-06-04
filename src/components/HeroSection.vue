@@ -1,176 +1,212 @@
 <template>
-  <section
-    id="home"
-    ref="heroRef"
-    class="relative min-h-[90vh] flex items-center overflow-hidden bg-bsandy-light px-6 py-20"
-    @mousemove="onMouseMove"
-  >
-    <!-- Soft warm atmosphere: a few faint, heavily diffused washes (no candy pink/rose) -->
-    <div class="hero-blob hero-blob--drift-a absolute w-[460px] h-[460px] rounded-full bg-bsandy opacity-[0.22] -top-32 -right-28 pointer-events-none blur-3xl"></div>
-    <div class="hero-blob hero-blob--drift-b absolute w-[380px] h-[380px] rounded-full bg-bmustard opacity-[0.15] -bottom-20 -left-24 pointer-events-none blur-3xl"></div>
-    <div class="hero-blob absolute w-[300px] h-[300px] rounded-full bg-bpink-dark opacity-[0.18] top-[45%] right-[26%] pointer-events-none blur-3xl"></div>
+  <section id="home" class="relative overflow-hidden">
+    <!-- Ambient brand atmosphere -->
+    <div class="hero-decor" aria-hidden="true">
+      <span class="glow glow--sage"></span>
+      <span class="glow glow--terra"></span>
+    </div>
 
-    <!-- Main content -->
-    <div class="hero-animate w-full min-w-0 max-w-[720px] mx-auto text-center relative z-2">
-      <h1 ref="titleRef" class="font-playfair font-bold text-[clamp(2.1rem,4.6vw,3.75rem)] text-btext leading-[1.15] tracking-tight mb-6" style="text-wrap: balance;">
-        {{ t('Speak English, with confidence and no barriers', 'Mów po angielsku, pewnie i bez blokady') }}
-      </h1>
-      <p ref="subtitleRef" class="font-lato text-btext-light text-base md:text-lg mb-10 max-w-[560px] mx-auto leading-relaxed">
-        {{ t('Online lessons for teenagers and adults.', 'Lekcje online dla młodzieży i dorosłych.') }}
-      </p>
-      <div ref="btnsRef" class="flex gap-4 justify-center flex-wrap">
-        <a href="#contact" class="hero-btn-primary">
-          {{ t('Book a Trial Lesson', 'Umów lekcję próbną') }}
-        </a>
-        <a href="#about" class="hero-btn-outline">
-          {{ t('Learn More', 'Dowiedz się więcej') }}
-        </a>
+    <div class="section-wrap relative section-y lg:grid lg:grid-cols-12 lg:gap-x-12 lg:items-center">
+
+      <!-- Text column — kept lean so the chat can breathe -->
+      <div class="lg:col-span-6" v-reveal>
+        <span class="eyebrow mb-5">
+          <span class="chat-dots text-sage-deep"><i></i><i></i><i></i></span>
+          {{ t('Online English school', 'Szkoła języka angielskiego online') }}
+        </span>
+
+        <h1 class="hero-title text-walnut text-[clamp(2.5rem,5vw,4rem)]" v-html="t(headline.en, headline.pl)"></h1>
+
+        <p class="mt-6 text-ink-soft text-[1.075rem] leading-relaxed max-w-[42ch]">
+          {{ t(headline.subEn, headline.subPl) }}
+        </p>
+
+        <div class="mt-9">
+          <a href="#contact" class="btn-primary">
+            {{ t('Book a trial lesson', 'Umów lekcję próbną') }}
+            <i class="fas fa-arrow-right text-[0.8em]" aria-hidden="true"></i>
+          </a>
+        </div>
+
+        <!-- a quiet, confident proof row -->
+        <ul class="proof mt-10">
+          <li v-for="s in stats" :key="s.en" class="proof-item">
+            <span class="proof-num num">{{ s.value }}</span>
+            <span class="proof-label">{{ t(s.en, s.pl) }}</span>
+          </li>
+        </ul>
       </div>
 
-      <!-- Trust strip -->
-      <div class="flex flex-wrap gap-x-5 gap-y-2 sm:gap-6 md:gap-8 justify-center mt-10 sm:mt-12 text-xs sm:text-sm md:text-base font-bold text-btext tracking-wide">
-        <span class="flex items-center gap-1.5 md:gap-2 shrink-0">
-          <i class="fas fa-award text-bmustard text-sm md:text-lg"></i>
-          {{ t('10+ years experience', '10+ lat doświadczenia') }}
-        </span>
-        <span class="flex items-center gap-1.5 md:gap-2 shrink-0">
-          <i class="fas fa-users text-bmustard text-sm md:text-lg"></i>
-          {{ t('450+ happy students', '450+ zadowolonych uczniów') }}
-        </span>
-        <span class="flex items-center gap-1.5 md:gap-2 shrink-0">
-          <i class="fas fa-chart-line text-bmustard text-sm md:text-lg"></i>
-          {{ t('Exam results: 90%+', 'Wyniki egzaminów na poziomie 90%+') }}
-        </span>
+      <!-- The conversation — a real chat thread. Be chatty. -->
+      <div class="lg:col-span-6 mt-14 lg:mt-0">
+        <div class="convo" role="img"
+             :aria-label="t('A sample conversation: a hesitant learner, reassured by the teacher', 'Przykładowa rozmowa: niepewny uczeń, uspokojony przez nauczycielkę')">
+
+          <div class="c-row c-row--in arrive a1">
+            <div class="c-bubble c-bubble--in">
+              <p>{{ t(convo.learnerEn, convo.learnerPl) }}</p>
+            </div>
+          </div>
+
+          <div class="c-row c-row--out arrive a2">
+            <div class="c-bubble c-bubble--out">
+              <p>{{ t(convo.teacherEn, convo.teacherPl) }}</p>
+              <span class="c-name">Ola · BeChatty</span>
+            </div>
+            <span class="c-avatar">
+              <img src="/logo-sage.png" alt="BeChatty" width="56" height="56" />
+              <span class="c-dot" aria-hidden="true"></span>
+            </span>
+          </div>
+
+          <a href="#contact" class="c-row c-row--out c-typing-link arrive a3">
+            <span class="c-typing">
+              <span class="chat-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              {{ t('Your turn — say hello', 'Twoja kolej — napisz') }}
+            </span>
+          </a>
+
+        </div>
       </div>
-    </div>
 
-    <!-- Word bubbles spawned on mouse move -->
-    <div
-      v-for="b in bubbles" :key="b.id"
-      class="word-bubble"
-      :style="{ left: b.x + 'px', top: b.y + 'px' }"
-    >
-      <span class="bubble-pl">{{ b.pair.pl }}</span>
-      <span class="bubble-en">{{ b.pair.en }}</span>
-    </div>
-
-    <!-- Static signature bubbles for touch devices (the mouse trail is pointer-only) -->
-    <div class="word-bubble word-bubble--static md:hidden" style="top: 13%; left: 5%;">
-      <span class="bubble-pl">cześć</span>
-      <span class="bubble-en">hi there</span>
-    </div>
-    <div class="word-bubble word-bubble--static md:hidden" style="top: 17%; right: 5%;">
-      <span class="bubble-pl">brawo</span>
-      <span class="bubble-en">well done</span>
     </div>
   </section>
 </template>
 
 <script setup>
-import { ref } from 'vue'
 import { useLanguage } from '../composables/useLanguage'
 
 const { t } = useLanguage()
 
-const heroRef     = ref(null)
-const btnsRef     = ref(null)
-const titleRef    = ref(null)
-const subtitleRef = ref(null)
-const bubbles     = ref([])
-
-let lastBubbleTime = 0
-let lastMouseX = 0, lastMouseY = 0
-let lastIdx = -1
-let bubbleId = 0
-
-const reducedMotion = typeof window !== 'undefined'
-  && window.matchMedia
-  && window.matchMedia('(prefers-reduced-motion: reduce)').matches
-
-// Vocabulary-style positive PL/EN pairs spanning A2 → C1.
-// Single words and short phrases, no greeting-card platitudes, no imperatives.
-const wordPairs = [
-  // A2
-  { pl: 'brawo',         en: 'well done'   },
-  { pl: 'super',         en: 'lovely'      },
-  { pl: 'świetnie',      en: 'great'       },
-  { pl: 'radość',        en: 'joy'         },
-  { pl: 'nadzieja',      en: 'hope'        },
-  { pl: 'odwaga',        en: 'courage'     },
-  { pl: 'uśmiech',       en: 'smile'       },
-  { pl: 'pewność',       en: 'confidence'  },
-  { pl: 'ciekawość',     en: 'curiosity'   },
-  { pl: 'spokój',        en: 'calm'        },
-
-  // B1
-  { pl: 'powodzenia',    en: 'good luck'   },
-  { pl: 'fantastycznie', en: 'fantastic'   },
-  { pl: 'ciepło',        en: 'warmth'      },
-  { pl: 'przyjaźń',      en: 'friendship'  },
-  { pl: 'wsparcie',      en: 'support'     },
-  { pl: 'zaufanie',      en: 'trust'       },
-  { pl: 'wdzięczność',   en: 'gratitude'   },
-  { pl: 'naturalnie',    en: 'naturally'   },
-  { pl: 'swobodnie',     en: 'at ease'     },
-  { pl: 'zachwyt',       en: 'wonder'      },
-
-  // B2
-  { pl: 'inspirujące',   en: 'inspiring'   },
-  { pl: 'imponujące',    en: 'impressive'  },
-  { pl: 'zachwycające',  en: 'wonderful'   },
-  { pl: 'cierpliwość',   en: 'patience'    },
-  { pl: 'harmonia',      en: 'harmony'     },
-  { pl: 'życzliwość',    en: 'kindness'    },
-  { pl: 'uważność',      en: 'mindfulness' },
-  { pl: 'szczerość',     en: 'sincerity'   },
-  { pl: 'spełnienie',    en: 'fulfilment'  },
-  { pl: 'życzliwie',     en: 'warmly'      },
-
-  // C1
-  { pl: 'niezwykłe',     en: 'remarkable'    },
-  { pl: 'niesamowite',   en: 'extraordinary' },
-  { pl: 'olśniewające',  en: 'dazzling'      },
-  { pl: 'urokliwe',      en: 'charming'      },
-  { pl: 'autentycznie',  en: 'genuinely'     },
-  { pl: 'swoboda',       en: 'ease'          },
-  { pl: 'niezapomniane', en: 'unforgettable' },
-  { pl: 'subtelność',    en: 'subtlety'      },
-  { pl: 'delikatność',   en: 'delicacy'      },
-  { pl: 'z przyjemnością', en: 'with pleasure' },
-]
-
-function onMouseMove(e) {
-  if (reducedMotion || !heroRef.value) return
-  const rect = heroRef.value.getBoundingClientRect()
-  const x = e.clientX - rect.left
-  const y = e.clientY - rect.top
-  const now = Date.now()
-
-  if (now - lastBubbleTime < 600) return
-  const dx = e.clientX - lastMouseX
-  const dy = e.clientY - lastMouseY
-  if (Math.sqrt(dx * dx + dy * dy) < 45) return
-
-  // Avoid spawning over headline, subtitle, or buttons
-  const blockers = [titleRef.value, subtitleRef.value, btnsRef.value]
-  for (const el of blockers) {
-    if (!el) continue
-    const r = el.getBoundingClientRect()
-    if (e.clientX >= r.left - 20 && e.clientX <= r.right + 20 &&
-        e.clientY >= r.top  - 20 && e.clientY <= r.bottom + 20) return
-  }
-
-  lastBubbleTime = now
-  lastMouseX = e.clientX
-  lastMouseY = e.clientY
-
-  let idx
-  do { idx = Math.floor(Math.random() * wordPairs.length) } while (idx === lastIdx)
-  lastIdx = idx
-
-  const ox = (Math.random() - 0.5) * 80
-  const id = bubbleId++
-  bubbles.value.push({ id, pair: wordPairs[idx], x: x + ox - 50, y: y - 60 })
-  setTimeout(() => { bubbles.value = bubbles.value.filter(b => b.id !== id) }, 2400)
+const headline = {
+  en: 'Speak English with <em>confidence</em>, not hesitation.',
+  pl: 'Mów po angielsku <em>pewnie</em>, bez blokady.',
+  subEn: 'Personalised online lessons for teenagers and adults — exam prep, conversation, and lasting fluency.',
+  subPl: 'Spersonalizowane lekcje online dla młodzieży i dorosłych — egzaminy, konwersacje i trwała swoboda.',
 }
+
+const convo = {
+  learnerEn: 'I understand a lot, but the moment I have to speak — I freeze.',
+  learnerPl: 'Rozumiem sporo, ale gdy mam coś powiedzieć — blokada.',
+  teacherEn: "That's exactly what we'll unlock — you'll be speaking from the very first lesson. Calmly, no judgement.",
+  teacherPl: 'To właśnie odblokujemy — będziesz mówić od pierwszej lekcji. Spokojnie, bez oceniania.',
+}
+
+const stats = [
+  { value: '10+',  en: 'years', pl: 'lat doświadczenia' },
+  { value: '450+', en: 'students', pl: 'uczniów' },
+  { value: '90%+', en: 'avg. exam results', pl: 'średnie wyniki' },
+]
 </script>
+
+<style scoped>
+.hero-title { font-weight: 540; line-height: 1.02; letter-spacing: -0.026em; }
+
+/* the emphasis word is "marked" with a soft terracotta stroke — the teacher's
+   pen, not a highlighter. Drawn as an SVG so it keeps a hand-made curve. */
+.hero-title :deep(em) {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 14' preserveAspectRatio='none'%3E%3Cpath d='M3 9 C 55 3.5, 150 3, 197 7.5' fill='none' stroke='%23C4785A' stroke-width='3.2' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 0 92%;
+  background-size: 100% 0.34em;
+  padding-bottom: 0.06em;
+}
+
+.hero-decor { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.glow { position: absolute; border-radius: 50%; filter: blur(66px); }
+.glow--sage  { width: 46vw; height: 46vw; max-width: 640px; max-height: 640px; top: -24%; right: -8%;
+               background: radial-gradient(circle, var(--sage) 0%, transparent 68%); opacity: 0.46; }
+.glow--terra { width: 34vw; height: 34vw; max-width: 440px; max-height: 440px; bottom: -30%; left: -12%;
+               background: radial-gradient(circle, var(--terra) 0%, transparent 70%); opacity: 0.26; }
+
+/* proof row: serif numerals lead, hairline-divided, scannable but unshouty.
+   Dividers only kick in once the row is wide enough not to wrap — otherwise a
+   wrapped stat would carry a stray leading hairline. */
+.proof { display: flex; flex-wrap: wrap; gap: 0.9rem 1.6rem; }
+.proof-item { display: flex; flex-direction: column; gap: 0.12rem; }
+.proof-num { font-size: 1.65rem; line-height: 1; color: var(--sage-deep); }
+.proof-label { font-size: 0.82rem; line-height: 1.3; color: var(--ink-mute); }
+@media (min-width: 600px) {
+  .proof { gap: 1.7rem; }
+  .proof-item { padding-left: 1.7rem; border-left: 1px solid var(--line); }
+  .proof-item:first-child { padding-left: 0; border-left: none; }
+}
+
+/* ── The conversation ─────────────────────────────── */
+.convo { position: relative; display: flex; flex-direction: column; gap: 1rem; max-width: 30rem; margin-inline: auto; }
+.c-row { display: flex; align-items: flex-end; gap: 0.7rem; }
+.c-row--in  { justify-content: flex-start; }
+.c-row--out { justify-content: flex-end; }
+
+.c-bubble {
+  position: relative; max-width: 23rem;
+  padding: 0.95rem 1.2rem;
+  font-size: 1rem; line-height: 1.5; color: var(--ink);
+  box-shadow: var(--shadow);
+}
+.c-bubble p { text-wrap: pretty; }
+/* incoming — the learner, in sage */
+.c-bubble--in {
+  background: var(--sage-soft);
+  border: 1px solid color-mix(in oklch, var(--sage) 32%, var(--linen));
+  border-radius: 20px 20px 20px 6px;
+}
+/* outgoing — Ola, in warm white */
+.c-bubble--out {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 20px 20px 6px 20px;
+}
+.c-name {
+  display: block; margin-top: 0.5rem;
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em; color: var(--sage-deep);
+}
+
+/* Ola's avatar — circular (echoes the round logo), with a presence dot */
+.c-avatar { position: relative; flex-shrink: 0; width: 3rem; height: 3rem; }
+.c-avatar img {
+  width: 3rem; height: 3rem; border-radius: 50%; object-fit: cover; object-position: center;
+  border: 2px solid var(--surface); box-shadow: var(--shadow);
+}
+.c-dot {
+  position: absolute; right: 1px; bottom: 1px; width: 0.7rem; height: 0.7rem;
+  border-radius: 50%; background: var(--sage); border: 2px solid var(--surface);
+  box-shadow: 0 0 0 0 color-mix(in oklch, var(--sage) 70%, transparent);
+  animation: pulse 2.6s var(--ease-quint) infinite;
+}
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0 color-mix(in oklch, var(--sage) 60%, transparent); }
+  70%  { box-shadow: 0 0 0 8px color-mix(in oklch, var(--sage) 0%, transparent); }
+  100% { box-shadow: 0 0 0 0 color-mix(in oklch, var(--sage) 0%, transparent); }
+}
+
+/* the typing indicator — invites the visitor to reply (links to contact) */
+.c-typing-link { text-decoration: none; }
+.c-typing {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  padding: 0.65rem 1.05rem; border-radius: 18px 18px 6px 18px;
+  background: var(--terra-soft); color: var(--terra-deep);
+  border: 1px solid color-mix(in oklch, var(--terra) 30%, var(--linen));
+  font-weight: 700; font-size: 0.9rem;
+  transition: transform .35s var(--ease-quint), box-shadow .35s var(--ease-quint);
+}
+.c-typing-link:hover .c-typing { transform: translateY(-2px); box-shadow: var(--shadow); }
+.c-typing .chat-dots { color: var(--terra); font-size: 1.05rem; }
+.c-typing .chat-dots i { animation: blink 1.4s ease-in-out infinite both; }
+.c-typing .chat-dots i:nth-child(2) { animation-delay: 0.2s; }
+.c-typing .chat-dots i:nth-child(3) { animation-delay: 0.4s; }
+@keyframes blink { 0%, 80%, 100% { opacity: 0.3; } 40% { opacity: 1; } }
+
+/* messages "arrive" in sequence — the chat unfolding */
+.arrive { animation: arrive .65s var(--ease-expo) both; }
+.a1 { animation-delay: .35s; }
+.a2 { animation-delay: .75s; }
+.a3 { animation-delay: 1.15s; }
+@keyframes arrive { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .arrive { animation: none; }
+  .c-dot { animation: none; }
+  .c-typing .chat-dots i { animation: none; opacity: 1; }
+}
+</style>

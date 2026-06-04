@@ -27,7 +27,7 @@ Success looks like: a visitor who arrives unsure, leaves convinced this is a rea
 
 Warm, encouraging, professional.
 
-The voice is that of a teacher with a decade of experience — kind and welcoming, never childish, never cutesy. The page must read as the work of a serious educator who happens to be warm, not as a whimsical hobby site. Bilingual identity (Polish-English) is part of the personality and surfaces in restrained ways (the language toggle, paired-word signatures), but the page is not a "language playground" — it is a teacher's studio.
+The voice is that of a teacher with a decade of experience — kind and welcoming, never childish, never cutesy. The page must read as the work of a serious educator who happens to be warm, not as a whimsical hobby site. Bilingual identity (Polish-English) is part of the personality and surfaces through the first-class language toggle, but the page is not a "language playground" — it is a professional teacher's site.
 
 Three-word personality: **warm, encouraging, professional.**
 
@@ -37,22 +37,16 @@ Emotional goals when visitors read the page: relief ("this person seems serious 
 
 This page must explicitly NOT look or read like an **influencer / coach personal-brand site**. Concretely, avoid:
 
-- Big face hero photo dominating the viewport.
-- Italic script display fonts, hand-lettered "signature" flourishes.
 - "Transform your life", "unlock your potential", "level up", "your journey" copy.
-- Testimonial walls of pull quotes with photos and gold stars stacked as credibility theater.
+- Fake credibility theater — fabricated counters or "as seen on" logos with nothing real behind them. (Real student reviews with an honest aggregate star rating are encouraged.)
 - "As seen on", "featured in" logo strips when there's nothing real behind them.
-- Pop-up lead magnets, "download my free guide" energy.
-- Aggressive social proof counters or fake scarcity ("only 3 spots left this month").
 
 It must also explicitly NOT look or read like a **childish / kids-language-school site**. Concretely, avoid:
 
-- Cartoon mascots, illustrated animals, sticker-style icons.
 - Rainbow-bright primary palettes, oversaturated pastels, "fun" gradient washes.
 - Flag emojis, exclamation-pointed playful copy ("Let's learn English!", "Yay, English!").
 - Bouncy elastic motion, spring physics, wiggling elements.
 - Hand-lettered "doodle" fonts or speech-bubble overload that turns the page into a comic strip.
-- Excess watercolor decoration that drowns the content — the warmth must serve professionalism, not replace it.
 
 Secondary anti-references (lower-priority but still avoid): generic SaaS landing templates with hero-metric cards and sterile corporate e-learning blue.
 
@@ -60,16 +54,14 @@ Secondary anti-references (lower-priority but still avoid): generic SaaS landing
 
 1. **Warm but professional.** The register is a serious teacher who happens to be welcoming, not a friendly hobbyist. If a treatment would feel at home in a children's classroom, on a coaching funnel, or in a whimsical Etsy storefront, rewrite it. Warmth serves credibility; it never undermines it.
 
-2. **A teacher, not a brand machine.** Playfair Display headings, Lato body, and restrained warm accents signal that a real qualified human teaches here. The handcrafted touches (subtle washes, the bilingual signature) must read as considered, not childish.
-
-3. **Bilingual is the soul, not a toggle.** Polish-English duality is part of the identity, surfaced through the language switcher and the paired-word signature. Treat it as load-bearing, but with discipline — do not turn the page into a language playground.
+2. **A teacher platform, not a brand machine.** A clean modern typeface and a confident warm-professional palette — deep evergreen, terracotta, honey gold on warm off-white — signal a serious, qualified educator. Trust cues do the persuading (a professional photo in About, surfaced credentials, real reviews, clear booking), not decoration. See DESIGN.md for the full visual system.
 
 4. **One page, three jobs, no padding.** The page converts, reassures, and informs at once. Every section must earn its place against all three jobs; a section that exists "because landings usually have one" is wrong. If a section can't justify itself on at least two of {convert, reassure, inform}, cut it or merge it.
 
-5. **Earned credibility, never theatrical.** 10+ years, 450+ students, 90%+ exam results, real reviews — these are stated plainly and let stand. No animated counters, no "trusted by" logo collage, no quote-stacked testimonial walls, no playful illustration that distracts from the qualifications.
+5. **Earned credibility, shown clearly.** 10+ years, 450+ students, 90%+ exam results, an honest aggregate rating, and real student reviews are presented as structured social proof — the trust pattern serious tutoring services use. Avoid the fakes: no animated counters, no invented "trusted by"/"as seen on" logos, no fabricated scarcity.
 
 ## Accessibility & Inclusion
 
-Best-effort baseline, no formal WCAG audit committed. In practice: maintain readable color contrast on body copy (the warm palette must not become a contrast trap), respect `prefers-reduced-motion` for the hero bubbles and scroll reveals, keep focus rings visible on the primary CTA and nav links, and don't trap keyboard users. Bilingual content stays accessible via the `lang` attribute and the language toggle.
+Best-effort baseline, no formal WCAG audit committed. In practice: maintain readable color contrast on body copy (the warm palette must not become a contrast trap), respect `prefers-reduced-motion` for scroll reveals and transitions, keep focus rings visible on the primary CTA and nav links, and don't trap keyboard users. Bilingual content stays accessible via the `lang` attribute and the language toggle.
 
 Since this is a learning-context site, default to generous line-height and a body line length under 75ch — students reading here benefit from extra typographic breathing room without it being a formal commitment.

@@ -16,8 +16,8 @@ dist
 temp
 types/v3-generated.d.ts
 .agents
-.claude
-.impeccable
+.claude/
+.impeccable/
 
 # Credentials and sensitive data
 .credentials.json

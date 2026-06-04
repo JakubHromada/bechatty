@@ -1,405 +1,332 @@
-/* ── Brand CSS variables ───────────────────────────── */
-/* NOTE: token names are legacy and do NOT describe their hue.
-   --bsage / --bsage-dark are actually dusty ROSE / wine rose (== --brose / --brose-dark).
-   --bmustard family is actually herb GREEN (light wash / mid / deep).
-   Treat the hex values, not the names, as the source of truth. */
+/* ============================================================
+   BeChatty — design system
+   One warm light theme. One family (Fraunces — a warm editorial serif,
+   echoing the logo wordmark). Hierarchy = weight + scale + italic + optical size.
+   Brand palette (colour_rules.jpg), tuned for screen contrast:
+     Sage     #8FA89C  — structure / brand / everyday  (deepened to --sage-deep for text)
+     Linen    #F7F0E8  — page ground, breathing room
+     Terra    #C4785A  — emotional peaks, CTAs, ratings (deepened to --terra-cta for white text)
+     Walnut   #4A3728  — ink + the rare dark anchor (footer)
+   Neutrals are tinted toward the brand; states/tints derived with color-mix in oklch.
+   ============================================================ */
 :root {
-  --bpink:          #FCE4CC;
-  --bpink-dark:     #EFCAA0;
-  --bsage:          #D88098;
-  --bsage-dark:     #A24E64;
-  --bmustard:       #8FA386;
-  --bmustard-light: #EAF0E6;
-  --bmustard-dark:  #5C7053;
-  --bsandy:         #E8C575;
-  --bsandy-light:   #FAF6E8;
-  --bblush:         #F9D5DC;
-  --bblush-dark:    #EFB8C4;
-  --brose:          #D88098;
-  --brose-dark:     #A24E64;
-  --btext:          #1F2426;
-  --btext-light:    #566062;
-  --shadow:         0 4px 24px rgba(31, 36, 38, 0.08);
-  --shadow-hover:   0 12px 36px rgba(31, 36, 38, 0.14);
-  --radius:         14px;
+  /* ── Brand source colours ─────────────────────────── */
+  --linen:          #F7F0E8;
+  --sage:           #8FA89C;
+  --sage-deep:      #3E6253;   /* sage taken dark enough for AA text on linen (~6:1) */
+  --terra:          #C4785A;   /* brand terracotta — display accents, star icons     */
+  --terra-cta:      #B25A39;   /* terracotta deepened so white label clears AA (4.8:1)*/
+  --terra-deep:     #97451F;   /* CTA hover / pressed                                 */
+  --walnut:         #4A3728;
+
+  /* ── Surfaces & ground (warm, brand-tinted neutrals) ─ */
+  --bg:             var(--linen);
+  --bg-alt:         #FFFCF6;   /* warm-white breathing band (alternating sections)    */
+  --surface:        #FFFCF6;   /* cards / inputs — warm white                         */
+  --surface-sunk:   color-mix(in oklch, var(--sage) 12%, var(--linen)); /* inset wells*/
+
+  /* ── Ink ──────────────────────────────────────────── */
+  --ink:            var(--walnut);
+  --ink-soft:       #6E5848;   /* secondary copy (~6:1 on linen)                      */
+  --ink-mute:       #7A6757;   /* captions / meta — kept ≥4.5:1 on linen              */
+
+  /* ── Derived tints (perceptual via oklch) ─────────── */
+  --sage-soft:      color-mix(in oklch, var(--sage) 24%, var(--surface));
+  --sage-line:      color-mix(in oklch, var(--sage) 45%, var(--linen));
+  --terra-soft:     color-mix(in oklch, var(--terra) 20%, var(--surface));
+  --walnut-deep:    color-mix(in oklch, var(--walnut) 86%, #000);
+
+  --line:           #E7DBC9;   /* warm hairline                                       */
+  --line-soft:      #EFE6D7;
+
+  /* ── Elevation (shadows tinted with walnut, not grey) ─ */
+  --shadow:         0 4px 22px -8px rgba(74, 55, 40, 0.18);
+  --shadow-hover:   0 22px 48px -16px rgba(74, 55, 40, 0.30);
+  --shadow-cta:     0 10px 26px -8px color-mix(in oklch, var(--terra-cta) 60%, transparent);
+
+  --radius:         16px;
+  --radius-lg:      24px;
+
+  /* ── Type — one family, optical sizing does the rest ─ */
+  --font-body:      'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-display:   'Fraunces', Georgia, 'Times New Roman', serif;
+
+  /* ── Motion ───────────────────────────────────────── */
+  --ease-quint:     cubic-bezier(0.22, 1, 0.36, 1);   /* ease-out-quart/quint        */
+  --ease-expo:      cubic-bezier(0.16, 1, 0.30, 1);   /* ease-out-expo               */
+
+  /* ── Fluid rhythm ─────────────────────────────────── */
+  --section-y:      clamp(4.5rem, 9vw, 8.5rem);       /* generous vertical breathing */
+  --gutter:         clamp(1.25rem, 4vw, 2.5rem);
 }
 
 /* ── Reset ─────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html  { scroll-behavior: smooth; }
-body  { font-family: 'Lato', sans-serif; color: var(--btext); line-height: 1.7; }
-a     { text-decoration: none; color: inherit; }
-ul    { list-style: none; }
-
-/* ── Gradient divider ──────────────────────────────── */
-.brand-divider {
-  width: 60px; height: 4px;
-  background: linear-gradient(90deg, var(--bmustard), var(--bsage));
-  border-radius: 2px;
-  margin: 0.75rem auto;
+html  { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body  {
+  font-family: var(--font-body);
+  font-optical-sizing: auto;   /* small text → sturdy text shapes; large → display */
+  color: var(--ink);
+  background-color: var(--bg);
+  /* whisper of warmth in the ground — depth without a "gradient wash" */
+  background-image:
+    radial-gradient(120% 80% at 88% -8%, color-mix(in oklch, var(--sage) 14%, transparent), transparent 60%),
+    radial-gradient(90% 70% at 0% 102%, color-mix(in oklch, var(--terra) 8%, transparent), transparent 55%);
+  background-attachment: fixed;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
+a   { text-decoration: none; color: inherit; }
+ul, ol { list-style: none; }
+img { display: block; max-width: 100%; }
+::selection { background: color-mix(in oklch, var(--sage) 45%, transparent); color: var(--walnut-deep); }
 
-/* ── Scroll reveal ─────────────────────────────────── */
-.reveal         { opacity: 0; transform: translateY(32px); transition: opacity .65s ease, transform .65s ease; }
-.reveal.visible { opacity: 1; transform: translateY(0); }
-
-/* ── Hero entrance ─────────────────────────────────── */
-@keyframes heroFadeIn {
-  from { opacity: 0; transform: translateY(24px); }
-  to   { opacity: 1; transform: translateY(0);    }
-}
-.hero-animate { animation: heroFadeIn .9s ease both; }
-
-/* ── Hero atmosphere: slow drift, paper grain, watermark ── */
-@keyframes heroDriftA {
-  0%, 100% { transform: translate(0, 0); }
-  50%      { transform: translate(36px, -28px); }
-}
-@keyframes heroDriftB {
-  0%, 100% { transform: translate(0, 0); }
-  50%      { transform: translate(-30px, 22px); }
-}
-.hero-blob--drift-a { animation: heroDriftA 28s ease-in-out infinite; }
-.hero-blob--drift-b { animation: heroDriftB 32s ease-in-out infinite; }
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-blob--drift-a, .hero-blob--drift-b { animation: none; }
-  .hero-animate { animation: none; }
+/* ── Paper grain ───────────────────────────────────── */
+/* A whisper of tooth over the whole surface — the warm "printed worksheet"
+   feel the brand lives in. Fixed top layer (below the nav at z-50), blended
+   soft so it textures the colour bands without touching legibility. */
+body::after {
+  content: ''; position: fixed; inset: 0; z-index: 1; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 140px 140px;
+  opacity: 0.4;
+  mix-blend-mode: soft-light;
 }
 
-/* ── Word bubble (hero mouse trail) ────────────────── */
-@keyframes bubbleFloat {
-  0%   { opacity: 0; transform: translateY(0)    scale(0.7); }
-  18%  { opacity: 1; transform: translateY(-10px) scale(1);  }
-  75%  { opacity: 1; transform: translateY(-22px) scale(1);  }
-  100% { opacity: 0; transform: translateY(-40px) scale(0.9);}
-}
-.word-bubble {
-  position: absolute;
-  background: #fff;
-  border-radius: 18px;
-  padding: 8px 16px 10px;
-  box-shadow: 0 6px 20px rgba(143,163,134,.20), 0 2px 6px rgba(0,0,0,.08);
-  pointer-events: none;
-  z-index: 10;
-  text-align: center;
-  animation: bubbleFloat 2.4s ease forwards;
-  white-space: nowrap;
-  border: 1.5px solid var(--bblush-dark);
-}
-.word-bubble::after {
-  content: '';
-  position: absolute;
-  bottom: -9px; left: 50%;
-  transform: translateX(-50%);
-  border-left: 9px solid transparent;
-  border-right: 9px solid transparent;
-  border-top: 9px solid #fff;
-}
-.bubble-pl { display: block; font-size: .72rem; color: var(--btext-light); font-style: italic; }
-.bubble-en { display: block; font-size: .95rem; font-weight: 700; color: var(--bsage-dark); font-family: 'Playfair Display', serif; }
-@media (prefers-reduced-motion: reduce) {
-  .word-bubble { animation: none; opacity: 1; }
+/* Sticky-nav-aware anchor offset so headings are not hidden on jump */
+section[id] { scroll-margin-top: 5.5rem; }
+
+/* Ruled seams: the warm colour bands meet on a crisp hairline so the scroll
+   reads as one composed page, not stacked blocks. Translucent walnut works
+   over both the linen and sage grounds. */
+#about, #lessons, #services, #reviews, #contact {
+  border-top: 1px solid color-mix(in oklch, var(--walnut) 8%, transparent);
 }
 
-/* Static signature bubbles — shown on touch devices, which can't use the mouse trail */
-.word-bubble--static {
-  animation: bubbleFloatGentle 6s ease-in-out infinite;
-  opacity: 1;
+/* Typographic niceties — display serif for headings, grotesk for everything else */
+h1, h2 {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  font-variation-settings: 'SOFT' 4, 'WONK' 0;  /* a hint of softness = warmth */
+  text-wrap: balance; letter-spacing: -0.018em; line-height: 1.06;
 }
-@keyframes bubbleFloatGentle {
-  0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(-8px); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .word-bubble--static { animation: none; }
+h3 { text-wrap: balance; letter-spacing: -0.01em; }
+h1 em, h2 em, .em { font-style: italic; font-weight: 500; color: var(--terra); }  /* emphasis word = a terracotta peak */
+p { text-wrap: pretty; }
+
+/* Numerals carry the serif too — gives stats a confident, editorial face */
+.num {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  font-weight: 600; letter-spacing: -0.01em;
+  font-variant-numeric: lining-nums tabular-nums;
 }
 
-/* ── Nav links ─────────────────────────────────────── */
-.nav-link {
-  color: #fff;
-  position: relative;
-  padding-bottom: 2px;
-}
-.nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: -2px; left: 0;
-  width: 100%; height: 2px;
-  background: linear-gradient(90deg, var(--brose), var(--bmustard));
-  border-radius: 2px;
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform .3s ease;
-}
-.nav-link:hover { color: var(--bblush-dark); }
-.nav-link:hover::after { transform: scaleX(1); }
-.nav-link--active { color: var(--bblush-dark); }
-.nav-link--active::after { transform: scaleX(1); }
+/* ── Layout shell ──────────────────────────────────── */
+.section-wrap { max-width: 1140px; margin-inline: auto; padding-inline: var(--gutter); }
+.section-y    { padding-block: var(--section-y); }
 
-.nav-cta {
-  background: linear-gradient(135deg, var(--brose) 0%, var(--brose-dark) 100%);
-  color: #fff;
-  padding: 0.45rem 1.3rem;
-  border-radius: 999px;
-  box-shadow: 0 3px 10px rgba(162,78,100,0.28);
-  transition: transform .25s ease, box-shadow .25s ease;
+/* ── Brand: section eyebrow (the recurring label voice) ── */
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  font-size: 0.74rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--sage-deep);
 }
-.nav-cta:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(162,78,100,0.38);
+.eyebrow::before {
+  content: ''; width: 1.75rem; height: 2px; border-radius: 2px;
+  background: linear-gradient(90deg, var(--sage-deep), color-mix(in oklch, var(--sage-deep) 0%, transparent));
 }
 
-/* ── Language toggle ───────────────────────────────── */
-.lang-toggle {
-  display: flex;
-  align-items: center;
-  background: var(--bpink);
-  border-radius: 999px;
-  padding: 3px;
-  gap: 2px;
-}
-.lang-btn {
-  font-family: 'Lato', sans-serif;
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  padding: 0.4rem 0.7rem;
-  border-radius: 999px;
-  border: none;
-  cursor: pointer;
-  transition: all .25s ease;
-  color: var(--btext-light);
-  background: transparent;
-}
-.lang-btn--active {
-  background: #fff;
-  color: var(--bsage-dark);
-  box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+/* ── Brand motif: the "•••" chat dots (from the speech-bubble mark) ── */
+.chat-dots { display: inline-flex; align-items: center; gap: 0.28em; }
+.chat-dots i {
+  width: 0.42em; height: 0.42em; border-radius: 50%;
+  background: currentColor; display: block;
 }
 
-/* ── Mobile menu transition ────────────────────────── */
-.menu-slide-enter-active, .menu-slide-leave-active {
-  transition: opacity .25s ease, transform .25s ease;
+/* ── Brand pills / tags (echo the teacher's own worksheets) ── */
+.pill {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  padding: 0.32rem 0.8rem; border-radius: 999px;
+  font-size: 0.76rem; font-weight: 700; letter-spacing: 0.01em;
+  background: var(--sage-soft); color: var(--sage-deep);
 }
-.menu-slide-enter-from, .menu-slide-leave-to {
-  opacity: 0;
-  transform: translateY(-8px);
-}
+.pill--terra { background: var(--terra-soft); color: var(--terra-deep); }
+
+/* ── Scroll reveal (driven by the v-reveal directive) ── */
+.reveal         { opacity: 0; transform: translateY(26px); transition: opacity .7s var(--ease-expo), transform .7s var(--ease-expo); }
+.reveal.visible { opacity: 1; transform: none; }
 
 /* ── Buttons ───────────────────────────────────────── */
-.btn-primary {
-  display: inline-block;
-  padding: 0.875rem 2rem;
+.btn-primary,
+.btn-outline {
+  position: relative;
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.55rem;
+  padding: 0.9rem 1.9rem;
   border-radius: 999px;
-  font-family: 'Lato', sans-serif;
-  font-weight: 700;
-  font-size: 0.875rem;
-  text-align: center;
-  text-decoration: none;
-  letter-spacing: 0.04em;
-  cursor: pointer;
-  color: #fff;
-  background: linear-gradient(135deg, var(--brose) 0%, var(--brose-dark) 100%);
+  font-weight: 700; font-size: 0.95rem; letter-spacing: 0.01em;
+  text-align: center; cursor: pointer;
   border: 2px solid transparent;
-  box-shadow: 0 4px 14px rgba(162,78,100,0.32);
-  transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+  transition: transform .35s var(--ease-quint), box-shadow .35s var(--ease-quint),
+              background .25s ease, color .25s ease, border-color .25s ease;
+}
+/* Terracotta = booking / conversion peak */
+.btn-primary {
+  color: #fff;
+  background: var(--terra-cta);
+  box-shadow: var(--shadow-cta);
 }
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 22px rgba(162,78,100,0.42);
-  background: linear-gradient(135deg, var(--brose-dark) 0%, #7A3650 100%);
+  background: var(--terra-deep);
+  box-shadow: 0 16px 34px -10px color-mix(in oklch, var(--terra-cta) 72%, transparent);
 }
+.btn-primary .fa-arrow-right,
+.btn-primary .fa-paper-plane { transition: transform .35s var(--ease-quint); }
+.btn-primary:hover .fa-arrow-right { transform: translateX(3px); }
 
 .btn-outline {
-  display: inline-block;
-  padding: 0.875rem 2rem;
-  border-radius: 999px;
-  font-family: 'Lato', sans-serif;
-  font-weight: 700;
-  font-size: 0.875rem;
-  text-align: center;
-  text-decoration: none;
-  letter-spacing: 0.04em;
-  cursor: pointer;
   background: transparent;
-  border: 2px solid var(--brose);
-  color: var(--brose-dark);
-  transition: transform .25s ease, box-shadow .25s ease, background .25s ease, color .25s ease, border-color .25s ease;
+  border-color: var(--sage-line);
+  color: var(--sage-deep);
 }
 .btn-outline:hover {
-  background: linear-gradient(135deg, var(--brose) 0%, var(--brose-dark) 100%);
-  border-color: transparent;
-  color: #fff;
   transform: translateY(-2px);
-  box-shadow: 0 8px 22px rgba(162,78,100,0.28);
+  background: var(--sage-deep);
+  border-color: var(--sage-deep);
+  color: #fff;
+  box-shadow: 0 14px 30px -12px color-mix(in oklch, var(--sage-deep) 70%, transparent);
 }
+.btn-sm { padding: 0.58rem 1.25rem; font-size: 0.84rem; }
+
+/* ── Cards ─────────────────────────────────────────── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+}
+.card-lift { transition: transform .4s var(--ease-quint), box-shadow .4s var(--ease-quint); }
+.card-lift:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+
+/* ── Chat bubbles (the "conversation" metaphor) ────── */
+/* A message = avatar + a bubble with a small tail pointing back to the speaker. */
+.msg-row { display: flex; gap: 0.85rem; align-items: flex-start; }
+.msg-avatar {
+  flex-shrink: 0; width: 2.6rem; height: 2.6rem; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 0.95rem;
+  background: var(--sage-soft); color: var(--sage-deep);
+  box-shadow: inset 0 0 0 1px color-mix(in oklch, var(--sage) 40%, transparent);
+}
+.msg {
+  position: relative; flex: 1; min-width: 0;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px 18px 18px 18px;     /* squared top-left = points at the avatar */
+  padding: 1.25rem 1.35rem;
+  box-shadow: var(--shadow);
+  transition: transform .4s var(--ease-quint), box-shadow .4s var(--ease-quint);
+}
+.msg::before {                            /* the little tail */
+  content: ''; position: absolute; left: -7px; top: 14px;
+  width: 14px; height: 14px;
+  background: var(--surface);
+  border-left: 1px solid var(--line); border-top: 1px solid var(--line);
+  border-top-left-radius: 3px;
+  transform: rotate(-45deg);
+}
+.msg:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+.msg--sage { background: var(--sage-soft); border-color: color-mix(in oklch, var(--sage) 35%, var(--linen)); }
+.msg--sage::before { background: var(--sage-soft); border-color: color-mix(in oklch, var(--sage) 35%, var(--linen)); }
+
+/* ── Gentle idle float (purely ambient; killed by reduced-motion) ── */
+@keyframes floaty { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+.floaty      { animation: floaty 7s ease-in-out infinite; }
+.floaty--b   { animation: floaty 8.5s ease-in-out infinite; animation-delay: -2s; }
 
 /* ── Form inputs ───────────────────────────────────── */
 .input-field {
   width: 100%;
-  padding: .75rem 1rem;
-  border: 2px solid var(--bpink-dark);
+  padding: 0.85rem 1rem;
+  border: 1.5px solid var(--line);
   border-radius: var(--radius);
-  font-family: 'Lato', sans-serif;
-  font-size: 1rem;
-  color: var(--btext);
-  background: #fff;
+  font-family: inherit; font-size: 1rem;
+  color: var(--ink); background: var(--surface);
   outline: none;
-  transition: border-color .35s ease;
+  transition: border-color .25s ease, box-shadow .25s ease, background .25s ease;
 }
-.input-field:focus { border-color: var(--bsage); }
-
-/* ── About section speech bubble (refined signature, static) ── */
-.about-bubble {
-  position: relative;
-  display: inline-block;
+.input-field::placeholder { color: var(--ink-mute); }
+.input-field:focus {
+  border-color: var(--sage-deep);
   background: #fff;
-  border-radius: 18px;
-  padding: 10px 20px;
-  box-shadow: 0 6px 20px rgba(143,163,134,.16), 0 2px 6px rgba(0,0,0,.07);
-  border: 1.5px solid var(--bblush-dark);
-  white-space: nowrap;
-  cursor: default;
-  transition: box-shadow .25s ease, transform .25s ease;
-}
-.about-bubble--right {
-  align-self: flex-end;
-  cursor: pointer;
-}
-.about-bubble--right::after {
-  content: '';
-  position: absolute;
-  bottom: -9px; right: 22px;
-  border-left: 9px solid transparent;
-  border-right: 9px solid transparent;
-  border-top: 9px solid #fff;
-}
-.about-bubble--left {
-  align-self: flex-start;
-}
-.about-bubble--left::after {
-  content: '';
-  position: absolute;
-  bottom: -9px; left: 22px;
-  border-left: 9px solid transparent;
-  border-right: 9px solid transparent;
-  border-top: 9px solid #fff;
-}
-.about-bubble--right:hover {
-  box-shadow: 0 10px 28px rgba(143,163,134,.24);
-  transform: translateY(-2px);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--sage-deep) 18%, transparent);
 }
 
-/* ── Card toggle button (Dowiedz się więcej / Zobacz ceny) ── */
+/* ── Disclosure (robust accordion via grid-template-rows) ── */
+.disclosure       { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .45s var(--ease-quint); }
+.disclosure.open  { grid-template-rows: 1fr; }
+.disclosure > .disclosure-inner { overflow: hidden; min-height: 0; }
+
+/* ── Card toggle button (Learn more / Show more) ───── */
 .card-toggle-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  padding: 0.5rem 1.25rem;
-  border-radius: 999px;
-  font-family: 'Lato', sans-serif;
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  border: 1.5px solid currentColor;
-  background: transparent;
-  cursor: pointer;
-  transition: background .22s ease, color .22s ease, transform .18s ease, box-shadow .22s ease;
+  display: inline-flex; align-items: center; gap: 0.45rem;
+  padding: 0.5rem 1.1rem; border-radius: 999px;
+  font-size: 0.8rem; font-weight: 700; letter-spacing: 0.02em;
+  border: 1.5px solid currentColor; background: transparent; cursor: pointer;
+  transition: background .25s var(--ease-quint), color .25s ease, transform .25s var(--ease-quint);
 }
-.card-toggle-btn:hover {
-  background: currentColor;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 14px rgba(0,0,0,0.12);
-}
-.card-toggle-btn:hover span,
-.card-toggle-btn:hover i {
-  color: #fff;
-}
+.card-toggle-btn:hover { transform: translateY(-1px); background: color-mix(in oklch, currentColor 10%, transparent); }
 
-/* ── Hero buttons ──────────────────────────────────── */
-.hero-btn-primary {
-  display: inline-flex;
-  align-items: center;
-  padding: 1rem 2.6rem;
-  border-radius: 999px;
-  font-family: 'Lato', sans-serif;
-  font-size: 1.1rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  color: #fff;
-  background: linear-gradient(135deg, var(--brose) 0%, var(--brose-dark) 100%);
-  box-shadow: 0 8px 28px rgba(162,78,100,0.45), 0 2px 8px rgba(0,0,0,0.12);
-  border: 2px solid transparent;
-  transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+/* ── Desktop nav link (animated sage underline) ────── */
+.nav-link {
+  position: relative; padding-bottom: 4px;
+  font-weight: 600; color: var(--ink-soft);
+  transition: color .2s ease;
 }
-.hero-btn-primary:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 14px 36px rgba(162,78,100,0.5), 0 4px 12px rgba(0,0,0,0.15);
-  background: linear-gradient(135deg, var(--brose-dark) 0%, #7A3650 100%);
+.nav-link::after {
+  content: ''; position: absolute; left: 0; bottom: 0;
+  width: 100%; height: 2px; border-radius: 2px;
+  background: var(--sage-deep);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .3s var(--ease-quint);
 }
+.nav-link:hover { color: var(--ink); }
+.nav-link:hover::after { transform: scaleX(1); background: var(--sage); }
+.nav-link--active { color: var(--sage-deep); font-weight: 700; }
+.nav-link--active::after { transform: scaleX(1); background: var(--sage-deep); }
 
-.hero-btn-outline {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.8rem 1.8rem;
-  border-radius: 999px;
-  font-family: 'Lato', sans-serif;
-  font-size: 0.95rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  color: var(--bmustard);
-  background: rgba(255,255,255,0.65);
-  border: 2px solid var(--bmustard);
-  backdrop-filter: blur(4px);
-  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-  transition: transform .25s ease, box-shadow .25s ease, background .25s ease, color .25s ease, border-color .25s ease;
+/* ── Language toggle ───────────────────────────────── */
+.lang-toggle { display: flex; align-items: center; background: var(--surface-sunk); border-radius: 999px; padding: 3px; gap: 2px; }
+.lang-btn {
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em;
+  padding: 0.35rem 0.65rem; border-radius: 999px; border: none; cursor: pointer;
+  color: var(--ink-soft); background: transparent;
+  transition: color .2s ease, background .25s var(--ease-quint), box-shadow .25s ease;
 }
-.hero-btn-outline:hover {
-  background: linear-gradient(135deg, var(--bmustard) 0%, #6A7B62 100%);
-  border-color: transparent;
-  color: #fff;
-  transform: translateY(-3px);
-  box-shadow: 0 12px 32px rgba(143,163,134,0.36);
-}
+.lang-btn--active { background: var(--surface); color: var(--sage-deep); box-shadow: 0 1px 5px rgba(74,55,40,0.14); }
 
-/* ── Polish pass: focus visibility, text-wrap, press & motion safety ── */
-h1, h2, h3 { text-wrap: balance; }
-p { text-wrap: pretty; }
+/* ── Mobile menu transition ────────────────────────── */
+.menu-slide-enter-active, .menu-slide-leave-active { transition: opacity .3s var(--ease-quint), transform .3s var(--ease-quint); }
+.menu-slide-enter-from, .menu-slide-leave-to { opacity: 0; transform: translateY(-8px); }
 
-/* Keyboard focus rings (pointer clicks stay clean via :focus-visible) */
-.hero-btn-primary:focus-visible,
-.hero-btn-outline:focus-visible,
-.btn-primary:focus-visible,
+/* ── Focus visibility (keyboard only) ──────────────── */
+.btn-primary:focus-visible { outline: 2px solid var(--terra-deep); outline-offset: 3px; }
 .btn-outline:focus-visible,
-.card-toggle-btn:focus-visible {
-  outline: 2px solid var(--brose-dark);
-  outline-offset: 3px;
-}
-nav a:focus-visible,
-.lang-btn:focus-visible {
-  outline: 2px solid var(--bblush-dark);
-  outline-offset: 3px;
-}
-.input-field:focus-visible {
-  border-color: var(--bsage);
-  box-shadow: 0 0 0 3px rgba(216, 128, 152, 0.28);
-}
-a:focus-visible {
-  outline: 2px solid currentColor;
-  outline-offset: 3px;
-  border-radius: 6px;
-}
+.card-toggle-btn:focus-visible,
+a:focus-visible,
+button:focus-visible,
+.lang-btn:focus-visible,
+.input-field:focus-visible { outline: 2px solid var(--sage-deep); outline-offset: 3px; border-radius: 8px; }
 
-/* Press feedback */
-.hero-btn-primary:active,
-.hero-btn-outline:active,
-.btn-primary:active,
-.btn-outline:active,
-.nav-cta:active { transform: translateY(0); }
+/* press feedback */
+.btn-primary:active, .btn-outline:active { transform: translateY(0); }
 
-/* Scroll reveals snap instantly when motion is reduced */
+/* ── Reduced motion ────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
-  .reveal { transition: none; }
+  html { scroll-behavior: auto; }
+  .reveal { transition: none; transform: none; opacity: 1; }
+  .disclosure { transition: none; }
+  *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
 }
