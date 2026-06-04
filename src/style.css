@@ -16,7 +16,9 @@
   --sage-deep:      #3E6253;   /* sage taken dark enough for AA text on linen (~6:1) */
   --terra:          #C4785A;   /* brand terracotta — display accents, star icons     */
   --terra-cta:      #B25A39;   /* terracotta deepened so white label clears AA (4.8:1)*/
-  --terra-deep:     #97451F;   /* CTA hover / pressed                                 */
+  --terra-deep:     #97451F;   /* deep terracotta — peak accents, pill text           */
+  --cta:            #B33100;   /* primary CTA fill — white label clears AA (~6.3:1)   */
+  --cta-deep:       color-mix(in oklch, var(--cta) 82%, #000); /* CTA hover / pressed  */
   --walnut:         #4A3728;
 
   /* ── Surfaces & ground (warm, brand-tinted neutrals) ─ */
@@ -42,7 +44,7 @@
   /* ── Elevation (shadows tinted with walnut, not grey) ─ */
   --shadow:         0 4px 22px -8px rgba(74, 55, 40, 0.18);
   --shadow-hover:   0 22px 48px -16px rgba(74, 55, 40, 0.30);
-  --shadow-cta:     0 10px 26px -8px color-mix(in oklch, var(--terra-cta) 60%, transparent);
+  --shadow-cta:     0 10px 26px -8px color-mix(in oklch, var(--cta) 60%, transparent);
 
   --radius:         16px;
   --radius-lg:      24px;
@@ -174,13 +176,13 @@ p { text-wrap: pretty; }
 /* Terracotta = booking / conversion peak */
 .btn-primary {
   color: #fff;
-  background: var(--terra-cta);
+  background: var(--cta);
   box-shadow: var(--shadow-cta);
 }
 .btn-primary:hover {
   transform: translateY(-2px);
-  background: var(--terra-deep);
-  box-shadow: 0 16px 34px -10px color-mix(in oklch, var(--terra-cta) 72%, transparent);
+  background: var(--cta-deep);
+  box-shadow: 0 16px 34px -10px color-mix(in oklch, var(--cta) 72%, transparent);
 }
 .btn-primary .fa-arrow-right,
 .btn-primary .fa-paper-plane { transition: transform .35s var(--ease-quint); }
@@ -312,7 +314,7 @@ p { text-wrap: pretty; }
 .menu-slide-enter-from, .menu-slide-leave-to { opacity: 0; transform: translateY(-8px); }
 
 /* ── Focus visibility (keyboard only) ──────────────── */
-.btn-primary:focus-visible { outline: 2px solid var(--terra-deep); outline-offset: 3px; }
+.btn-primary:focus-visible { outline: 2px solid var(--cta-deep); outline-offset: 3px; }
 .btn-outline:focus-visible,
 .card-toggle-btn:focus-visible,
 a:focus-visible,

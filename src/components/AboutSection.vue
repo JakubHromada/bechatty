@@ -1,5 +1,5 @@
 <template>
-  <section id="about" class="py-24 bg-bg-alt">
+  <section id="about" class="py-24 bg-white">
     <div class="section-wrap">
 
       <!-- Masthead: left-aligned, standfirst hook, hairline (no centered divider) -->
@@ -116,8 +116,8 @@ const bio = {
   position: absolute; z-index: 2; right: -12px; bottom: -12px;
   display: inline-flex; align-items: center; justify-content: center;
   width: 52px; height: 40px; border-radius: 14px 14px 14px 4px;
-  background: var(--terra-cta); color: #fff;
-  box-shadow: 0 10px 22px -10px color-mix(in oklch, var(--terra-cta) 80%, transparent);
+  background: var(--cta); color: #fff;
+  box-shadow: 0 10px 22px -10px color-mix(in oklch, var(--cta) 80%, transparent);
 }
 .photo-frame__badge .chat-dots { font-size: 0.85rem; }
 

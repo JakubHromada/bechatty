@@ -1,5 +1,5 @@
 <template>
-  <section id="services" class="py-24 bg-bg-alt">
+  <section id="services" class="py-24 bg-white">
     <div class="section-wrap">
 
       <!-- Header -->
@@ -19,7 +19,6 @@
           <div class="lg:grid lg:grid-cols-[0.92fr_1.08fr]">
             <!-- tinted intro panel -->
             <div class="svc-intro">
-              <span class="pill pill--terra mb-5">{{ t('Most requested', 'Najczęściej wybierane') }}</span>
               <span class="svc-icon" :style="iconStyle(featured)" aria-hidden="true"><i :class="featured.icon"></i></span>
               <h3 class="font-bold text-[1.7rem] leading-tight text-ink mt-4">{{ t(featured.en.title, featured.pl.title) }}</h3>
               <p class="text-ink-soft leading-relaxed mt-3">{{ t(featured.en.summary, featured.pl.summary) }}</p>
@@ -28,41 +27,39 @@
                 <li class="flex items-center gap-2.5"><i class="fas fa-clock w-4 text-center text-sage-deep" aria-hidden="true"></i>{{ t(featured.en.duration, featured.pl.duration) }}</li>
               </ul>
             </div>
-            <!-- price menu -->
+            <!-- additional information -->
             <div class="p-8 lg:p-9">
-              <p class="price-caption">{{ t('Price per lesson', 'Cena za lekcję') }}</p>
-              <template v-for="(group, gi) in featured.prices.pl" :key="gi">
-                <p v-if="group.label" class="price-group">{{ t(featured.prices.en[gi].label, group.label) }}</p>
-                <div v-for="(row, ri) in group.rows" :key="ri" class="price-row">
-                  <span class="fmt">{{ t(featured.prices.en[gi].rows[ri].format, row.format) }}</span>
-                  <span class="leader" aria-hidden="true"></span>
-                  <span class="amt num" :style="{ color: featured.tone }">{{ t(featured.prices.en[gi].rows[ri].price, row.price) }}</span>
-                </div>
-              </template>
+              <p class="font-bold text-ink mb-3">{{ t('How lessons work', 'Jak wyglądają zajęcia') }}</p>
+              <ul class="flex flex-col gap-2 text-sm text-ink-soft leading-relaxed">
+                <li v-for="(point, j) in featured.pl.points" :key="j" class="flex items-start gap-2">
+                  <i class="fas fa-check mt-1 shrink-0" :style="{ color: featured.tone }" aria-hidden="true"></i>
+                  <span>{{ t(featured.en.points[j], point) }}</span>
+                </li>
+              </ul>
+              <div v-if="featured.pl.note" class="flex items-start gap-2 text-xs italic px-3 py-2 rounded-lg bg-sage-soft mt-5 text-ink-soft">
+                <i class="fas fa-calendar-alt mt-0.5 shrink-0" :style="{ color: featured.tone }" aria-hidden="true"></i>
+                <span>{{ t(featured.en.note, featured.pl.note) }}</span>
+              </div>
             </div>
           </div>
 
           <div class="px-8 lg:px-9 pb-8">
             <button class="card-toggle-btn" :style="{ color: featured.tone }" @click="toggle(0)" :aria-expanded="activeIndex === 0 ? 'true' : 'false'" aria-controls="svc-details-0">
-              <span>{{ activeIndex === 0 ? t('Show less', 'Zwiń') : t('Learn more', 'Dowiedz się więcej') }}</span>
+              <span>{{ activeIndex === 0 ? t('Hide pricing', 'Ukryj cennik') : t('Show pricing', 'Pokaż cennik') }}</span>
               <i class="fas fa-chevron-down transition-transform duration-300" :style="{ transform: activeIndex === 0 ? 'rotate(180deg)' : 'rotate(0deg)' }" aria-hidden="true"></i>
             </button>
             <div id="svc-details-0" class="disclosure" :class="{ open: activeIndex === 0 }">
               <div class="disclosure-inner">
-                <div class="pt-5 border-t border-line text-sm text-ink-soft leading-relaxed flex flex-col gap-4">
-                  <div>
-                    <p class="font-bold text-ink mb-2">{{ t('How lessons work', 'Jak wyglądają zajęcia') }}</p>
-                    <ul class="grid sm:grid-cols-2 gap-x-6 gap-y-1.5">
-                      <li v-for="(point, j) in featured.pl.points" :key="j" class="flex items-start gap-2">
-                        <i class="fas fa-check mt-1 shrink-0" :style="{ color: featured.tone }" aria-hidden="true"></i>
-                        <span>{{ t(featured.en.points[j], point) }}</span>
-                      </li>
-                    </ul>
-                  </div>
-                  <div v-if="featured.pl.note" class="flex items-start gap-2 text-xs italic px-3 py-2 rounded-lg bg-sage-soft">
-                    <i class="fas fa-calendar-alt mt-0.5 shrink-0" :style="{ color: featured.tone }" aria-hidden="true"></i>
-                    <span>{{ t(featured.en.note, featured.pl.note) }}</span>
-                  </div>
+                <div class="pt-5 border-t border-line">
+                  <p class="price-caption">{{ t('Price per lesson', 'Cena za lekcję') }}</p>
+                  <template v-for="(group, gi) in featured.prices.pl" :key="gi">
+                    <p v-if="group.label" class="price-group">{{ t(featured.prices.en[gi].label, group.label) }}</p>
+                    <div v-for="(row, ri) in group.rows" :key="ri" class="price-row">
+                      <span class="fmt">{{ t(featured.prices.en[gi].rows[ri].format, row.format) }}</span>
+                      <span class="leader" aria-hidden="true"></span>
+                      <span class="amt num" :style="{ color: featured.tone }">{{ t(featured.prices.en[gi].rows[ri].price, row.price) }}</span>
+                    </div>
+                  </template>
                 </div>
               </div>
             </div>
@@ -82,43 +79,43 @@
               <span class="svc-icon" :style="iconStyle(svc)" aria-hidden="true"><i :class="svc.icon"></i></span>
               <h3 class="font-bold text-xl text-ink mt-4">{{ t(svc.en.title, svc.pl.title) }}</h3>
               <p class="text-ink-soft text-sm leading-relaxed mt-2.5">{{ t(svc.en.summary, svc.pl.summary) }}</p>
-              <div class="mt-5">
-                <p class="price-caption">{{ t('Price per lesson', 'Cena za lekcję') }}</p>
-                <template v-for="(group, gi) in svc.prices.pl" :key="gi">
-                  <p v-if="group.label" class="price-group">{{ t(svc.prices.en[gi].label, group.label) }}</p>
-                  <div v-for="(row, ri) in group.rows" :key="ri" class="price-row">
-                    <span class="fmt">{{ t(svc.prices.en[gi].rows[ri].format, row.format) }}</span>
-                    <span class="leader" aria-hidden="true"></span>
-                    <span class="amt num" :style="{ color: svc.tone }">{{ t(svc.prices.en[gi].rows[ri].price, row.price) }}</span>
-                  </div>
-                </template>
+              <div class="mt-5 text-sm text-ink-soft leading-relaxed flex flex-col gap-4">
+                <div>
+                  <p class="font-bold text-ink mb-2">{{ t('How lessons work', 'Jak wyglądają zajęcia') }}</p>
+                  <ul class="flex flex-col gap-1.5">
+                    <li v-for="(point, j) in svc.pl.points" :key="j" class="flex items-start gap-2">
+                      <i class="fas fa-check mt-1 shrink-0" :style="{ color: svc.tone }" aria-hidden="true"></i>
+                      <span>{{ t(svc.en.points[j], point) }}</span>
+                    </li>
+                  </ul>
+                </div>
+                <div class="flex flex-col gap-1.5">
+                  <p v-if="svc.pl.levels" class="flex items-center gap-2"><i class="fas fa-layer-group w-4 text-center" :style="{ color: svc.tone }" aria-hidden="true"></i><span><strong class="text-ink">{{ t('Levels', 'Poziomy') }}:</strong> {{ t(svc.en.levels, svc.pl.levels) }}</span></p>
+                  <p class="flex items-center gap-2"><i class="fas fa-clock w-4 text-center" :style="{ color: svc.tone }" aria-hidden="true"></i><span><strong class="text-ink">{{ t('Duration', 'Czas trwania') }}:</strong> {{ t(svc.en.duration, svc.pl.duration) }}</span></p>
+                </div>
+                <div v-if="svc.pl.note" class="flex items-start gap-2 text-xs italic px-3 py-2 rounded-lg bg-sage-soft">
+                  <i class="fas fa-calendar-alt mt-0.5 shrink-0" :style="{ color: svc.tone }" aria-hidden="true"></i>
+                  <span>{{ t(svc.en.note, svc.pl.note) }}</span>
+                </div>
               </div>
             </div>
             <div class="px-8 pb-8 mt-auto">
               <button class="card-toggle-btn" :style="{ color: svc.tone }" @click="toggle(k + 1)" :aria-expanded="activeIndex === k + 1 ? 'true' : 'false'" :aria-controls="'svc-details-' + (k + 1)">
-                <span>{{ activeIndex === k + 1 ? t('Show less', 'Zwiń') : t('Learn more', 'Dowiedz się więcej') }}</span>
+                <span>{{ activeIndex === k + 1 ? t('Hide pricing', 'Ukryj cennik') : t('Show pricing', 'Pokaż cennik') }}</span>
                 <i class="fas fa-chevron-down transition-transform duration-300" :style="{ transform: activeIndex === k + 1 ? 'rotate(180deg)' : 'rotate(0deg)' }" aria-hidden="true"></i>
               </button>
               <div :id="'svc-details-' + (k + 1)" class="disclosure" :class="{ open: activeIndex === k + 1 }">
                 <div class="disclosure-inner">
-                  <div class="pt-5 border-t border-line text-sm text-ink-soft leading-relaxed flex flex-col gap-4">
-                    <div>
-                      <p class="font-bold text-ink mb-2">{{ t('How lessons work', 'Jak wyglądają zajęcia') }}</p>
-                      <ul class="flex flex-col gap-1.5">
-                        <li v-for="(point, j) in svc.pl.points" :key="j" class="flex items-start gap-2">
-                          <i class="fas fa-check mt-1 shrink-0" :style="{ color: svc.tone }" aria-hidden="true"></i>
-                          <span>{{ t(svc.en.points[j], point) }}</span>
-                        </li>
-                      </ul>
-                    </div>
-                    <div class="flex flex-col gap-1.5">
-                      <p v-if="svc.pl.levels" class="flex items-center gap-2"><i class="fas fa-layer-group w-4 text-center" :style="{ color: svc.tone }" aria-hidden="true"></i><span><strong class="text-ink">{{ t('Levels', 'Poziomy') }}:</strong> {{ t(svc.en.levels, svc.pl.levels) }}</span></p>
-                      <p class="flex items-center gap-2"><i class="fas fa-clock w-4 text-center" :style="{ color: svc.tone }" aria-hidden="true"></i><span><strong class="text-ink">{{ t('Duration', 'Czas trwania') }}:</strong> {{ t(svc.en.duration, svc.pl.duration) }}</span></p>
-                    </div>
-                    <div v-if="svc.pl.note" class="flex items-start gap-2 text-xs italic px-3 py-2 rounded-lg bg-sage-soft">
-                      <i class="fas fa-calendar-alt mt-0.5 shrink-0" :style="{ color: svc.tone }" aria-hidden="true"></i>
-                      <span>{{ t(svc.en.note, svc.pl.note) }}</span>
-                    </div>
+                  <div class="pt-5 border-t border-line">
+                    <p class="price-caption">{{ t('Price per lesson', 'Cena za lekcję') }}</p>
+                    <template v-for="(group, gi) in svc.prices.pl" :key="gi">
+                      <p v-if="group.label" class="price-group">{{ t(svc.prices.en[gi].label, group.label) }}</p>
+                      <div v-for="(row, ri) in group.rows" :key="ri" class="price-row">
+                        <span class="fmt">{{ t(svc.prices.en[gi].rows[ri].format, row.format) }}</span>
+                        <span class="leader" aria-hidden="true"></span>
+                        <span class="amt num" :style="{ color: svc.tone }">{{ t(svc.prices.en[gi].rows[ri].price, row.price) }}</span>
+                      </div>
+                    </template>
                   </div>
                 </div>
               </div>
@@ -273,12 +270,9 @@ function iconStyle(svc) {
 </script>
 
 <style scoped>
-/* Featured spotlight: a warm sage-tinted intro panel beside the price menu */
+/* Featured spotlight: intro panel beside the disclosure (sits on the card surface) */
 .svc-intro {
   padding: 2rem;
-  background:
-    radial-gradient(120% 90% at 0% 0%, color-mix(in oklch, var(--sage) 26%, var(--surface)), transparent 70%),
-    var(--sage-soft);
 }
 @media (min-width: 1024px) { .svc-intro { padding: 2.5rem; } }
 

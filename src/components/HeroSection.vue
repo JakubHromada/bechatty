@@ -1,5 +1,5 @@
 <template>
-  <section id="home" class="relative overflow-hidden">
+  <section id="home" class="relative overflow-hidden bg-surface">
     <!-- Ambient brand atmosphere -->
     <div class="hero-decor" aria-hidden="true">
       <span class="glow glow--sage"></span>

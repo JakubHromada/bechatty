@@ -1,5 +1,5 @@
 <template>
-  <section id="lessons" class="py-24 bg-bg" aria-labelledby="lessons-heading">
+  <section id="lessons" class="py-24 bg-surface" aria-labelledby="lessons-heading">
     <div class="section-wrap lg:grid lg:grid-cols-[minmax(0,360px)_minmax(0,1fr)] lg:gap-x-16 xl:gap-x-24">
 
       <!-- Sticky intro rail (breaks the full-width-header pattern) -->
@@ -92,13 +92,13 @@ const steps = [
   font-variation-settings: 'SOFT' 6;
   transition: color .4s var(--ease-quint), transform .4s var(--ease-quint);
 }
-.step--peak .step-num { color: var(--terra-cta); }
+.step--peak .step-num { color: var(--cta); }
 .step-line {
   flex: 1; width: 2px; margin-top: 0.6rem; border-radius: 2px;
   background: linear-gradient(var(--sage-line), color-mix(in oklch, var(--sage-line) 25%, transparent));
 }
 .step-icon { color: var(--sage-deep); font-size: 0.95rem; }
-.step--peak .step-icon { color: var(--terra-cta); }
+.step--peak .step-icon { color: var(--cta); }
 .step-body { padding-top: 0.35rem; }
 
 /* a little life: the numeral leans in as its row is hovered */

@@ -1,5 +1,5 @@
 <template>
-  <section id="reviews" class="py-24 bg-bg">
+  <section id="reviews" class="py-24 bg-surface">
     <div class="section-wrap">
 
       <!-- Header: heading left, aggregate rating right -->

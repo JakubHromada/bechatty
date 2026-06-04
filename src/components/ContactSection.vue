@@ -1,5 +1,5 @@
 <template>
-  <section id="contact" class="py-24 bg-bg-alt" aria-labelledby="contact-heading">
+  <section id="contact" class="py-24 bg-white" aria-labelledby="contact-heading">
     <div class="section-wrap">
 
       <!-- Header (left-aligned, hairline instead of centered divider) -->
