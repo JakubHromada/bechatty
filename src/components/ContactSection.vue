@@ -1,52 +1,49 @@
 <template>
-  <section id="contact" class="py-24 bg-linen" aria-labelledby="contact-heading">
+  <section id="contact" class="py-24 bg-bg-alt" aria-labelledby="contact-heading">
     <div class="section-wrap">
 
-      <!-- Header (left-aligned, hairline instead of centered divider) -->
-      <div class="max-w-[58ch]" v-reveal>
-        <span class="eyebrow mb-4">{{ t('Let\'s talk', 'Porozmawiajmy') }}</span>
-        <h2 id="contact-heading" class="font-bold text-ink text-[clamp(2rem,4vw,3rem)]">{{ t('Write to me', 'Napisz do mnie') }}</h2>
-        <p class="mt-4 text-ink-soft leading-relaxed">
-          {{ t('Want to see what lessons with me look like? Book a trial lesson. It is a great chance for us to meet, talk about your goals, and check your current level.', 'Chcesz zobaczyć jak wyglądają zajęcia ze mną? Umów lekcję próbną. To świetna okazja, żeby się poznać, porozmawiać o Twoich celach i sprawdzić na jakim poziomie jesteś.') }}<br/>
-          {{ t('Relaxed atmosphere, zero stress:)', 'Luźna atmosfera, zero stresu:)') }}
-        </p>
+      <div class="q-head" v-reveal>
+        <h2 id="contact-heading" class="text-ink">{{ t('Shall we begin', 'Zaczynamy') }}<span class="q">?</span></h2>
       </div>
-      <div class="mt-8 border-t border-line"></div>
 
-      <div class="mt-12 grid gap-12 md:grid-cols-[1fr_2fr] items-start">
+      <p class="mt-6 text-ink-soft leading-relaxed max-w-[58ch] md:ml-auto md:text-right" v-reveal>
+        {{ t('Want to see what lessons with me look like? Book a trial lesson. It is a great chance for us to meet, talk about your goals, and check your current level.', 'Chcesz zobaczyć jak wyglądają zajęcia ze mną? Umów lekcję próbną. To świetna okazja, żeby się poznać, porozmawiać o Twoich celach i sprawdzić na jakim poziomie jesteś.') }}
+        {{ t('Relaxed atmosphere, zero stress:)', 'Luźna atmosfera, zero stresu:)') }}
+      </p>
 
-        <!-- Info / reassurance rail -->
-        <div class="md:sticky md:top-28 bg-$sage-soft border border-$sage-line rounded-2xl p-7 shadow-[var(--shadow)]" v-reveal>
-          <h3 class="font-bold text-xl text-ink mb-3">{{ t('Time to learn the language?', 'Czas na naukę języka?') }}</h3>
-          <p class="text-ink-soft mb-6">
-            {{ t('Want to come on board? ', 'Chcesz wskoczyć na pokład? ') }}<a href="#contact-form" @click="focusName" class="text-sage-deep font-bold hover:underline cursor-pointer">{{ t('Sign up for lessons.', 'Zapisz się na zajęcia.') }}</a>{{ t(' Got questions? Happy to answer.', ' Masz pytania? Chętnie odpowiem.') }}
+      <!-- One ruled board: the details beside the form -->
+      <div class="contact-board mt-12" v-reveal>
+
+        <div class="contact-info">
+          <h3 class="text-[1.35rem] text-ink mb-3">{{ t('Time to learn the language?', 'Czas na naukę języka?') }}</h3>
+          <p class="text-ink-soft text-sm leading-relaxed mb-7">
+            {{ t('Want to come on board? ', 'Chcesz wskoczyć na pokład? ') }}<a href="#contact-form" @click="focusName" class="text-terra-deep font-bold hover:underline cursor-pointer">{{ t('Sign up for lessons.', 'Zapisz się na zajęcia.') }}</a>{{ t(' Got questions? Happy to answer.', ' Masz pytania? Chętnie odpowiem.') }}
           </p>
           <div class="flex flex-col gap-3">
             <div class="flex items-center gap-3 text-ink-soft text-sm">
-              <i class="fas fa-envelope text-sage-deep w-5 text-center" aria-hidden="true"></i>
-              <a href="mailto:learnwithaleks@gmail.com" class="hover:text-sage-deep transition-colors">learnwithaleks@gmail.com</a>
+              <i class="fas fa-envelope text-terra-deep w-5 text-center" aria-hidden="true"></i>
+              <a href="mailto:learnwithaleks@gmail.com" class="hover:text-walnut transition-colors">learnwithaleks@gmail.com</a>
             </div>
             <div class="flex items-center gap-3 text-ink-soft text-sm">
-              <i class="fas fa-phone text-sage-deep w-5 text-center" aria-hidden="true"></i>
-              <a href="tel:+48783433335" class="hover:text-sage-deep transition-colors">(+48) 783 433 335</a>
+              <i class="fas fa-phone text-terra-deep w-5 text-center" aria-hidden="true"></i>
+              <a href="tel:+48783433335" class="hover:text-walnut transition-colors">(+48) 783 433 335</a>
             </div>
             <div class="flex items-center gap-3 text-ink-soft text-sm">
-              <i class="fab fa-instagram text-sage-deep w-5 text-center" aria-hidden="true"></i>
-              <a href="https://www.instagram.com/be_chatty/" target="_blank" rel="noopener" class="hover:text-sage-deep transition-colors">@be_chatty<span class="sr-only"> {{ t('(opens in a new tab)', '(otwiera się w nowej karcie)') }}</span></a>
+              <i class="fab fa-instagram text-terra-deep w-5 text-center" aria-hidden="true"></i>
+              <a href="https://www.instagram.com/be_chatty/" target="_blank" rel="noopener" class="hover:text-walnut transition-colors">@be_chatty<span class="sr-only"> {{ t('(opens in a new tab)', '(otwiera się w nowej karcie)') }}</span></a>
             </div>
             <div class="flex items-center gap-3 text-ink-soft text-sm">
-              <i class="fab fa-facebook text-sage-deep w-5 text-center" aria-hidden="true"></i>
-              <a href="https://www.facebook.com/profile.php?id=61564479697405" target="_blank" rel="noopener" class="hover:text-sage-deep transition-colors">Facebook<span class="sr-only"> {{ t('(opens in a new tab)', '(otwiera się w nowej karcie)') }}</span></a>
+              <i class="fab fa-facebook text-terra-deep w-5 text-center" aria-hidden="true"></i>
+              <a href="https://www.facebook.com/profile.php?id=61564479697405" target="_blank" rel="noopener" class="hover:text-walnut transition-colors">Facebook<span class="sr-only"> {{ t('(opens in a new tab)', '(otwiera się w nowej karcie)') }}</span></a>
             </div>
             <div class="flex items-center gap-3 text-ink-soft text-sm">
-              <i class="fas fa-building text-sage-deep w-5 text-center" aria-hidden="true"></i>
+              <i class="fas fa-building text-terra-deep w-5 text-center" aria-hidden="true"></i>
               <span>NIP: <span class="font-medium">5512651594</span></span>
             </div>
           </div>
         </div>
 
-        <!-- Form -->
-        <form id="contact-form" @submit.prevent="handleSubmit" novalidate class="card p-7 lg:p-8 flex flex-col gap-5" v-reveal style="transition-delay:.08s">
+        <form id="contact-form" @submit.prevent="handleSubmit" novalidate class="contact-form flex flex-col gap-5">
           <p class="text-sm text-ink-soft">{{ t('Fields marked * are required.', 'Pola oznaczone * są wymagane.') }}</p>
 
           <div class="flex flex-col gap-1.5">
@@ -179,3 +176,27 @@ async function handleSubmit() {
   }
 }
 </script>
+
+<style scoped>
+/* One ruled board: sage-washed details, warm-white form, a single frame */
+.contact-board {
+  border: 1.5px solid var(--walnut);
+  border-radius: var(--radius);
+  background: var(--surface);
+  overflow: hidden;
+}
+.contact-info {
+  background: var(--sage-wash);
+  padding: 2rem;
+}
+.contact-form { padding: 2rem; }
+
+@media (min-width: 900px) {
+  .contact-board { display: grid; grid-template-columns: 1fr 1.9fr; }
+  .contact-info { border-right: 1px solid var(--line); padding: 2.5rem 2.25rem; }
+  .contact-form { padding: 2.5rem; }
+}
+@media (max-width: 899.9px) {
+  .contact-form { border-top: 1px solid var(--line); }
+}
+</style>

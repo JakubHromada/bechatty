@@ -2,54 +2,47 @@
   <section id="reviews" class="py-24 reviews-band">
     <div class="section-wrap">
 
-      <!-- Header: heading left, aggregate rating right -->
-      <div class="flex flex-col gap-5 md:flex-row md:items-end md:justify-between mb-12">
-        <div>
-          <span class="eyebrow mb-4">{{ t('In their words', 'Ich słowami') }}</span>
-          <h2 class="font-bold text-ink text-[clamp(2rem,4vw,3rem)] leading-tight max-w-[16ch]">
-            {{ t('What Students Say', 'Co mówią uczniowie') }}
-          </h2>
-        </div>
-        <div class="rating-chip flex items-center gap-3 rounded-2xl px-5 py-3.5 self-start">
-          <span class="font-extrabold text-3xl text-sage-deep leading-none">5.0</span>
-          <span class="flex flex-col items-start">
-            <span class="flex gap-0.5 text-terra text-sm" aria-hidden="true"><i v-for="n in 5" :key="'rs'+n" class="fas fa-star"></i></span>
-            <span class="text-xs text-ink-soft mt-1">{{ t('from real student reviews', 'z prawdziwych opinii uczniów') }}</span>
-          </span>
-          <span class="sr-only">{{ t('Rated 5 out of 5 from real student reviews', 'Ocena 5 na 5 z prawdziwych opinii uczniów') }}</span>
-        </div>
+      <div class="q-head" v-reveal>
+        <h2 class="text-ink">{{ t('What do students say', 'Co mówią uczniowie') }}<span class="q">?</span></h2>
       </div>
 
-      <!-- Pinned message: the parent's full story -->
-      <div v-if="featured" class="msg-row max-w-[840px] mb-10" v-reveal>
-        <span class="msg-avatar msg-avatar--lg">{{ featured.initial }}</span>
-        <figure class="msg msg--feature">
-          <div class="flex items-center gap-2.5 mb-3 flex-wrap">
-            <span class="sr-only">{{ t('Rated 5 out of 5 stars', 'Ocena 5 na 5 gwiazdek') }}</span>
-            <span class="flex gap-0.5 text-terra text-sm" aria-hidden="true"><i v-for="n in 5" :key="'fs'+n" class="fas fa-star"></i></span>
-            <span class="pill pill--terra">{{ t('Parent review', 'Opinia rodzica') }}</span>
-          </div>
-          <blockquote
-            class="text-ink leading-relaxed text-[1.04rem] max-w-[64ch]"
-            :class="featuredOpen ? '' : 'line-clamp-6'"
-          >{{ t(featured.en.text, featured.pl.text) }}</blockquote>
-          <button
-            class="card-toggle-btn mt-4 text-sage-deep"
-            @click="featuredOpen = !featuredOpen"
-            :aria-expanded="featuredOpen ? 'true' : 'false'"
-          >
-            <span>{{ featuredOpen ? t('Show less', 'Zwiń') : t('Show more', 'Rozwiń') }}</span>
-            <i class="fas fa-chevron-down transition-transform duration-300" :style="{ transform: featuredOpen ? 'rotate(180deg)' : 'rotate(0deg)' }" aria-hidden="true"></i>
-          </button>
-          <figcaption class="mt-5 text-sm">
-            <strong class="text-ink">{{ featured.name }}</strong>
-            <span class="text-ink-soft"> · {{ t(featured.en.label, featured.pl.label) }} · {{ featured.date }}</span>
-          </figcaption>
-        </figure>
+      <!-- honest aggregate, plainly stated -->
+      <div class="rating-box mt-8" v-reveal>
+        <span class="num text-[2rem] leading-none text-walnut">5.0</span>
+        <span class="flex flex-col items-start">
+          <span class="flex gap-0.5 text-terra-deep text-sm" aria-hidden="true"><i v-for="n in 5" :key="'rs'+n" class="fas fa-star"></i></span>
+          <span class="text-xs text-ink-soft mt-1">{{ t('from real student reviews', 'z prawdziwych opinii uczniów') }}</span>
+        </span>
+        <span class="sr-only">{{ t('Rated 5 out of 5 from real student reviews', 'Ocena 5 na 5 z prawdziwych opinii uczniów') }}</span>
       </div>
+
+      <!-- The pinned parent story: linen ink on walnut, the rare dark moment -->
+      <figure v-if="featured" class="feature-panel mt-10" v-reveal>
+        <div class="flex items-center gap-3 flex-wrap">
+          <span class="sr-only">{{ t('Rated 5 out of 5 stars', 'Ocena 5 na 5 gwiazdek') }}</span>
+          <span class="flex gap-0.5 feature-stars text-sm" aria-hidden="true"><i v-for="n in 5" :key="'fs'+n" class="fas fa-star"></i></span>
+          <span class="feature-tag">{{ t('Parent review', 'Opinia rodzica') }}</span>
+        </div>
+        <blockquote
+          class="feature-quote mt-5 max-w-[70ch]"
+          :class="featuredOpen ? '' : 'line-clamp-6'"
+        >{{ t(featured.en.text, featured.pl.text) }}</blockquote>
+        <button
+          class="card-toggle-btn feature-toggle mt-5"
+          @click="featuredOpen = !featuredOpen"
+          :aria-expanded="featuredOpen ? 'true' : 'false'"
+        >
+          <span>{{ featuredOpen ? t('Show less', 'Zwiń') : t('Show more', 'Rozwiń') }}</span>
+          <i class="fas fa-chevron-down transition-transform duration-300" :style="{ transform: featuredOpen ? 'rotate(180deg)' : 'rotate(0deg)' }" aria-hidden="true"></i>
+        </button>
+        <figcaption class="mt-6 text-sm">
+          <strong class="feature-name">{{ featured.name }}</strong>
+          <span class="feature-meta block">{{ t(featured.en.label, featured.pl.label) }} · {{ featured.date }}</span>
+        </figcaption>
+      </figure>
 
       <!-- The conversation wall: each review is a message -->
-      <div class="columns-1 lg:columns-2 xl:columns-3 gap-x-6">
+      <div class="columns-1 lg:columns-2 xl:columns-3 gap-x-6 mt-12">
         <figure
           v-for="(review, i) in rest" :key="review.name + review.date"
           v-reveal :style="{ transitionDelay: Math.min(i * 0.05, 0.3) + 's' }"
@@ -58,7 +51,7 @@
           <span class="msg-avatar">{{ review.initial }}</span>
           <div class="msg" :class="i % 3 === 1 ? 'msg--sage' : ''">
             <span class="sr-only">{{ t('Rated 5 out of 5 stars', 'Ocena 5 na 5 gwiazdek') }}</span>
-            <span class="flex gap-0.5 text-terra text-sm mb-2.5" aria-hidden="true"><i v-for="n in 5" :key="'c'+i+'-'+n" class="fas fa-star"></i></span>
+            <span class="flex gap-0.5 text-terra-deep text-sm mb-2.5" aria-hidden="true"><i v-for="n in 5" :key="'c'+i+'-'+n" class="fas fa-star"></i></span>
             <blockquote class="text-ink-soft leading-relaxed text-[0.95rem]">{{ t(review.en.text, review.pl.text) }}</blockquote>
             <figcaption class="mt-3.5 text-xs">
               <strong class="text-ink block">{{ review.name }}</strong>
@@ -68,11 +61,11 @@
         </figure>
       </div>
 
-      <!-- Invitation: your story could be next (progressive CTA, in-metaphor) -->
+      <!-- Invitation: your story could be next, in-metaphor -->
       <div class="msg-row max-w-[440px] mt-2" v-reveal>
-        <span class="msg-avatar" style="background:var(--terra-soft);color:var(--terra-deep)" aria-hidden="true"><i class="fas fa-plus"></i></span>
+        <span class="msg-avatar msg-avatar--join" aria-hidden="true"><i class="fas fa-plus"></i></span>
         <a href="#contact" class="msg msg--join">
-          <span class="chat-dots text-sage-deep mb-2" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="chat-dots text-terra-deep mb-2" aria-hidden="true"><i></i><i></i><i></i></span>
           <p class="font-bold text-ink">{{ t('Your story could be next', 'Twoja historia może być następna') }}</p>
           <p class="text-sm text-ink-soft mt-0.5">{{ t('Book a trial lesson and start writing it.', 'Umów lekcję próbną i zacznij ją pisać.') }}</p>
         </a>
@@ -142,40 +135,54 @@ const rest = computed(() => reviews.filter(r => !r.featured))
 </script>
 
 <style scoped>
-/* The sage drench — the brand's everyday colour owns this whole band
-   (colour rules: sage 40%), so the linen-white messages pop like a real
-   chat thread. Headings stay walnut: light text on sage fails contrast. */
-.reviews-band {
-  background:
-    radial-gradient(110% 90% at 92% -6%, color-mix(in oklch, #fff 20%, transparent), transparent 58%),
-    radial-gradient(90% 80% at 0% 104%, color-mix(in oklch, var(--walnut) 12%, transparent), transparent 55%),
-    var(--sage);
-}
-/* the recurring eyebrow voice flips dark on the sage ground (AA ~5.6:1) */
-.reviews-band .eyebrow { color: var(--walnut-deep); }
-.reviews-band .eyebrow::before {
-  background: linear-gradient(90deg, var(--walnut-deep), color-mix(in oklch, var(--walnut-deep) 0%, transparent));
+/* The sage drench: the brand's everyday colour owns this whole band
+   (colour rules: sage 40%), so the warm-white messages pop like a real
+   chat thread. Headings stay walnut for contrast. */
+.reviews-band { background: var(--sage); }
+.reviews-band .q-head::before { background: color-mix(in oklch, var(--walnut) 45%, transparent); }
+
+/* Aggregate rating: a plain ruled box, no theatre */
+.rating-box {
+  display: inline-flex; align-items: center; gap: 0.9rem;
+  padding: 0.85rem 1.2rem;
+  background: var(--surface);
+  border: 1.5px solid var(--walnut);
+  border-radius: var(--radius);
 }
 
-/* Aggregate rating — a lifted warm-white chip so the 5.0 stays readable */
-.rating-chip { background: var(--surface); box-shadow: var(--shadow); }
+/* The parent's story on walnut: the palette's biggest moment */
+.feature-panel {
+  background: var(--walnut);
+  border-radius: var(--radius);
+  padding: clamp(1.75rem, 4vw, 2.75rem);
+  color: var(--linen);
+}
+.feature-stars { color: var(--terra-soft); }
+.feature-tag {
+  display: inline-flex; align-items: center;
+  padding: 0.3rem 0.75rem;
+  border: 1.5px solid color-mix(in oklch, var(--linen) 45%, transparent);
+  border-radius: var(--radius);
+  font-size: 0.76rem; font-weight: 700; letter-spacing: 0.02em;
+  color: var(--linen);
+}
+.feature-quote {
+  font-size: 1.05rem; line-height: 1.75;
+  color: color-mix(in oklch, var(--linen) 92%, var(--walnut));
+}
+.feature-toggle { color: var(--linen); }
+.feature-name { color: #fff; }
+.feature-meta { color: color-mix(in oklch, var(--linen) 72%, var(--walnut)); }
 
-/* Pinned parent message — larger, lifted off the wall */
-.msg-avatar--lg { width: 3.25rem; height: 3.25rem; font-size: 1.15rem; }
-.msg--feature {
-  padding: 1.6rem 1.75rem;
-  border-color: color-mix(in oklch, var(--walnut) 18%, var(--line));
-  box-shadow: var(--shadow-hover);
+/* line clamp for the collapsed featured quote */
+.line-clamp-6 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 6;
+  overflow: hidden;
 }
-.msg--feature:hover { transform: none; }   /* it's a statement, not a hover target */
 
-/* The invitation bubble — a warm, in-metaphor call to action */
-.msg--join {
-  display: block; background: var(--terra-soft);
-  border-color: color-mix(in oklch, var(--terra) 32%, var(--linen));
-}
-.msg--join::before {
-  background: var(--terra-soft);
-  border-color: color-mix(in oklch, var(--terra) 32%, var(--linen));
-}
+/* The invitation bubble: a warm, in-metaphor call to action */
+.msg-avatar--join { background: var(--terra-soft); color: var(--terra-deep); }
+.msg--join { display: block; background: var(--terra-soft); }
 </style>

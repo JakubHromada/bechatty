@@ -1,155 +1,89 @@
 <template>
-  <section id="services" class="py-24 bg-bg-alt">
+  <section id="services" class="py-24 bg-linen">
     <div class="section-wrap">
 
-      <!-- Header -->
-      <div class="mb-12" v-reveal>
-        <span class="eyebrow mb-4">{{ t('Lessons & pricing', 'Oferta i cennik') }}</span>
-        <h2 class="font-bold text-ink text-[clamp(2rem,4vw,3rem)] max-w-[16ch]">{{ t('Services & Pricing', 'Oferta i cennik') }}</h2>
-        <p class="mt-3 text-ink-soft leading-relaxed max-w-[58ch]">{{ t('Classes for teenagers and adults. Prices are per lesson, in zł — clear and upfront, nothing to dig for.', 'Zajęcia dla młodzieży i dorosłych. Ceny za lekcję, w zł — jasno i wprost, nic nie trzeba wyszukiwać.') }}</p>
-        <div class="flex flex-wrap gap-2 mt-6">
-          <span v-for="f in facts" :key="f.en" class="pill"><i :class="f.icon" class="text-[0.7rem]" aria-hidden="true"></i>{{ t(f.en, f.pl) }}</span>
+      <div class="q-head" v-reveal>
+        <h2 class="text-ink">{{ t('What do lessons cost', 'Ile kosztują lekcje') }}<span class="q">?</span></h2>
+      </div>
+
+      <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between mt-6" v-reveal>
+        <p class="text-ink-soft leading-relaxed max-w-[52ch]">{{ t('Classes for teenagers and adults. Prices are per lesson, in zł. Clear and upfront, nothing to dig for.', 'Zajęcia dla młodzieży i dorosłych. Ceny za lekcję, w zł. Jasno i wprost, nic nie trzeba wyszukiwać.') }}</p>
+        <div class="flex flex-wrap gap-2 shrink-0">
+          <span v-for="f in facts" :key="f.en" class="stamp"><i :class="f.icon" class="text-[0.7rem]" aria-hidden="true"></i>{{ t(f.en, f.pl) }}</span>
         </div>
       </div>
 
-      <div class="flex flex-col gap-8">
+      <!-- One honest price board: three services, ruled apart, prices in ink -->
+      <div class="board mt-12" v-reveal>
+        <article
+          v-for="(svc, k) in services" :key="k"
+          class="board-col" :class="{ 'board-col--featured': k === 0 }"
+        >
+          <div class="flex items-center gap-3 flex-wrap">
+            <h3 class="text-[1.5rem] text-ink leading-tight">{{ t(svc.en.title, svc.pl.title) }}</h3>
+            <span v-if="k === 0" class="stamp stamp--terra">{{ t('My specialty', 'Moja specjalność') }}</span>
+          </div>
+          <p class="text-ink-soft text-sm leading-relaxed mt-3">{{ t(svc.en.summary, svc.pl.summary) }}</p>
 
-        <!-- Featured spotlight: Exam English -->
-        <article class="card overflow-hidden" v-reveal>
-          <div class="lg:grid lg:grid-cols-[0.92fr_1.08fr]">
-            <!-- tinted intro panel -->
-            <div class="svc-intro">
-              <span class="svc-icon" :style="iconStyle(featured)" aria-hidden="true"><i :class="featured.icon"></i></span>
-              <h3 class="font-bold text-[1.7rem] leading-tight text-ink mt-4">{{ t(featured.en.title, featured.pl.title) }}</h3>
-              <p class="text-ink-soft leading-relaxed mt-3">{{ t(featured.en.summary, featured.pl.summary) }}</p>
-              <ul class="flex flex-col gap-2 mt-5 text-sm text-ink-soft">
-                <li class="flex items-center gap-2.5"><i class="fas fa-user-friends w-4 text-center text-sage-deep" aria-hidden="true"></i>{{ t(featured.en.format, featured.pl.format) }}</li>
-                <li class="flex items-center gap-2.5"><i class="fas fa-clock w-4 text-center text-sage-deep" aria-hidden="true"></i>{{ t(featured.en.duration, featured.pl.duration) }}</li>
-              </ul>
-            </div>
-            <!-- additional information -->
-            <div class="p-8 lg:p-9">
-              <p class="font-bold text-ink mb-3">{{ t('How lessons work', 'Jak wyglądają zajęcia') }}</p>
-              <ul class="flex flex-col gap-2 text-sm text-ink-soft leading-relaxed">
-                <li v-for="(point, j) in featured.pl.points" :key="j" class="flex items-start gap-2">
-                  <i class="fas fa-check mt-1 shrink-0" :style="{ color: featured.tone }" aria-hidden="true"></i>
-                  <span>{{ t(featured.en.points[j], point) }}</span>
-                </li>
-              </ul>
-              <div v-if="featured.pl.note" class="flex items-start gap-2 text-xs italic px-3 py-2 rounded-lg bg-sage-soft mt-5 text-ink-soft">
-                <i class="fas fa-calendar-alt mt-0.5 shrink-0" :style="{ color: featured.tone }" aria-hidden="true"></i>
-                <span>{{ t(featured.en.note, featured.pl.note) }}</span>
-              </div>
-            </div>
+          <p class="font-bold text-ink text-sm mt-6 mb-2">{{ t('How lessons work', 'Jak wyglądają zajęcia') }}</p>
+          <ul class="flex flex-col gap-1.5 text-sm text-ink-soft leading-relaxed">
+            <li v-for="(point, j) in svc.pl.points" :key="j" class="flex items-start gap-2">
+              <i class="fas fa-check mt-1 shrink-0" :style="{ color: svc.tone }" aria-hidden="true"></i>
+              <span>{{ t(svc.en.points[j], point) }}</span>
+            </li>
+          </ul>
+
+          <div class="flex flex-col gap-1.5 text-sm text-ink-soft mt-5">
+            <p v-if="svc.pl.levels" class="flex items-center gap-2"><i class="fas fa-layer-group w-4 text-center" :style="{ color: svc.tone }" aria-hidden="true"></i><span><strong class="text-ink">{{ t('Levels', 'Poziomy') }}:</strong> {{ t(svc.en.levels, svc.pl.levels) }}</span></p>
+            <p class="flex items-center gap-2"><i class="fas fa-user-friends w-4 text-center" :style="{ color: svc.tone }" aria-hidden="true"></i><span><strong class="text-ink">{{ t('Format', 'Forma') }}:</strong> {{ t(svc.en.format, svc.pl.format) }}</span></p>
+            <p class="flex items-center gap-2"><i class="fas fa-clock w-4 text-center" :style="{ color: svc.tone }" aria-hidden="true"></i><span><strong class="text-ink">{{ t('Duration', 'Czas trwania') }}:</strong> {{ t(svc.en.duration, svc.pl.duration) }}</span></p>
           </div>
 
-          <div class="px-8 lg:px-9 pb-8">
-            <button class="card-toggle-btn" :style="{ color: featured.tone }" @click="toggle(0)" :aria-expanded="activeIndex === 0 ? 'true' : 'false'" aria-controls="svc-details-0">
-              <span>{{ activeIndex === 0 ? t('Hide pricing', 'Ukryj cennik') : t('Show pricing', 'Pokaż cennik') }}</span>
-              <i class="fas fa-chevron-down transition-transform duration-300" :style="{ transform: activeIndex === 0 ? 'rotate(180deg)' : 'rotate(0deg)' }" aria-hidden="true"></i>
-            </button>
-            <div id="svc-details-0" class="disclosure" :class="{ open: activeIndex === 0 }">
-              <div class="disclosure-inner">
-                <div class="pt-5 border-t border-line">
-                  <p class="price-caption">{{ t('Price per lesson', 'Cena za lekcję') }}</p>
-                  <template v-for="(group, gi) in featured.prices.pl" :key="gi">
-                    <p v-if="group.label" class="price-group">{{ t(featured.prices.en[gi].label, group.label) }}</p>
-                    <div v-for="(row, ri) in group.rows" :key="ri" class="price-row">
-                      <span class="fmt">{{ t(featured.prices.en[gi].rows[ri].format, row.format) }}</span>
-                      <span class="leader" aria-hidden="true"></span>
-                      <span class="amt num" :style="{ color: featured.tone }">{{ t(featured.prices.en[gi].rows[ri].price, row.price) }}</span>
-                    </div>
-                  </template>
-                </div>
+          <p v-if="svc.pl.note" class="note text-xs italic text-ink-soft mt-5">
+            {{ t(svc.en.note, svc.pl.note) }}
+          </p>
+
+          <!-- prices: menu rows under a firm rule, bottom-anchored across the board -->
+          <div class="price-block">
+            <p class="price-caption">{{ t('Price per lesson', 'Cena za lekcję') }}</p>
+            <template v-for="(group, gi) in svc.prices.pl" :key="gi">
+              <p v-if="group.label" class="price-group">{{ t(svc.prices.en[gi].label, group.label) }}</p>
+              <div v-for="(row, ri) in group.rows" :key="ri" class="price-row">
+                <span class="fmt">{{ t(svc.prices.en[gi].rows[ri].format, row.format) }}</span>
+                <span class="leader" aria-hidden="true"></span>
+                <span class="amt num">{{ t(svc.prices.en[gi].rows[ri].price, row.price) }}</span>
               </div>
-            </div>
-            <a href="#contact" class="btn-primary btn-sm w-full mt-6">{{ t('Book a trial lesson', 'Umów lekcję próbną') }}</a>
+            </template>
+            <a href="#contact" class="btn-primary btn-sm mt-6 self-start">
+              {{ t('Book a trial lesson', 'Umów lekcję próbną') }}
+              <i class="fas fa-arrow-right text-[0.8em]" aria-hidden="true"></i>
+            </a>
           </div>
         </article>
-
-        <!-- Supporting services -->
-        <div class="grid gap-8 md:grid-cols-2">
-          <article
-            v-for="(svc, k) in supporting" :key="k"
-            class="svc-card card card-lift overflow-hidden flex flex-col"
-            v-reveal
-          >
-            <span class="svc-edge" :style="{ background: svc.accent }" aria-hidden="true"></span>
-            <div class="p-8">
-              <span class="svc-icon" :style="iconStyle(svc)" aria-hidden="true"><i :class="svc.icon"></i></span>
-              <h3 class="font-bold text-xl text-ink mt-4">{{ t(svc.en.title, svc.pl.title) }}</h3>
-              <p class="text-ink-soft text-sm leading-relaxed mt-2.5">{{ t(svc.en.summary, svc.pl.summary) }}</p>
-              <div class="mt-5 text-sm text-ink-soft leading-relaxed flex flex-col gap-4">
-                <div>
-                  <p class="font-bold text-ink mb-2">{{ t('How lessons work', 'Jak wyglądają zajęcia') }}</p>
-                  <ul class="flex flex-col gap-1.5">
-                    <li v-for="(point, j) in svc.pl.points" :key="j" class="flex items-start gap-2">
-                      <i class="fas fa-check mt-1 shrink-0" :style="{ color: svc.tone }" aria-hidden="true"></i>
-                      <span>{{ t(svc.en.points[j], point) }}</span>
-                    </li>
-                  </ul>
-                </div>
-                <div class="flex flex-col gap-1.5">
-                  <p v-if="svc.pl.levels" class="flex items-center gap-2"><i class="fas fa-layer-group w-4 text-center" :style="{ color: svc.tone }" aria-hidden="true"></i><span><strong class="text-ink">{{ t('Levels', 'Poziomy') }}:</strong> {{ t(svc.en.levels, svc.pl.levels) }}</span></p>
-                  <p class="flex items-center gap-2"><i class="fas fa-clock w-4 text-center" :style="{ color: svc.tone }" aria-hidden="true"></i><span><strong class="text-ink">{{ t('Duration', 'Czas trwania') }}:</strong> {{ t(svc.en.duration, svc.pl.duration) }}</span></p>
-                </div>
-                <div v-if="svc.pl.note" class="flex items-start gap-2 text-xs italic px-3 py-2 rounded-lg bg-sage-soft">
-                  <i class="fas fa-calendar-alt mt-0.5 shrink-0" :style="{ color: svc.tone }" aria-hidden="true"></i>
-                  <span>{{ t(svc.en.note, svc.pl.note) }}</span>
-                </div>
-              </div>
-            </div>
-            <div class="px-8 pb-8 mt-auto">
-              <button class="card-toggle-btn" :style="{ color: svc.tone }" @click="toggle(k + 1)" :aria-expanded="activeIndex === k + 1 ? 'true' : 'false'" :aria-controls="'svc-details-' + (k + 1)">
-                <span>{{ activeIndex === k + 1 ? t('Hide pricing', 'Ukryj cennik') : t('Show pricing', 'Pokaż cennik') }}</span>
-                <i class="fas fa-chevron-down transition-transform duration-300" :style="{ transform: activeIndex === k + 1 ? 'rotate(180deg)' : 'rotate(0deg)' }" aria-hidden="true"></i>
-              </button>
-              <div :id="'svc-details-' + (k + 1)" class="disclosure" :class="{ open: activeIndex === k + 1 }">
-                <div class="disclosure-inner">
-                  <div class="pt-5 border-t border-line">
-                    <p class="price-caption">{{ t('Price per lesson', 'Cena za lekcję') }}</p>
-                    <template v-for="(group, gi) in svc.prices.pl" :key="gi">
-                      <p v-if="group.label" class="price-group">{{ t(svc.prices.en[gi].label, group.label) }}</p>
-                      <div v-for="(row, ri) in group.rows" :key="ri" class="price-row">
-                        <span class="fmt">{{ t(svc.prices.en[gi].rows[ri].format, row.format) }}</span>
-                        <span class="leader" aria-hidden="true"></span>
-                        <span class="amt num" :style="{ color: svc.tone }">{{ t(svc.prices.en[gi].rows[ri].price, row.price) }}</span>
-                      </div>
-                    </template>
-                  </div>
-                </div>
-              </div>
-              <a href="#contact" class="btn-primary btn-sm w-full mt-6">{{ t('Book a trial lesson', 'Umów lekcję próbną') }}</a>
-            </div>
-          </article>
-        </div>
-
       </div>
+
     </div>
   </section>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
 import { useLanguage } from '../composables/useLanguage'
 
 const { t } = useLanguage()
-const activeIndex = ref(null)
-function toggle(i) { activeIndex.value = activeIndex.value === i ? null : i }
 
 const services = [
   {
-    icon: 'fas fa-graduation-cap', accent: 'var(--sage-deep)', tone: 'var(--sage-deep)',
+    tone: 'var(--terra-deep)',
     prices: {
       en: [
         { label: '8th-grade exam',   rows: [ { format: 'Individual', price: '120 zł' }, { format: 'In pairs', price: '80 zł' } ] },
         { label: 'Matura',           rows: [ { format: 'Individual', price: '130 zł' }, { format: 'In pairs', price: '90 zł' } ] },
-        { label: 'B2, C1, C2 Exams', rows: [ { format: 'Individual', price: '140 zł - 160 zł' }, { format: 'In pairs', price: '90 zł - 110 zł' } ] },
+        { label: 'B2, C1, C2 Exams', rows: [ { format: 'Individual', price: '140-160 zł' }, { format: 'In pairs', price: '90-110 zł' } ] },
       ],
       pl: [
         { label: 'Egzamin ósmoklasisty', rows: [ { format: 'Indywidualnie', price: '120 zł' }, { format: 'W parach', price: '80 zł' } ] },
         { label: 'Matura',               rows: [ { format: 'Indywidualnie', price: '130 zł' }, { format: 'W parach', price: '90 zł' } ] },
-        { label: 'Egzaminy B2, C1, C2',  rows: [ { format: 'Indywidualnie', price: '140 zł - 160 zł' }, { format: 'W parach', price: '90 zł - 110 zł' } ] },
+        { label: 'Egzaminy B2, C1, C2',  rows: [ { format: 'Indywidualnie', price: '140-160 zł' }, { format: 'W parach', price: '90-110 zł' } ] },
       ],
     },
     en: {
@@ -182,7 +116,7 @@ const services = [
     },
   },
   {
-    icon: 'fas fa-book-open', accent: 'var(--sage-deep)', tone: 'var(--sage-deep)',
+    tone: 'var(--sage-deep)',
     prices: {
       en: [ { label: null, rows: [ { format: 'Individual', price: '120 zł' }, { format: 'In pairs', price: '80 zł' }, { format: 'Small group (3-4 people)', price: '65 zł' } ] } ],
       pl: [ { label: null, rows: [ { format: 'Indywidualnie', price: '120 zł' }, { format: 'W parach', price: '80 zł' }, { format: 'Kameralne grupy (3-4 osoby)', price: '65 zł' } ] } ],
@@ -217,7 +151,7 @@ const services = [
     },
   },
   {
-    icon: 'fas fa-comments', accent: 'var(--terra)', tone: 'var(--terra-deep)',
+    tone: 'var(--sage-deep)',
     prices: {
       en: [ { label: null, rows: [ { format: 'Individual', price: '75 zł' }, { format: 'In pairs', price: '50 zł' } ] } ],
       pl: [ { label: null, rows: [ { format: 'Indywidualnie', price: '75 zł' }, { format: 'W parach', price: '50 zł' } ] } ],
@@ -253,54 +187,60 @@ const services = [
   },
 ]
 
-const featured = services[0]
-const supporting = computed(() => services.slice(1))
-
-// Quick-scan reassurances shown under the heading
+// Quick-scan reassurances beside the intro
 const facts = [
-  { icon: 'fas fa-laptop',       en: 'Online lessons',               pl: 'Lekcje online' },
-  { icon: 'fas fa-layer-group',  en: 'Levels A0–C1',                 pl: 'Poziomy A0–C1' },
-  { icon: 'fas fa-user-friends', en: '1-on-1, pairs or small groups', pl: 'Indywidualnie, w parach lub w grupach' },
+  { icon: 'fas fa-laptop',      en: 'Online lessons', pl: 'Lekcje online' },
+  { icon: 'fas fa-layer-group', en: 'Levels A0-C1',   pl: 'Poziomy A0-C1' },
 ]
-
-// Tinted icon chip in each service's own colour
-function iconStyle(svc) {
-  return { background: `color-mix(in oklch, ${svc.accent} 16%, var(--surface))`, color: svc.tone }
-}
 </script>
 
 <style scoped>
-/* Featured spotlight: intro panel beside the disclosure (sits on the card surface) */
-.svc-intro {
-  padding: 2rem;
+/* The board: one ruled print surface holding all three services */
+.board {
+  background: var(--surface);
+  border: 1.5px solid var(--walnut);
+  border-radius: var(--radius);
 }
-@media (min-width: 1024px) { .svc-intro { padding: 2.5rem; } }
+.board-col { display: flex; flex-direction: column; padding: 2rem; }
+.board-col--featured { background: color-mix(in oklch, var(--sage) 9%, var(--surface)); }
 
-/* Colour-coded icon chip */
-.svc-icon {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 3rem; height: 3rem; border-radius: 14px; font-size: 1.15rem;
-  box-shadow: inset 0 0 0 1px color-mix(in oklch, currentColor 22%, transparent);
+@media (min-width: 1024px) {
+  .board { display: grid; grid-template-columns: 1.12fr 1fr 1fr; }
+  .board-col { padding: 2.25rem 2rem; }
+  .board-col + .board-col { border-left: 1px solid var(--line); }
+}
+@media (max-width: 1023.9px) {
+  .board-col + .board-col { border-top: 1px solid var(--line); }
 }
 
-/* Top accent edge on the supporting cards */
-.svc-card { position: relative; }
-.svc-edge { position: absolute; inset: 0 0 auto 0; height: 4px; }
+.note {
+  border-left: 3px solid var(--sage);
+  padding-left: 0.85rem;
+  line-height: 1.55;
+}
 
-/* Menu-style pricing: format … amount, with a dotted leader and serif numerals */
+/* Menu pricing: format … amount, dotted leader, serif numerals in rust.
+   Bottom-anchored on desktop so the three price menus align across the board. */
+.price-block {
+  display: flex; flex-direction: column;
+  margin-top: 1.75rem;
+  padding-top: 1.4rem;
+  border-top: 1.5px solid var(--walnut);
+}
+@media (min-width: 1024px) { .price-block { margin-top: auto; } }
 .price-caption {
   font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--ink-mute); margin-bottom: 0.4rem;
+  color: var(--ink-mute); margin-bottom: 0.35rem;
 }
 .price-group {
-  font-size: 0.82rem; font-weight: 700; color: var(--ink);
-  margin-top: 0.9rem; padding-bottom: 0.15rem;
+  font-size: 0.84rem; font-weight: 700; color: var(--ink);
+  margin-top: 0.7rem;
 }
-.price-row { display: flex; align-items: baseline; gap: 0.6rem; padding: 0.42rem 0; }
+.price-row { display: flex; align-items: baseline; gap: 0.6rem; padding: 0.4rem 0; }
 .price-row .fmt { color: var(--ink-soft); font-size: 0.92rem; }
 .price-row .leader {
   flex: 1; align-self: center; min-width: 1.25rem; height: 0;
   border-bottom: 1.5px dotted color-mix(in oklch, var(--ink-mute) 50%, transparent);
 }
-.price-row .amt { font-size: 1.1rem; white-space: nowrap; }
+.price-row .amt { font-size: 1.15rem; white-space: nowrap; color: var(--terra-deep); }
 </style>

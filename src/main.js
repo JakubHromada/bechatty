@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
-import 'virtual:uno.css'
+// design-system base first, utility classes second — so utilities can override
 import './style.css'
+import 'virtual:uno.css'
 import App from './App.vue'
 
 const app = createApp(App)

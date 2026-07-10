@@ -1,22 +1,22 @@
 <template>
   <footer class="footer pt-16 pb-8">
-    <div class="section-wrap relative" v-reveal>
-      <div class="grid gap-x-10 gap-y-12 md:grid-cols-12">
+    <div class="section-wrap" v-reveal>
 
-        <!-- Brand + action: the linen logo pops on the walnut anchor -->
+      <!-- The brand imperative, as the closing line of the conversation -->
+      <p class="foot-word" aria-hidden="true">Be chatty<span class="foot-dot">.</span></p>
+
+      <div class="grid gap-x-10 gap-y-12 md:grid-cols-12 mt-12">
+
         <div class="md:col-span-5">
-          <img src="/logo-linen.png" alt="BeChatty" class="w-[88px] h-[88px] rounded-full"
-               style="box-shadow:0 10px 30px -10px rgba(0,0,0,0.5)" width="88" height="88" />
-          <p class="mt-5 text-sm leading-relaxed max-w-[34ch] footer-mute">
-            {{ t('Warm, professional online English lessons for teenagers and adults — exam preparation, conversation and lasting fluency.', 'Ciepłe, profesjonalne lekcje angielskiego online dla młodzieży i dorosłych — przygotowanie do egzaminów, konwersacje i trwała swoboda.') }}
+          <p class="text-sm leading-relaxed max-w-[36ch] footer-mute">
+            {{ t('Warm, professional online English lessons for teenagers and adults: exam preparation, conversation and lasting fluency.', 'Ciepłe, profesjonalne lekcje angielskiego online dla młodzieży i dorosłych: przygotowanie do egzaminów, konwersacje i trwała swoboda.') }}
           </p>
-          <a href="#contact" class="btn-primary btn-sm mt-6">
+          <a href="#contact" class="btn-primary btn-sm mt-6 footer-cta">
             {{ t('Book a trial lesson', 'Umów lekcję próbną') }}
             <i class="fas fa-arrow-right text-[0.8em]" aria-hidden="true"></i>
           </a>
         </div>
 
-        <!-- Quick links -->
         <nav class="md:col-span-3 md:col-start-7" aria-label="Footer">
           <p class="footer-label">{{ t('Explore', 'Nawigacja') }}</p>
           <ul class="flex flex-col gap-2.5 mt-4">
@@ -26,7 +26,6 @@
           </ul>
         </nav>
 
-        <!-- Contact -->
         <div class="md:col-span-3 md:col-start-10">
           <p class="footer-label">{{ t('Get in touch', 'Kontakt') }}</p>
           <div class="flex flex-col gap-3 mt-4">
@@ -73,21 +72,36 @@ const footerLinks = [
 </script>
 
 <style scoped>
-/* Walnut = the rare dark anchor. Linen text, terracotta accents (per colour rules). */
+/* Walnut = the rare dark anchor. Linen text, terracotta accents. Flat. */
 .footer {
-  position: relative;
   color: var(--linen);
-  background:
-    radial-gradient(80% 120% at 90% 0%, color-mix(in oklch, var(--sage-deep) 22%, transparent), transparent 60%),
-    linear-gradient(160deg, var(--walnut) 0%, var(--walnut-deep) 100%);
+  background: var(--walnut);
+  border-top: 2px solid var(--walnut-deep);
 }
+
+/* the sign-off: the brand name as an invitation, in the wordmark's voice */
+.foot-word {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  font-style: italic; font-weight: 500;
+  font-size: clamp(2.6rem, 6vw, 4.4rem);
+  line-height: 1.1; padding-bottom: 0.06em;
+  letter-spacing: -0.02em;
+  color: var(--linen);
+}
+.foot-dot { color: var(--terra); font-style: normal; }
+
 .footer-label {
   font-size: 0.72rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
   /* rust lifted toward linen so the small labels stay AA (~5:1) on walnut */
   color: color-mix(in oklch, var(--terra) 62%, var(--linen));
 }
-.footer-mute  { color: color-mix(in oklch, var(--linen) 62%, var(--walnut)); }
-.footer-link  { color: color-mix(in oklch, var(--linen) 82%, var(--walnut)); transition: color .2s ease; }
+.footer-mute  { color: color-mix(in oklch, var(--linen) 68%, var(--walnut)); }
+.footer-link  { color: color-mix(in oklch, var(--linen) 85%, var(--walnut)); transition: color .2s ease; }
 .footer-link:hover { color: var(--linen); }
-.footer-rule  { border-top: 1px solid color-mix(in oklch, var(--linen) 16%, transparent); }
+.footer-rule  { border-top: 1px solid color-mix(in oklch, var(--linen) 18%, transparent); }
+
+/* the offset block flips to linen on the dark anchor */
+.footer-cta { box-shadow: 3px 3px 0 0 color-mix(in oklch, var(--linen) 55%, var(--walnut)); border-color: var(--walnut-deep); }
+.footer-cta:hover { box-shadow: 1.5px 1.5px 0 0 color-mix(in oklch, var(--linen) 55%, var(--walnut)); }
 </style>

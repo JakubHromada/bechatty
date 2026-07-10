@@ -2,58 +2,39 @@
   <section id="about" class="py-24 bg-bg-alt">
     <div class="section-wrap">
 
-      <!-- Masthead: left-aligned, standfirst hook, hairline (no centered divider) -->
-      <div class="max-w-[820px]" v-reveal>
-        <span class="eyebrow mb-4">{{ t('Meet your teacher', 'Poznaj nauczycielkę') }}</span>
-        <h2 class="font-bold text-ink text-[clamp(2rem,4vw,3rem)]">{{ t('About Me', 'O mnie') }}</h2>
-        <p class="mt-4 text-ink-soft text-lg leading-relaxed max-w-[60ch]" v-html="t(bio.en[0], bio.pl[0])"></p>
+      <!-- The visitor asks; the section answers -->
+      <div class="q-head" v-reveal>
+        <h2 class="text-ink">{{ t('Who is Ola', 'Kim jest Ola') }}<span class="q">?</span></h2>
       </div>
-      <div class="mt-8 border-t border-line"></div>
 
-      <!-- Editorial spread: sticky credential rail + long-form prose -->
-      <div class="mt-12 grid gap-10 md:grid-cols-[300px_minmax(0,1fr)] md:gap-x-20 items-start">
+      <!-- Credentials, stamped like certificate seals -->
+      <ul class="flex flex-wrap gap-2.5 mt-8" v-reveal>
+        <li v-for="c in credentials" :key="c.en" class="stamp">
+          <i :class="c.icon" class="text-[0.75rem]" aria-hidden="true"></i>{{ t(c.en, c.pl) }}
+        </li>
+      </ul>
 
-        <!-- Left rail -->
-        <aside class="md:sticky md:top-24 flex flex-col gap-6 max-w-[320px]" v-reveal>
-          <!-- layered frame: a sage card sits behind the photo for brand depth -->
-          <div class="photo-frame">
-            <span class="photo-frame__shadow" aria-hidden="true"></span>
-            <img
-              src="/ola_image.png"
-              :alt="t('Aleksandra Susek-Hromada, English teacher', 'Aleksandra Susek-Hromada, nauczycielka języka angielskiego')"
-              class="photo-frame__img"
-              style="aspect-ratio:4/5;"
-              loading="lazy"
-            />
-            <span class="photo-frame__badge" aria-hidden="true">
-              <span class="chat-dots"><i></i><i></i><i></i></span>
-            </span>
-          </div>
-          <div>
-            <strong class="block text-ink text-[1.05rem]">Aleksandra Susek-Hromada</strong>
-            <span class="text-ink-soft text-sm">{{ t('English teacher', 'Nauczycielka języka angielskiego') }}</span>
-          </div>
-          <div>
-            <h3 class="text-sm font-bold text-ink mb-3">{{ t('Qualifications', 'Kwalifikacje') }}</h3>
-            <ul class="flex flex-col gap-2.5">
-              <li v-for="c in credentials" :key="c.en" class="flex items-center gap-2.5 text-sm text-ink">
-                <i :class="c.icon" class="text-sage-deep w-4 text-center shrink-0" aria-hidden="true"></i>{{ t(c.en, c.pl) }}
-              </li>
-            </ul>
-          </div>
-        </aside>
+      <div class="mt-12 grid gap-14 lg:grid-cols-[minmax(0,1fr)_340px] lg:gap-x-20 items-start">
 
-        <!-- Prose -->
-        <div class="max-w-[68ch]" v-reveal style="transition-delay:.08s">
-          <p class="text-ink-soft text-lg leading-relaxed mb-5" v-html="t(bio.en[1], bio.pl[1])"></p>
-          <h3 class="font-semibold text-xl text-ink mt-10 mb-4">{{ t("Let's get to know each other", 'Poznajmy się bliżej') }}</h3>
-          <p class="text-ink-soft leading-relaxed mb-4" v-html="t(bio.en[2], bio.pl[2])"></p>
-          <p class="text-ink-soft leading-relaxed mb-4" v-html="t(bio.en[3], bio.pl[3])"></p>
-          <p class="text-ink-soft leading-relaxed mb-4" v-html="t(bio.en[4], bio.pl[4])"></p>
-          <p class="text-ink-soft leading-relaxed mb-4" v-html="t(bio.en[5], bio.pl[5])"></p>
-          <p class="text-ink-soft leading-relaxed mb-4" v-html="t(bio.en[6], bio.pl[6])"></p>
-          <blockquote class="pull-quote" v-html="t(bio.en[7], bio.pl[7])"></blockquote>
+        <!-- The answer, in Ola's voice -->
+        <div class="max-w-[66ch]">
+          <p class="about-lead text-ink text-[clamp(1.2rem,2.1vw,1.45rem)]" v-reveal v-html="t(bio.en[0], bio.pl[0])"></p>
+
+          <div v-reveal style="transition-delay:.06s">
+            <p class="mt-7 text-ink-soft text-lg leading-relaxed" v-html="t(bio.en[1], bio.pl[1])"></p>
+            <h3 class="text-[1.45rem] text-ink mt-12 mb-5">{{ t("Let's get to know each other", 'Poznajmy się bliżej') }}</h3>
+            <p class="prose-drop text-ink-soft leading-relaxed mb-4" v-html="t(bio.en[2], bio.pl[2])"></p>
+            <p class="text-ink-soft leading-relaxed mb-4" v-html="t(bio.en[3], bio.pl[3])"></p>
+            <p class="text-ink-soft leading-relaxed mb-4" v-html="t(bio.en[4], bio.pl[4])"></p>
+            <p class="text-ink-soft leading-relaxed mb-4" v-html="t(bio.en[5], bio.pl[5])"></p>
+            <p class="text-ink-soft leading-relaxed" v-html="t(bio.en[6], bio.pl[6])"></p>
+          </div>
         </div>
+
+        <!-- The closing line, pinned like a note in the margin -->
+        <aside class="lg:sticky lg:top-28" v-reveal style="transition-delay:.1s">
+          <blockquote class="aside-quote" v-html="t(bio.en[7], bio.pl[7])"></blockquote>
+        </aside>
 
       </div>
     </div>
@@ -98,46 +79,33 @@ const bio = {
 </script>
 
 <style scoped>
-/* Layered photo frame — a sage card peeks behind the portrait for depth + brand */
-.photo-frame { position: relative; }
-.photo-frame__shadow {
-  position: absolute; inset: 0; transform: translate(14px, 14px);
-  border-radius: var(--radius-lg);
-  background: var(--sage); opacity: 0.85; z-index: 0;
+/* The section opens like an essay: the lead speaks in the display voice */
+.about-lead {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  font-weight: 470; letter-spacing: -0.01em; line-height: 1.5;
+  max-width: 52ch;
 }
-.photo-frame__img {
-  position: relative; z-index: 1;
-  width: 100%; height: auto; object-fit: cover;
-  border-radius: var(--radius-lg);
-  border: 5px solid var(--surface);
-  box-shadow: var(--shadow);
-}
-.photo-frame__badge {
-  position: absolute; z-index: 2; right: -12px; bottom: -12px;
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 52px; height: 40px; border-radius: 14px 14px 14px 4px;
-  background: var(--cta); color: #fff;
-  box-shadow: 0 10px 22px -10px color-mix(in oklch, var(--cta) 80%, transparent);
-}
-.photo-frame__badge .chat-dots { font-size: 0.85rem; }
 
-/* Branded pull-quote — reads as the teacher's voice, in a soft sage well.
-   An oversized Fraunces quote mark leads it; full hairline border, no stripe. */
-.pull-quote {
-  position: relative;
-  margin-top: 2.5rem; padding: 2.4rem 1.8rem 1.7rem 2rem;
-  border-radius: var(--radius);
-  border: 1px solid var(--sage-line);
-  background: var(--sage-soft);
-  color: var(--ink);
+/* A serif drop cap opens her story — literary, grown-up warmth */
+.prose-drop::first-letter {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 3.3em; line-height: 0.82;
+  float: left;
+  padding: 0.08em 0.14em 0 0;
+  color: var(--terra);
+}
+
+/* The closing line as a margin note: rust rule, big italic serif, no box */
+.aside-quote {
+  border-top: 4px solid var(--terra);
+  padding-top: 1.5rem;
   font-family: var(--font-display); font-optical-sizing: auto;
-  font-weight: 500; font-style: italic;
-  font-size: clamp(1.3rem, 2.4vw, 1.8rem); line-height: 1.35; letter-spacing: -0.01em;
+  font-style: italic; font-weight: 480;
+  font-size: clamp(1.4rem, 2vw, 1.7rem);
+  line-height: 1.45; letter-spacing: -0.01em;
+  color: var(--ink);
 }
-.pull-quote::before {
-  content: '\201C';
-  position: absolute; top: -0.12em; left: 0.28em;
-  font-size: 3.2em; line-height: 1; font-style: normal;
-  color: var(--sage); pointer-events: none;
-}
+.aside-quote :deep(strong) { font-weight: 640; color: var(--walnut-deep); }
 </style>
