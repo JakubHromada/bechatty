@@ -2,7 +2,7 @@
   <nav
     class="sticky top-0 z-50 transition-shadow duration-300"
     :class="scrolled ? 'nav--scrolled' : ''"
-    style="background:color-mix(in oklch, #fff 82%, transparent);backdrop-filter:blur(14px) saturate(1.1);-webkit-backdrop-filter:blur(14px) saturate(1.1);border-bottom:1px solid var(--line)"
+    style="background:color-mix(in oklch, var(--surface) 84%, transparent);backdrop-filter:blur(14px) saturate(1.1);-webkit-backdrop-filter:blur(14px) saturate(1.1);border-bottom:1px solid var(--line)"
   >
     <div class="section-wrap flex items-center justify-between h-[70px]">
 

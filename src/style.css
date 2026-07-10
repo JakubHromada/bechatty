@@ -1,45 +1,46 @@
 /* ============================================================
    BeChatty — design system
-   One warm light theme. One family (Fraunces — a warm editorial serif,
+   One light theme. One family (Fraunces — a warm editorial serif,
    echoing the logo wordmark). Hierarchy = weight + scale + italic + optical size.
-   Brand palette (colour_rules.jpg), tuned for screen contrast:
-     Sage     #8FA89C  — structure / brand / everyday  (deepened to --sage-deep for text)
-     Linen    #F7F0E8  — page ground, breathing room
-     Terra    #C4785A  — emotional peaks, CTAs, ratings (deepened to --terra-cta for white text)
-     Walnut   #4A3728  — ink + the rare dark anchor (footer)
-   Neutrals are tinted toward the brand; states/tints derived with color-mix in oklch.
+   Brand palette — the BeChatty colour system (see colour_rules.jpg):
+     Sage   #8FA89C  — everyday colour: structure, surfaces, the reviews band (40%)
+     Linen  #F7F0E8  — breathing room: page ground, light bands (30%)
+     Rust   #C45028  — emotional peaks: CTAs, ratings, emphasis (20%)
+     Walnut #4A3728  — biggest moments: ink + the rare dark anchor (10%)
+   Sage and rust are too light for small text on linen, so each carries a
+   text-safe deep shade (--sage-deep / --terra-deep), both AA on linen.
+   Neutrals are tinted toward linen; states/tints derived with color-mix in oklch.
    ============================================================ */
 :root {
-  /* ── Brand source colours ─────────────────────────── */
-  --linen:          #F7F0E8;
-  --sage:           #8FA89C;
-  --sage-deep:      #3E6253;   /* sage taken dark enough for AA text on linen (~6:1) */
-  --terra:          #C4785A;   /* brand terracotta — display accents, star icons     */
-  --terra-cta:      #B25A39;   /* terracotta deepened so white label clears AA (4.8:1)*/
-  --terra-deep:     #97451F;   /* deep terracotta — peak accents, pill text           */
-  --cta:            #B33100;   /* primary CTA fill — white label clears AA (~6.3:1)   */
-  --cta-deep:       color-mix(in oklch, var(--cta) 82%, #000); /* CTA hover / pressed  */
-  --walnut:         #4A3728;
+  /* ── Brand source colours ──────────────────────────── */
+  --linen:          #F7F0E8;   /* brand linen — page ground, breathing room           */
+  --sage:           #8FA89C;   /* brand sage — everyday colour, decoration, bands     */
+  --sage-deep:      #44615A;   /* sage taken dark enough for AA text (~6:1 on linen)   */
+  --terra:          #C45028;   /* brand rust orange — peaks, CTAs (white label ~4.6:1) */
+  --terra-deep:     #9E3D1B;   /* deep rust — small accent text (~5.9:1 on linen)      */
+  --cta:            var(--terra); /* rust IS the conversion colour                     */
+  --cta-deep:       color-mix(in oklch, var(--cta) 80%, #000); /* CTA hover / pressed  */
+  --walnut:         #4A3728;   /* brand walnut — ink + the rare dark anchor (footer)   */
 
-  /* ── Surfaces & ground (warm, brand-tinted neutrals) ─ */
+  /* ── Surfaces & ground (linen-warm neutrals) ───────── */
   --bg:             var(--linen);
-  --bg-alt:         #FFFCF6;   /* warm-white breathing band (alternating sections)    */
-  --surface:        #FFFCF6;   /* cards / inputs — warm white                         */
-  --surface-sunk:   color-mix(in oklch, var(--sage) 12%, var(--linen)); /* inset wells*/
+  --bg-alt:         #FCF8F1;   /* warm-white breathing band (alternating sections)    */
+  --surface:        #FFFCF6;   /* cards / inputs — lifted warm white                  */
+  --surface-sunk:   color-mix(in oklch, var(--sage) 14%, var(--linen)); /* inset wells*/
 
   /* ── Ink ──────────────────────────────────────────── */
   --ink:            var(--walnut);
-  --ink-soft:       #6E5848;   /* secondary copy (~6:1 on linen)                      */
-  --ink-mute:       #7A6757;   /* captions / meta — kept ≥4.5:1 on linen              */
+  --ink-soft:       #6B5544;   /* secondary copy (~6.2:1 on linen)                    */
+  --ink-mute:       #7A6757;   /* captions / meta — kept ≥4.5:1 (~4.8:1)              */
 
   /* ── Derived tints (perceptual via oklch) ─────────── */
   --sage-soft:      color-mix(in oklch, var(--sage) 24%, var(--surface));
   --sage-line:      color-mix(in oklch, var(--sage) 45%, var(--linen));
-  --terra-soft:     color-mix(in oklch, var(--terra) 20%, var(--surface));
+  --terra-soft:     color-mix(in oklch, var(--terra) 16%, var(--surface));
   --walnut-deep:    color-mix(in oklch, var(--walnut) 86%, #000);
 
-  --line:           #E7DBC9;   /* warm hairline                                       */
-  --line-soft:      #EFE6D7;
+  --line:           #E6DACA;   /* warm hairline                                       */
+  --line-soft:      #EFE6D8;
 
   /* ── Elevation (shadows tinted with walnut, not grey) ─ */
   --shadow:         0 4px 22px -8px rgba(74, 55, 40, 0.18);
@@ -70,14 +71,21 @@ body  {
   font-optical-sizing: auto;   /* small text → sturdy text shapes; large → display */
   color: var(--ink);
   background-color: var(--bg);
-  /* whisper of warmth in the ground — depth without a "gradient wash" */
-  background-image:
-    radial-gradient(120% 80% at 88% -8%, color-mix(in oklch, var(--sage) 14%, transparent), transparent 60%),
-    radial-gradient(90% 70% at 0% 102%, color-mix(in oklch, var(--terra) 8%, transparent), transparent 55%);
-  background-attachment: fixed;
+  position: relative;          /* containing block for the paper-grain layer */
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+/* Whisper of warmth in the ground, pinned to the viewport on its OWN composited
+   layer (transform: translateZ(0)). A plain `background-attachment: fixed` would
+   force the whole page to repaint on every scroll frame — the old jank source. */
+body::before {
+  content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background-image:
+    radial-gradient(120% 80% at 88% -8%, color-mix(in oklch, var(--sage) 14%, transparent), transparent 60%),
+    radial-gradient(90% 70% at 0% 102%, color-mix(in oklch, var(--terra) 8%, transparent), transparent 55%);
+  transform: translateZ(0);
 }
 a   { text-decoration: none; color: inherit; }
 ul, ol { list-style: none; }
@@ -86,10 +94,12 @@ img { display: block; max-width: 100%; }
 
 /* ── Paper grain ───────────────────────────────────── */
 /* A whisper of tooth over the whole surface — the warm "printed worksheet"
-   feel the brand lives in. Fixed top layer (below the nav at z-50), blended
-   soft so it textures the colour bands without touching legibility. */
+   feel the brand lives in. It scrolls WITH the page (position: absolute, not
+   fixed) so the soft-light blend is rasterised once per tile instead of being
+   re-blended against a moving backdrop on every scroll frame. Sits above the
+   colour bands, below the nav at z-50. */
 body::after {
-  content: ''; position: fixed; inset: 0; z-index: 1; pointer-events: none;
+  content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 140px 140px;
   opacity: 0.4;

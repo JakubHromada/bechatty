@@ -1,5 +1,5 @@
 <template>
-  <section id="home" class="relative overflow-hidden bg-surface">
+  <section id="home" class="relative overflow-hidden bg-linen">
     <!-- Ambient brand atmosphere -->
     <div class="hero-decor" aria-hidden="true">
       <span class="glow glow--sage"></span>
@@ -105,7 +105,7 @@ const stats = [
 /* the emphasis word is "marked" with a soft terracotta stroke — the teacher's
    pen, not a highlighter. Drawn as an SVG so it keeps a hand-made curve. */
 .hero-title :deep(em) {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 14' preserveAspectRatio='none'%3E%3Cpath d='M3 9 C 55 3.5, 150 3, 197 7.5' fill='none' stroke='%23C4785A' stroke-width='3.2' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 14' preserveAspectRatio='none'%3E%3Cpath d='M3 9 C 55 3.5, 150 3, 197 7.5' fill='none' stroke='%23C45028' stroke-width='3.2' stroke-linecap='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: 0 92%;
   background-size: 100% 0.34em;
@@ -115,9 +115,9 @@ const stats = [
 .hero-decor { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
 .glow { position: absolute; border-radius: 50%; filter: blur(66px); }
 .glow--sage  { width: 46vw; height: 46vw; max-width: 640px; max-height: 640px; top: -24%; right: -8%;
-               background: radial-gradient(circle, var(--sage) 0%, transparent 68%); opacity: 0.46; }
+               background: radial-gradient(circle, var(--sage) 0%, transparent 68%); opacity: 0.55; }
 .glow--terra { width: 34vw; height: 34vw; max-width: 440px; max-height: 440px; bottom: -30%; left: -12%;
-               background: radial-gradient(circle, var(--terra) 0%, transparent 70%); opacity: 0.26; }
+               background: radial-gradient(circle, var(--terra) 0%, transparent 70%); opacity: 0.18; }
 
 /* proof row: serif numerals lead, hairline-divided, scannable but unshouty.
    Dividers only kick in once the row is wide enough not to wrap — otherwise a

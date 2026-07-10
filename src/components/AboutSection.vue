@@ -1,5 +1,5 @@
 <template>
-  <section id="about" class="py-24 bg-white">
+  <section id="about" class="py-24 bg-bg-alt">
     <div class="section-wrap">
 
       <!-- Masthead: left-aligned, standfirst hook, hairline (no centered divider) -->
@@ -103,7 +103,7 @@ const bio = {
 .photo-frame__shadow {
   position: absolute; inset: 0; transform: translate(14px, 14px);
   border-radius: var(--radius-lg);
-  background: var(--sage); opacity: 0.5; z-index: 0;
+  background: var(--sage); opacity: 0.85; z-index: 0;
 }
 .photo-frame__img {
   position: relative; z-index: 1;
@@ -121,16 +121,23 @@ const bio = {
 }
 .photo-frame__badge .chat-dots { font-size: 0.85rem; }
 
-/* Branded pull-quote — reads as the teacher's voice, with a soft sage well */
+/* Branded pull-quote — reads as the teacher's voice, in a soft sage well.
+   An oversized Fraunces quote mark leads it; full hairline border, no stripe. */
 .pull-quote {
   position: relative;
-  margin-top: 2.5rem; padding: 1.6rem 1.6rem 1.6rem 2rem;
-  border-radius: 6px var(--radius) var(--radius) 6px;
-  border-left: 4px solid var(--sage-deep);
+  margin-top: 2.5rem; padding: 2.4rem 1.8rem 1.7rem 2rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--sage-line);
   background: var(--sage-soft);
   color: var(--ink);
   font-family: var(--font-display); font-optical-sizing: auto;
   font-weight: 500; font-style: italic;
   font-size: clamp(1.3rem, 2.4vw, 1.8rem); line-height: 1.35; letter-spacing: -0.01em;
+}
+.pull-quote::before {
+  content: '\201C';
+  position: absolute; top: -0.12em; left: 0.28em;
+  font-size: 3.2em; line-height: 1; font-style: normal;
+  color: var(--sage); pointer-events: none;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <section id="contact" class="py-24 bg-white" aria-labelledby="contact-heading">
+  <section id="contact" class="py-24 bg-linen" aria-labelledby="contact-heading">
     <div class="section-wrap">
 
       <!-- Header (left-aligned, hairline instead of centered divider) -->
@@ -16,30 +16,30 @@
       <div class="mt-12 grid gap-12 md:grid-cols-[1fr_2fr] items-start">
 
         <!-- Info / reassurance rail -->
-        <div class="md:sticky md:top-28 bg-surface border border-line rounded-2xl p-7 shadow-[var(--shadow)]" v-reveal>
+        <div class="md:sticky md:top-28 bg-$sage-soft border border-$sage-line rounded-2xl p-7 shadow-[var(--shadow)]" v-reveal>
           <h3 class="font-bold text-xl text-ink mb-3">{{ t('Time to learn the language?', 'Czas na naukę języka?') }}</h3>
           <p class="text-ink-soft mb-6">
-            {{ t('Want to come on board? ', 'Chcesz wskoczyć na pokład? ') }}<a href="#contact-form" @click="focusName" class="text-evergreen font-bold hover:underline cursor-pointer">{{ t('Sign up for lessons.', 'Zapisz się na zajęcia.') }}</a>{{ t(' Got questions? Happy to answer.', ' Masz pytania? Chętnie odpowiem.') }}
+            {{ t('Want to come on board? ', 'Chcesz wskoczyć na pokład? ') }}<a href="#contact-form" @click="focusName" class="text-sage-deep font-bold hover:underline cursor-pointer">{{ t('Sign up for lessons.', 'Zapisz się na zajęcia.') }}</a>{{ t(' Got questions? Happy to answer.', ' Masz pytania? Chętnie odpowiem.') }}
           </p>
           <div class="flex flex-col gap-3">
             <div class="flex items-center gap-3 text-ink-soft text-sm">
-              <i class="fas fa-envelope text-evergreen w-5 text-center" aria-hidden="true"></i>
-              <a href="mailto:learnwithaleks@gmail.com" class="hover:text-evergreen transition-colors">learnwithaleks@gmail.com</a>
+              <i class="fas fa-envelope text-sage-deep w-5 text-center" aria-hidden="true"></i>
+              <a href="mailto:learnwithaleks@gmail.com" class="hover:text-sage-deep transition-colors">learnwithaleks@gmail.com</a>
             </div>
             <div class="flex items-center gap-3 text-ink-soft text-sm">
-              <i class="fas fa-phone text-evergreen w-5 text-center" aria-hidden="true"></i>
-              <a href="tel:+48783433335" class="hover:text-evergreen transition-colors">(+48) 783 433 335</a>
+              <i class="fas fa-phone text-sage-deep w-5 text-center" aria-hidden="true"></i>
+              <a href="tel:+48783433335" class="hover:text-sage-deep transition-colors">(+48) 783 433 335</a>
             </div>
             <div class="flex items-center gap-3 text-ink-soft text-sm">
-              <i class="fab fa-instagram text-evergreen w-5 text-center" aria-hidden="true"></i>
-              <a href="https://www.instagram.com/be_chatty/" target="_blank" rel="noopener" class="hover:text-evergreen transition-colors">@be_chatty<span class="sr-only"> {{ t('(opens in a new tab)', '(otwiera się w nowej karcie)') }}</span></a>
+              <i class="fab fa-instagram text-sage-deep w-5 text-center" aria-hidden="true"></i>
+              <a href="https://www.instagram.com/be_chatty/" target="_blank" rel="noopener" class="hover:text-sage-deep transition-colors">@be_chatty<span class="sr-only"> {{ t('(opens in a new tab)', '(otwiera się w nowej karcie)') }}</span></a>
             </div>
             <div class="flex items-center gap-3 text-ink-soft text-sm">
-              <i class="fab fa-facebook text-evergreen w-5 text-center" aria-hidden="true"></i>
-              <a href="https://www.facebook.com/profile.php?id=61564479697405" target="_blank" rel="noopener" class="hover:text-evergreen transition-colors">Facebook<span class="sr-only"> {{ t('(opens in a new tab)', '(otwiera się w nowej karcie)') }}</span></a>
+              <i class="fab fa-facebook text-sage-deep w-5 text-center" aria-hidden="true"></i>
+              <a href="https://www.facebook.com/profile.php?id=61564479697405" target="_blank" rel="noopener" class="hover:text-sage-deep transition-colors">Facebook<span class="sr-only"> {{ t('(opens in a new tab)', '(otwiera się w nowej karcie)') }}</span></a>
             </div>
             <div class="flex items-center gap-3 text-ink-soft text-sm">
-              <i class="fas fa-building text-evergreen w-5 text-center" aria-hidden="true"></i>
+              <i class="fas fa-building text-sage-deep w-5 text-center" aria-hidden="true"></i>
               <span>NIP: <span class="font-medium">5512651594</span></span>
             </div>
           </div>
@@ -166,7 +166,7 @@ async function handleSubmit() {
     const data = await res.json()
     if (data.success) {
       note.text = msgs[lang].success
-      note.color = '#3E6253'
+      note.color = 'var(--sage-deep)'
       Object.assign(form, { name: '', email: '', phone: '', level: '', message: '' })
     } else {
       throw new Error(data.message)

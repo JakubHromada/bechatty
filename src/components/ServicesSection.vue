@@ -1,5 +1,5 @@
 <template>
-  <section id="services" class="py-24 bg-white">
+  <section id="services" class="py-24 bg-bg-alt">
     <div class="section-wrap">
 
       <!-- Header -->
@@ -139,7 +139,7 @@ function toggle(i) { activeIndex.value = activeIndex.value === i ? null : i }
 
 const services = [
   {
-    icon: 'fas fa-graduation-cap', accent: '#3E6253', tone: '#3E6253',
+    icon: 'fas fa-graduation-cap', accent: 'var(--sage-deep)', tone: 'var(--sage-deep)',
     prices: {
       en: [
         { label: '8th-grade exam',   rows: [ { format: 'Individual', price: '120 zł' }, { format: 'In pairs', price: '80 zł' } ] },
@@ -182,7 +182,7 @@ const services = [
     },
   },
   {
-    icon: 'fas fa-book-open', accent: '#3E6253', tone: '#3E6253',
+    icon: 'fas fa-book-open', accent: 'var(--sage-deep)', tone: 'var(--sage-deep)',
     prices: {
       en: [ { label: null, rows: [ { format: 'Individual', price: '120 zł' }, { format: 'In pairs', price: '80 zł' }, { format: 'Small group (3-4 people)', price: '65 zł' } ] } ],
       pl: [ { label: null, rows: [ { format: 'Indywidualnie', price: '120 zł' }, { format: 'W parach', price: '80 zł' }, { format: 'Kameralne grupy (3-4 osoby)', price: '65 zł' } ] } ],
@@ -217,7 +217,7 @@ const services = [
     },
   },
   {
-    icon: 'fas fa-comments', accent: '#C4785A', tone: '#97451F',
+    icon: 'fas fa-comments', accent: 'var(--terra)', tone: 'var(--terra-deep)',
     prices: {
       en: [ { label: null, rows: [ { format: 'Individual', price: '75 zł' }, { format: 'In pairs', price: '50 zł' } ] } ],
       pl: [ { label: null, rows: [ { format: 'Indywidualnie', price: '75 zł' }, { format: 'W parach', price: '50 zł' } ] } ],

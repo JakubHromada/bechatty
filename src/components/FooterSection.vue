@@ -83,7 +83,8 @@ const footerLinks = [
 }
 .footer-label {
   font-size: 0.72rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
-  color: color-mix(in oklch, var(--terra) 78%, var(--linen));
+  /* rust lifted toward linen so the small labels stay AA (~5:1) on walnut */
+  color: color-mix(in oklch, var(--terra) 62%, var(--linen));
 }
 .footer-mute  { color: color-mix(in oklch, var(--linen) 62%, var(--walnut)); }
 .footer-link  { color: color-mix(in oklch, var(--linen) 82%, var(--walnut)); transition: color .2s ease; }

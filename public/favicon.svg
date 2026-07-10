@@ -2,8 +2,8 @@
   <rect width="64" height="64" rx="16" fill="#8FA89C"/>
   <!-- back bubble (linen) -->
   <path d="M14 17h20a5 5 0 0 1 5 5v9a5 5 0 0 1-5 5H24l-6 5v-5h-4a5 5 0 0 1-5-5v-9a5 5 0 0 1 5-5z" fill="#F7F0E8"/>
-  <!-- front bubble (terracotta) with chat dots -->
-  <path d="M30 25h20a5 5 0 0 1 5 5v9a5 5 0 0 1-5 5h-6l-6 5v-5h-2a5 5 0 0 1-5-5v-9a5 5 0 0 1 5-5z" fill="#C4785A"/>
+  <!-- front bubble (rust orange) with chat dots -->
+  <path d="M30 25h20a5 5 0 0 1 5 5v9a5 5 0 0 1-5 5h-6l-6 5v-5h-2a5 5 0 0 1-5-5v-9a5 5 0 0 1 5-5z" fill="#C45028"/>
   <circle cx="38" cy="34.5" r="2.4" fill="#F7F0E8"/>
   <circle cx="45" cy="34.5" r="2.4" fill="#F7F0E8"/>
   <circle cx="52" cy="34.5" r="2.4" fill="#F7F0E8"/>

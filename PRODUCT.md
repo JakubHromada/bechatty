@@ -54,7 +54,7 @@ Secondary anti-references (lower-priority but still avoid): generic SaaS landing
 
 1. **Warm but professional.** The register is a serious teacher who happens to be welcoming, not a friendly hobbyist. If a treatment would feel at home in a children's classroom, on a coaching funnel, or in a whimsical Etsy storefront, rewrite it. Warmth serves credibility; it never undermines it.
 
-2. **A teacher platform, not a brand machine.** A clean modern typeface and a confident warm-professional palette — deep evergreen, terracotta, honey gold on warm off-white — signal a serious, qualified educator. Trust cues do the persuading (a professional photo in About, surfaced credentials, real reviews, clear booking), not decoration. See DESIGN.md for the full visual system.
+2. **A teacher platform, not a brand machine.** A clean modern typeface and the committed BeChatty brand palette — sage `#8FA89C`, linen `#F7F0E8`, rust orange `#C45028`, walnut `#4A3728`, used per the brand's colour rules (sage 40% everyday, linen 30% breathing room, rust 20% emotional peaks and CTAs, walnut 10% biggest moments; see `colour_rules.jpg`) — signal a serious, qualified educator. Trust cues do the persuading (a professional photo in About, surfaced credentials, real reviews, clear booking), not decoration.
 
 4. **One page, three jobs, no padding.** The page converts, reassures, and informs at once. Every section must earn its place against all three jobs; a section that exists "because landings usually have one" is wrong. If a section can't justify itself on at least two of {convert, reassure, inform}, cut it or merge it.
 

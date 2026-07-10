@@ -1,5 +1,5 @@
 <template>
-  <section id="lessons" class="py-24 bg-surface" aria-labelledby="lessons-heading">
+  <section id="lessons" class="py-24 bg-linen" aria-labelledby="lessons-heading">
     <div class="section-wrap lg:grid lg:grid-cols-[minmax(0,360px)_minmax(0,1fr)] lg:gap-x-16 xl:gap-x-24">
 
       <!-- Sticky intro rail (breaks the full-width-header pattern) -->

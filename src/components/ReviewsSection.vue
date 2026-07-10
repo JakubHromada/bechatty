@@ -1,5 +1,5 @@
 <template>
-  <section id="reviews" class="py-24 bg-surface">
+  <section id="reviews" class="py-24 reviews-band">
     <div class="section-wrap">
 
       <!-- Header: heading left, aggregate rating right -->
@@ -10,7 +10,7 @@
             {{ t('What Students Say', 'Co mówią uczniowie') }}
           </h2>
         </div>
-        <div class="flex items-center gap-3 rounded-2xl bg-sage-soft px-5 py-3.5 self-start">
+        <div class="rating-chip flex items-center gap-3 rounded-2xl px-5 py-3.5 self-start">
           <span class="font-extrabold text-3xl text-sage-deep leading-none">5.0</span>
           <span class="flex flex-col items-start">
             <span class="flex gap-0.5 text-terra text-sm" aria-hidden="true"><i v-for="n in 5" :key="'rs'+n" class="fas fa-star"></i></span>
@@ -142,11 +142,29 @@ const rest = computed(() => reviews.filter(r => !r.featured))
 </script>
 
 <style scoped>
+/* The sage drench — the brand's everyday colour owns this whole band
+   (colour rules: sage 40%), so the linen-white messages pop like a real
+   chat thread. Headings stay walnut: light text on sage fails contrast. */
+.reviews-band {
+  background:
+    radial-gradient(110% 90% at 92% -6%, color-mix(in oklch, #fff 20%, transparent), transparent 58%),
+    radial-gradient(90% 80% at 0% 104%, color-mix(in oklch, var(--walnut) 12%, transparent), transparent 55%),
+    var(--sage);
+}
+/* the recurring eyebrow voice flips dark on the sage ground (AA ~5.6:1) */
+.reviews-band .eyebrow { color: var(--walnut-deep); }
+.reviews-band .eyebrow::before {
+  background: linear-gradient(90deg, var(--walnut-deep), color-mix(in oklch, var(--walnut-deep) 0%, transparent));
+}
+
+/* Aggregate rating — a lifted warm-white chip so the 5.0 stays readable */
+.rating-chip { background: var(--surface); box-shadow: var(--shadow); }
+
 /* Pinned parent message — larger, lifted off the wall */
 .msg-avatar--lg { width: 3.25rem; height: 3.25rem; font-size: 1.15rem; }
 .msg--feature {
   padding: 1.6rem 1.75rem;
-  border-color: color-mix(in oklch, var(--sage) 40%, var(--line));
+  border-color: color-mix(in oklch, var(--walnut) 18%, var(--line));
   box-shadow: var(--shadow-hover);
 }
 .msg--feature:hover { transform: none; }   /* it's a statement, not a hover target */
