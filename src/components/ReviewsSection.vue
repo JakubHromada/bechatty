@@ -157,7 +157,7 @@ const rest = computed(() => reviews.filter(r => !r.featured))
   padding: clamp(1.75rem, 4vw, 2.75rem);
   color: var(--linen);
 }
-.feature-stars { color: var(--terra-soft); }
+.feature-stars { color: var(--sun); }   /* Tangy stars glow on the ink panel */
 .feature-tag {
   display: inline-flex; align-items: center;
   padding: 0.3rem 0.75rem;

@@ -1,6 +1,6 @@
 <template>
   <nav class="nav sticky top-0 z-50">
-    <div class="section-wrap flex items-center justify-between h-[68px]">
+    <div class="section-wrap flex items-center justify-between h-[var(--nav-h)]">
 
       <!-- Brand: the logo's rust chat bubble, redrawn crisp, + serif wordmark -->
       <a href="#home" class="flex items-center gap-2.5 group" aria-label="BeChatty, home">
@@ -113,7 +113,7 @@ onUnmounted(() => { spy?.disconnect() })
   font-optical-sizing: auto;
   font-weight: 640; letter-spacing: -0.02em;
 }
-.brand-word .italic { font-weight: 500; }
+.brand-word .italic { font-weight: 500; color: var(--terra-mid); }  /* pastel coral is too pale at wordmark size */
 
 /* the rust speech bubble from the logo mark (round: it's conversation) */
 .brand-mark {

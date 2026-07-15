@@ -9,18 +9,20 @@ export default defineConfig({
 
   theme: {
     colors: {
-      // ── BeChatty brand palette — sage / linen / rust / walnut (colour_rules.jpg) ──
+      // ── TRIAL PALETTE: "Blue & Orange Pastel" (schemecolor.com) ──
+      // Names keep their brand ROLE (sage = everyday, terra = warm peak,
+      // walnut = ink anchor); values are swapped for the trial.
       // Hex mirrors the CSS custom properties in style.css; keep the two in sync.
-      bg:      { DEFAULT: '#F7F0E8', alt: '#FCF8F1' },   // linen ground + warm-white band
-      surface: '#FFFCF6',                                // lifted warm-white cards / inputs
-      linen:   '#F7F0E8',
+      bg:      { DEFAULT: '#FAF4EA', alt: '#FDF9F2' },   // cream ground + warm-white band
+      surface: '#FFFDF8',                                // lifted warm-white boards / inputs
+      linen:   '#FAF4EA',
 
-      ink:     { DEFAULT: '#4A3728', soft: '#6B5544', mute: '#7A6757' }, // walnut text scale
-      sage:    { DEFAULT: '#8FA89C', deep: '#44615A', soft: '#E4E8E0' }, // everyday colour (deep = text-safe)
-      terra:   { DEFAULT: '#C45028', deep: '#9E3D1B', soft: '#F4DDD1' }, // rust orange — peaks / CTAs / ratings
-      walnut:  { DEFAULT: '#4A3728', deep: '#3B2C20' }, // the rare dark anchor (footer)
+      ink:     { DEFAULT: '#2C3D54', soft: '#52616F', mute: '#5F6C7B' }, // ink-navy text scale
+      sage:    { DEFAULT: '#779ECC', deep: '#3D6289', soft: '#E1EAF4' }, // Wedgwood Blue (deep = text-safe)
+      terra:   { DEFAULT: '#FF985A', mid: '#D96828', deep: '#A9531F', soft: '#FFE6D4' }, // Vibrant Coral family
+      walnut:  { DEFAULT: '#2C3D54', deep: '#1C2938' }, // the rare dark anchor (footer)
 
-      line:    { DEFAULT: '#E6DACA', soft: '#EFE6D8' }, // warm hairlines
+      line:    { DEFAULT: '#DCE1E8', soft: '#E8ECF1' }, // cool hairlines
     },
   },
 

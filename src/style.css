@@ -1,37 +1,44 @@
 /* ============================================================
    BeChatty — design system v2: "a conversation, printed"
-   One light theme. Two voices: Fraunces (display serif, echoing the
-   logo wordmark) asks and answers in big type; Albert Sans works.
+   One light theme. Two voices: Newsreader (editorial serif with a
+   written italic) asks and answers in big type; Albert Sans works.
    The shape rule: STRUCTURE IS SHARP, CONVERSATION IS ROUND.
    Buttons, boards, inputs, photos = 3px corners, walnut rules,
    solid offset blocks instead of soft shadows (letterpress feel).
    Chat bubbles and avatars = fully rounded. Nothing else curves.
-   Brand palette — the BeChatty colour system (see colour_rules.jpg):
-     Sage   #8FA89C  — everyday colour: washes, offsets, the reviews band (40%)
-     Linen  #F7F0E8  — breathing room: page ground, light bands (30%)
-     Rust   #C45028  — emotional peaks: CTAs, prices, question marks (20%)
-     Walnut #4A3728  — biggest moments: ink, rules, the footer anchor (10%)
+   TRIAL PALETTE: "Blue & Orange Pastel" (schemecolor.com)
+     Wedgwood Blue #779ECC · Pale Blue #9FC0DE · Waffle #F2C894
+     Tangy #FFB347 · Vibrant Coral #FF985A
+   Var names keep their ROLE meaning from the brand system
+   (--sage = everyday colour, --terra = warm peak, --walnut = ink and
+   dark anchor, --linen = ground); only the values are swapped, so
+   reverting is a token change. Pastel oranges are too light for
+   white labels, so CTAs run dark ink text on coral, and each accent
+   carries a derived text-safe deep shade, same discipline as before.
    ============================================================ */
 :root {
-  /* ── Brand source colours ──────────────────────────── */
-  --linen:          #F7F0E8;   /* brand linen: page ground, breathing room            */
-  --sage:           #8FA89C;   /* brand sage: everyday colour, offsets, bands         */
-  --sage-deep:      #44615A;   /* sage taken dark enough for AA text (~6:1 on linen)  */
-  --terra:          #C45028;   /* brand rust orange: peaks, CTAs (white label ~4.6:1) */
-  --terra-deep:     #9E3D1B;   /* deep rust: small accent text (~5.9:1 on linen)      */
+  /* ── Scheme source colours ─────────────────────────── */
+  --linen:          #FAF4EA;   /* cream paper ground, tuned to the pastels            */
+  --sage:           #779ECC;   /* Wedgwood Blue: everyday colour, offsets, bands      */
+  --sage-deep:      #3D6289;   /* blue taken dark enough for AA text (~5.8:1)         */
+  --terra:          #FF985A;   /* Vibrant Coral: fills, CTA (ink label ~5.4:1)        */
+  --terra-mid:      #D96828;   /* coral for display-size accents (~3.2:1, large only) */
+  --terra-deep:     #A9531F;   /* deep coral: small accent text (~4.9:1)              */
+  --sun:            #FFB347;   /* Tangy: stars and warm sparks on the dark anchor     */
+  --sand:           #F2C894;   /* Waffle: warm wash for featured moments              */
   --cta:            var(--terra);
-  --cta-deep:       color-mix(in oklch, var(--cta) 80%, #000);
-  --walnut:         #4A3728;   /* brand walnut: ink, rules, the dark anchor           */
+  --cta-hover:      #F5854A;   /* pressed coral, still AA with the ink label          */
+  --walnut:         #2C3D54;   /* ink navy: text, rules, the dark anchor (~10:1)      */
 
   /* ── Surfaces & ground ─────────────────────────────── */
   --bg:             var(--linen);
-  --bg-alt:         #FCF8F1;   /* warm-white breathing band                           */
-  --surface:        #FFFCF6;   /* boards / inputs: lifted warm white                  */
+  --bg-alt:         #FDF9F2;   /* warm-white breathing band                           */
+  --surface:        #FFFDF8;   /* boards / inputs: lifted warm white                  */
 
   /* ── Ink ──────────────────────────────────────────── */
   --ink:            var(--walnut);
-  --ink-soft:       #6B5544;   /* secondary copy (~6.2:1 on linen)                    */
-  --ink-mute:       #7A6757;   /* captions / meta, kept >=4.5:1 (~4.8:1)              */
+  --ink-soft:       #52616F;   /* secondary copy (~5.8:1 on the ground)               */
+  --ink-mute:       #5F6C7B;   /* captions / meta, kept >=4.5:1 (~4.8:1)              */
 
   /* ── Derived tints (perceptual via oklch) ─────────── */
   --sage-soft:      color-mix(in oklch, var(--sage) 24%, var(--surface));
@@ -39,8 +46,8 @@
   --terra-soft:     color-mix(in oklch, var(--terra) 16%, var(--surface));
   --walnut-deep:    color-mix(in oklch, var(--walnut) 86%, #000);
 
-  --line:           #E6DACA;   /* warm hairline (inside boards)                       */
-  --line-soft:      #EFE6D8;
+  --line:           #DCE1E8;   /* cool hairline (inside boards)                       */
+  --line-soft:      #E8ECF1;
   --rule:           color-mix(in oklch, var(--walnut) 30%, transparent); /* structural rules */
   --border-mid:     color-mix(in oklch, var(--walnut) 42%, var(--linen)); /* bubble & input edges */
 
@@ -50,7 +57,7 @@
 
   /* ── Type ─────────────────────────────────────────── */
   --font-body:      'Albert Sans', 'Segoe UI', system-ui, sans-serif;
-  --font-display:   'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-display:   'Newsreader', Georgia, 'Times New Roman', serif;
 
   /* ── Motion ───────────────────────────────────────── */
   --ease-quint:     cubic-bezier(0.22, 1, 0.36, 1);
@@ -59,6 +66,7 @@
   /* ── Fluid rhythm ─────────────────────────────────── */
   --section-y:      clamp(4.5rem, 9vw, 8rem);
   --gutter:         clamp(1.25rem, 4vw, 2.5rem);
+  --nav-h:          68px;      /* sticky nav height; the hero fills the rest of the viewport */
 }
 
 /* ── Reset ─────────────────────────────────────────── */
@@ -90,8 +98,10 @@ body::after {
   mix-blend-mode: soft-light;
 }
 
-/* Sticky-nav-aware anchor offset so headings are not hidden on jump */
-section[id] { scroll-margin-top: 5.5rem; }
+/* Sticky-nav-aware anchor offset. Must equal the nav's full visual height
+   (height + 2px bottom border) exactly: any larger and an anchor jump leaves
+   a sliver of the previous section's colour band showing under the nav. */
+section[id] { scroll-margin-top: calc(var(--nav-h) + 2px); }
 
 /* Ruled seams: colour bands meet on a firm walnut rule — the page reads
    as one composed print sheet, not stacked web sections. */
@@ -103,16 +113,14 @@ section[id] { scroll-margin-top: 5.5rem; }
 h1, h2 {
   font-family: var(--font-display);
   font-optical-sizing: auto;
-  font-variation-settings: 'SOFT' 4, 'WONK' 0;
-  font-weight: 580;
-  text-wrap: balance; letter-spacing: -0.018em; line-height: 1.08;
+  font-weight: 560;
+  text-wrap: balance; letter-spacing: -0.014em; line-height: 1.08;
 }
 h3 {
   font-family: var(--font-display);
   font-optical-sizing: auto;
-  font-variation-settings: 'SOFT' 4, 'WONK' 0;
   font-weight: 600;
-  text-wrap: balance; letter-spacing: -0.008em;
+  text-wrap: balance; letter-spacing: -0.006em;
 }
 p { text-wrap: pretty; }
 
@@ -130,7 +138,7 @@ p { text-wrap: pretty; }
 
 /* ── The question header: the visitor asks, the section answers ──
    A walnut rule runs from the left margin to the question, which sits
-   right-set in italic Fraunces like a sent message. The question mark
+   right-set in italic Newsreader like a sent message. The question mark
    is a rust peak. Collapses to plain left-set type on small screens. */
 .q-head {
   display: flex; align-items: center; gap: clamp(1.25rem, 3vw, 2.25rem);
@@ -143,7 +151,7 @@ p { text-wrap: pretty; }
   line-height: 1.18; padding-bottom: 0.08em;   /* italic descender reserve */
   letter-spacing: -0.02em;
 }
-.q-head .q { color: var(--terra); }
+.q-head .q { color: var(--terra-mid); }   /* mid coral: >=3:1 at display size */
 @media (max-width: 767.9px) {
   .q-head::before { display: none; }
   .q-head h2 { text-align: left; }
@@ -184,11 +192,12 @@ p { text-wrap: pretty; }
               background .2s ease, color .2s ease;
 }
 .btn-primary {
-  color: #fff;
+  /* pastel coral is too light for a white label: ink text instead (~5.4:1) */
+  color: var(--ink);
   background: var(--cta);
   box-shadow: 4px 4px 0 0 var(--walnut);
 }
-.btn-primary:hover  { transform: translate(2px, 2px); box-shadow: 2px 2px 0 0 var(--walnut); background: var(--cta-deep); }
+.btn-primary:hover  { transform: translate(2px, 2px); box-shadow: 2px 2px 0 0 var(--walnut); background: var(--cta-hover); }
 .btn-primary:active { transform: translate(4px, 4px); box-shadow: 0 0 0 0 var(--walnut); }
 
 .btn-outline {

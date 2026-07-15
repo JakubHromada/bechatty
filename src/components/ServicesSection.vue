@@ -202,7 +202,7 @@ const facts = [
   border-radius: var(--radius);
 }
 .board-col { display: flex; flex-direction: column; padding: 2rem; }
-.board-col--featured { background: color-mix(in oklch, var(--sage) 9%, var(--surface)); }
+.board-col--featured { background: color-mix(in oklch, var(--sand) 42%, var(--surface)); }  /* Waffle wash marks the specialty */
 
 @media (min-width: 1024px) {
   .board { display: grid; grid-template-columns: 1.12fr 1fr 1fr; }

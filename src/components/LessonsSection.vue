@@ -91,9 +91,8 @@ const steps = [
 .step-num {
   font-size: clamp(2.6rem, 5vw, 3.8rem); line-height: 0.9;
   font-weight: 560; color: var(--sage-deep);
-  font-variation-settings: 'SOFT' 6;
   min-width: 1.2ch;
 }
-.step--peak .step-num { color: var(--terra); }
+.step--peak .step-num { color: var(--terra-mid); }
 .step-body { padding-top: 0.3rem; }
 </style>
