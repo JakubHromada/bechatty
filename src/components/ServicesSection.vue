@@ -3,25 +3,21 @@
     <div class="section-wrap">
 
       <div class="q-head" v-reveal>
-        <h2 class="text-ink">{{ t('What do lessons cost', 'Ile kosztują lekcje') }}<span class="q">?</span></h2>
+        <h2 class="text-ink">{{ t('Types of classes', 'Rodzaje zajęć') }}</h2>
       </div>
 
-      <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between mt-6" v-reveal>
-        <p class="text-ink-soft leading-relaxed max-w-[52ch]">{{ t('Classes for teenagers and adults. Prices are per lesson, in zł. Clear and upfront, nothing to dig for.', 'Zajęcia dla młodzieży i dorosłych. Ceny za lekcję, w zł. Jasno i wprost, nic nie trzeba wyszukiwać.') }}</p>
-        <div class="flex flex-wrap gap-2 shrink-0">
-          <span v-for="f in facts" :key="f.en" class="stamp"><i :class="f.icon" class="text-[0.7rem]" aria-hidden="true"></i>{{ t(f.en, f.pl) }}</span>
-        </div>
+      <div class="flex flex-wrap gap-2 mt-6" v-reveal>
+        <span v-for="f in facts" :key="f.en" class="stamp"><i :class="f.icon" class="text-[0.7rem]" aria-hidden="true"></i>{{ t(f.en, f.pl) }}</span>
       </div>
 
       <!-- One honest price board: three services, ruled apart, prices in ink -->
       <div class="board mt-12" v-reveal>
         <article
           v-for="(svc, k) in services" :key="k"
-          class="board-col" :class="{ 'board-col--featured': k === 0 }"
+          class="board-col" :class="{ 'board-col--featured': svc.featured }"
         >
           <div class="flex items-center gap-3 flex-wrap">
             <h3 class="text-[1.5rem] text-ink leading-tight">{{ t(svc.en.title, svc.pl.title) }}</h3>
-            <span v-if="k === 0" class="stamp stamp--terra">{{ t('My specialty', 'Moja specjalność') }}</span>
           </div>
           <p class="text-ink-soft text-sm leading-relaxed mt-3">{{ t(svc.en.summary, svc.pl.summary) }}</p>
 
@@ -43,17 +39,31 @@
             {{ t(svc.en.note, svc.pl.note) }}
           </p>
 
-          <!-- prices: menu rows under a firm rule, bottom-anchored across the board -->
-          <div class="price-block">
-            <p class="price-caption">{{ t('Price per lesson', 'Cena za lekcję') }}</p>
-            <template v-for="(group, gi) in svc.prices.pl" :key="gi">
-              <p v-if="group.label" class="price-group">{{ t(svc.prices.en[gi].label, group.label) }}</p>
-              <div v-for="(row, ri) in group.rows" :key="ri" class="price-row">
-                <span class="fmt">{{ t(svc.prices.en[gi].rows[ri].format, row.format) }}</span>
-                <span class="leader" aria-hidden="true"></span>
-                <span class="amt num">{{ t(svc.prices.en[gi].rows[ri].price, row.price) }}</span>
-              </div>
-            </template>
+          <!-- price: revealed on demand, bottom-anchored across the board.
+               #pricing (first card only) is where "Cennik" in the nav jumps to,
+               so the toggle is reachable without extra scrolling. -->
+          <div class="price-block" :id="k === 0 ? 'pricing' : undefined">
+            <button
+              class="card-toggle-btn self-start"
+              @click="pricesOpen[k] = !pricesOpen[k]"
+              :aria-expanded="pricesOpen[k] ? 'true' : 'false'"
+            >
+              <span>{{ pricesOpen[k] ? t('Hide price', 'Ukryj cenę') : t('See the price', 'Zobacz cenę') }}</span>
+              <i class="fas fa-chevron-down transition-transform duration-300" :style="{ transform: pricesOpen[k] ? 'rotate(180deg)' : 'rotate(0deg)' }" aria-hidden="true"></i>
+            </button>
+
+            <div v-show="pricesOpen[k]" class="mt-4">
+              <p class="price-caption">{{ t('Price per lesson', 'Cena za lekcję') }}</p>
+              <template v-for="(group, gi) in svc.prices.pl" :key="gi">
+                <p v-if="group.label" class="price-group">{{ t(svc.prices.en[gi].label, group.label) }}</p>
+                <div v-for="(row, ri) in group.rows" :key="ri" class="price-row">
+                  <span class="fmt">{{ t(svc.prices.en[gi].rows[ri].format, row.format) }}</span>
+                  <span class="leader" aria-hidden="true"></span>
+                  <span class="amt num">{{ t(svc.prices.en[gi].rows[ri].price, row.price) }}</span>
+                </div>
+              </template>
+            </div>
+
             <a href="#contact" class="btn-primary btn-sm mt-6 self-start">
               {{ t('Book a trial lesson', 'Umów lekcję próbną') }}
               <i class="fas fa-arrow-right text-[0.8em]" aria-hidden="true"></i>
@@ -67,89 +77,15 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import { useLanguage } from '../composables/useLanguage'
 
 const { t } = useLanguage()
 
+// Prices stay collapsed until someone asks to see them
+const pricesOpen = ref([false, false, false])
+
 const services = [
-  {
-    tone: 'var(--terra-deep)',
-    prices: {
-      en: [
-        { label: '8th-grade exam',   rows: [ { format: 'Individual', price: '120 zł' }, { format: 'In pairs', price: '80 zł' } ] },
-        { label: 'Matura',           rows: [ { format: 'Individual', price: '130 zł' }, { format: 'In pairs', price: '90 zł' } ] },
-        { label: 'B2, C1, C2 Exams', rows: [ { format: 'Individual', price: '140-160 zł' }, { format: 'In pairs', price: '90-110 zł' } ] },
-      ],
-      pl: [
-        { label: 'Egzamin ósmoklasisty', rows: [ { format: 'Indywidualnie', price: '120 zł' }, { format: 'W parach', price: '80 zł' } ] },
-        { label: 'Matura',               rows: [ { format: 'Indywidualnie', price: '130 zł' }, { format: 'W parach', price: '90 zł' } ] },
-        { label: 'Egzaminy B2, C1, C2',  rows: [ { format: 'Indywidualnie', price: '140-160 zł' }, { format: 'W parach', price: '90-110 zł' } ] },
-      ],
-    },
-    en: {
-      title: 'Exam English',
-      summary: 'Thorough preparation for the 8th-grade exam, Matura (basic & extended), and Cambridge exams (B2 First, C1 Advanced, C2 Proficiency), following a proven, structured approach.',
-      points: [
-        'Level diagnosis and gap identification',
-        'Systematic coverage of all exam material (listening, reading, grammar, writing & speaking)',
-        'Step-by-step exam task practice',
-        'Detailed error analysis and exam strategy implementation',
-        'Practice with past exam papers',
-        'Practical tips and proven exam frameworks',
-      ],
-      levels: null, format: 'Individual or in pairs', duration: '55 minutes',
-      note: 'I recommend starting preparation 2 years before the exam, or earlier if there are significant gaps. My students preparing for exams pass them, averaging scores above 90%, the result of a well-planned process and consistent work.',
-    },
-    pl: {
-      title: 'Angielski na egzaminie',
-      summary: 'Rzetelne przygotowanie do egzaminu ósmoklasisty, matury podstawowej i rozszerzonej oraz egzaminów (B2 First, C1 Advanced, C2 Proficiency) według sprawdzonego, uporządkowanego schematu.',
-      points: [
-        'Diagnoza poziomu i identyfikacja braków',
-        'Systematyczne opracowanie całego materiału egzaminacyjnego (słuchanie, czytanie, gramatyka, pisanie i mówienie)',
-        'Rozwiązywanie zadań egzaminacyjnych krok po kroku',
-        'Szczegółowa analiza błędów oraz wdrażanie strategii egzaminacyjnych',
-        'Praca na arkuszach z lat ubiegłych',
-        'Praktyczne wskazówki i sprawdzone schematy egzaminacyjne',
-      ],
-      levels: null, format: 'Indywidualnie lub w parach', duration: '55 minut',
-      note: 'Polecam rozpocząć przygotowanie 2 lata przed egzaminem, a w przypadku większych zaległości, odpowiednio wcześniej. Moi uczniowie przygotowujący się do egzaminów zdają je, uzyskując wyniki średnio powyżej 90%, to efekt dobrze zaplanowanego procesu i konsekwentnej pracy.',
-    },
-  },
-  {
-    tone: 'var(--sage-deep)',
-    prices: {
-      en: [ { label: null, rows: [ { format: 'Individual', price: '120 zł' }, { format: 'In pairs', price: '80 zł' }, { format: 'Small group (3-4 people)', price: '65 zł' } ] } ],
-      pl: [ { label: null, rows: [ { format: 'Indywidualnie', price: '120 zł' }, { format: 'W parach', price: '80 zł' }, { format: 'Kameralne grupy (3-4 osoby)', price: '65 zł' } ] } ],
-    },
-    en: {
-      title: 'Comprehensive English',
-      summary: 'Complete English language learning for teenagers and adults, covering all key areas of the language.',
-      points: [
-        'Review of previous material and a short warm-up',
-        'Vocabulary in context (collocations, phrasal verbs, practical everyday expressions)',
-        'Listening and/or reading combined with conversation',
-        'Grammar woven naturally into the topic and level',
-        'Intensive speaking practice (minimum 50% of the lesson)',
-        'Work with authentic, everyday language',
-        'Creative homework and consolidation materials',
-      ],
-      levels: 'A0-C1', format: 'Individual, in pairs, or small groups (3-4 people)', duration: '55 minutes', note: null,
-    },
-    pl: {
-      title: 'Angielski kompleksowo',
-      summary: 'Kompleksowa nauka języka angielskiego dla młodzieży i dorosłych, obejmująca wszystkie kluczowe elementy języka.',
-      points: [
-        'Powtórka materiału z poprzednich zajęć oraz krótka rozgrzewka językowa (warm up)',
-        'Wprowadzenie słownictwa w kontekście (kolokacje, czasowniki frazowe, praktyczne, codzienne wyrażenia)',
-        'Rozumienie ze słuchu i/lub czytanie połączone z rozmową',
-        'Niewidzialny element gramatyczny dopasowany do tematu i poziomu',
-        'Intensywna praktyka mówienia (minimum 50% zajęć)',
-        'Praca z autentycznym, codziennym językiem',
-        'Kreatywne zadanie domowe oraz materiały utrwalające',
-      ],
-      levels: 'A0-C1', format: 'Indywidualnie, w parach lub w kameralnych grupach (3-4 osoby)', duration: '55 minut', note: null,
-    },
-  },
   {
     tone: 'var(--sage-deep)',
     prices: {
@@ -168,7 +104,7 @@ const services = [
         'Concrete skills ready for immediate use',
       ],
       levels: 'A2/B1 and above', format: 'Individual or in pairs', duration: '30 minutes',
-      note: 'For students who already have the basics and want to break the language barrier, or simply want to start speaking freely.',
+      note: 'For people who already have solid foundations but want to break the language barrier, or simply want to start speaking freely.',
     },
     pl: {
       title: 'Angielski w praktyce',
@@ -182,7 +118,92 @@ const services = [
         'Konkretne umiejętności gotowe do natychmiastowego użycia',
       ],
       levels: 'od A2/B1', format: 'Indywidualnie lub w parach', duration: '30 minut',
-      note: 'Dla osób, które posiadają podstawy i chcą przełamać barierę językową lub po prostu chcą się rozgadać.',
+      note: 'Dla osób, które posiadają już solidne podstawy ale chcą przełamać barierę językową lub po prostu chcą się rozgadać.',
+    },
+  },
+  {
+    // Centre slot: the one we most want people to book, so it gets the
+    // wider column and the warm background wash (see .board-col--featured).
+    featured: true,
+    tone: 'var(--terra-deep)',
+    prices: {
+      en: [ { label: null, rows: [ { format: 'Individual', price: '120 zł' }, { format: 'In pairs', price: '80 zł' }, { format: 'Small group', price: '65 zł' } ] } ],
+      pl: [ { label: null, rows: [ { format: 'Indywidualnie', price: '120 zł' }, { format: 'W parach', price: '80 zł' }, { format: 'Kameralne grupy', price: '65 zł' } ] } ],
+    },
+    en: {
+      title: 'Comprehensive English',
+      summary: 'Complete English language learning, covering all key areas of the language.',
+      points: [
+        'Review of previous material and a short warm-up',
+        'Vocabulary in context (collocations, phrasal verbs, practical everyday expressions)',
+        'Listening and/or reading combined with conversation',
+        'Grammar woven naturally into the topic and level',
+        'Intensive speaking practice (minimum 50% of the lesson)',
+        'Work with authentic, everyday language',
+        'Creative homework and consolidation materials',
+      ],
+      levels: 'A0-C1', format: 'Individual, in pairs, or small groups', duration: '55 minutes',
+      note: 'For anyone, at any level, who wants to systematically build every language skill — from solid foundations to speaking freely about advanced topics.',
+    },
+    pl: {
+      title: 'Angielski kompleksowo',
+      summary: 'Kompleksowa nauka języka angielskiego, obejmująca wszystkie kluczowe elementy języka.',
+      points: [
+        'Powtórka materiału z poprzednich zajęć oraz krótka rozgrzewka językowa (warm up)',
+        'Wprowadzenie słownictwa w kontekście (kolokacje, czasowniki frazowe, praktyczne, codzienne wyrażenia)',
+        'Rozumienie ze słuchu i/lub czytanie połączone z rozmową',
+        'Niewidzialny element gramatyczny dopasowany do tematu i poziomu',
+        'Intensywna praktyka mówienia (minimum 50% zajęć)',
+        'Praca z autentycznym, codziennym językiem',
+        'Kreatywne zadanie domowe oraz materiały utrwalające',
+      ],
+      levels: 'A0-C1', format: 'Indywidualnie, w parach lub w kameralnych grupach', duration: '55 minut',
+      note: 'Dla osób, na każdym poziomie, które chcą systematycznie rozwijać wszystkie umiejętności językowe – od zbudowania solidnych fundamentów po swobodne mówienie na zaawansowane tematy.',
+    },
+  },
+  {
+    tone: 'var(--sage-deep)',
+    prices: {
+      en: [
+        { label: '8th-grade exam',              rows: [ { format: 'Individual', price: '110 zł' }, { format: 'In pairs', price: '75 zł' } ] },
+        { label: 'Matura (basic & extended)',    rows: [ { format: 'Individual', price: '120 zł' }, { format: 'In pairs', price: '80 zł' } ] },
+        { label: 'B2 First Exam',                rows: [ { format: 'Individual', price: '140 zł' }, { format: 'In pairs', price: '90 zł' } ] },
+        { label: 'C1 Advanced Exam',             rows: [ { format: 'Individual', price: '150 zł' }, { format: 'In pairs', price: '100 zł' } ] },
+      ],
+      pl: [
+        { label: 'Egzamin ósmoklasisty',              rows: [ { format: 'Indywidualnie', price: '110 zł' }, { format: 'W parach', price: '75 zł' } ] },
+        { label: 'Matura (podstawowa i rozszerzona)', rows: [ { format: 'Indywidualnie', price: '120 zł' }, { format: 'W parach', price: '80 zł' } ] },
+        { label: 'Egzamin B2 First',                  rows: [ { format: 'Indywidualnie', price: '140 zł' }, { format: 'W parach', price: '90 zł' } ] },
+        { label: 'Egzamin C1 Advanced',                rows: [ { format: 'Indywidualnie', price: '150 zł' }, { format: 'W parach', price: '100 zł' } ] },
+      ],
+    },
+    en: {
+      title: 'Exam English',
+      summary: 'Thorough preparation for the 8th-grade exam, Matura (basic & extended), and Cambridge exams (B2 First, C1 Advanced), following a proven, structured approach.',
+      points: [
+        'Level diagnosis and gap identification',
+        'Systematic coverage of all exam material (listening, reading, grammar, writing & speaking)',
+        'Step-by-step exam task practice',
+        'Detailed error analysis and exam strategy implementation',
+        'Practice with past exam papers',
+        'Practical tips and proven exam frameworks',
+      ],
+      levels: null, format: 'Individual or in pairs', duration: '55 minutes',
+      note: 'I recommend starting preparation around 2 years before the exam. Thanks to a well-planned process and consistent work, my students achieve average scores above 90%.',
+    },
+    pl: {
+      title: 'Angielski na egzaminie',
+      summary: 'Rzetelne przygotowanie do egzaminu ósmoklasisty, matury podstawowej i rozszerzonej oraz egzaminów (B2 First, C1 Advanced) według sprawdzonego, uporządkowanego schematu.',
+      points: [
+        'Diagnoza poziomu i identyfikacja braków',
+        'Systematyczne opracowanie całego materiału egzaminacyjnego (słuchanie, czytanie, gramatyka, pisanie i mówienie)',
+        'Rozwiązywanie zadań egzaminacyjnych krok po kroku',
+        'Szczegółowa analiza błędów oraz wdrażanie strategii egzaminacyjnych',
+        'Praca na arkuszach z lat ubiegłych',
+        'Praktyczne wskazówki i sprawdzone schematy egzaminacyjne',
+      ],
+      levels: null, format: 'Indywidualnie lub w parach', duration: '55 minut',
+      note: 'Polecam rozpocząć przygotowania około 2 lata przed egzaminem. Dzięki dobrze zaplanowanemu procesowi i konsekwentnej pracy moi uczniowie osiągają średnie wyniki powyżej 90%.',
     },
   },
 ]
@@ -200,12 +221,13 @@ const facts = [
   background: var(--surface);
   border: 1.5px solid var(--walnut);
   border-radius: var(--radius);
+  overflow: hidden;
 }
 .board-col { display: flex; flex-direction: column; padding: 2rem; }
-.board-col--featured { background: color-mix(in oklch, var(--sand) 42%, var(--surface)); }  /* Waffle wash marks the specialty */
+.board-col--featured { background: color-mix(in oklch, var(--sand) 42%, var(--surface)); }  /* Waffle wash marks the recommended pick */
 
 @media (min-width: 1024px) {
-  .board { display: grid; grid-template-columns: 1.12fr 1fr 1fr; }
+  .board { display: grid; grid-template-columns: 1fr 1.12fr 1fr; }
   .board-col { padding: 2.25rem 2rem; }
   .board-col + .board-col { border-left: 1px solid var(--line); }
 }
@@ -226,6 +248,7 @@ const facts = [
   margin-top: 1.75rem;
   padding-top: 1.4rem;
   border-top: 1.5px solid var(--walnut);
+  scroll-margin-top: calc(var(--nav-h) + 16px);
 }
 @media (min-width: 1024px) { .price-block { margin-top: auto; } }
 .price-caption {

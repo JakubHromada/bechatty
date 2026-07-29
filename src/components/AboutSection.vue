@@ -4,7 +4,7 @@
 
       <!-- The visitor asks; the section answers -->
       <div class="q-head" v-reveal>
-        <h2 class="text-ink">{{ t('Who is Ola', 'Kim jest Ola') }}<span class="q">?</span></h2>
+        <h2 class="text-ink">{{ t('About me', 'O mnie') }}</h2>
       </div>
 
       <!-- Credentials, stamped like certificate seals -->

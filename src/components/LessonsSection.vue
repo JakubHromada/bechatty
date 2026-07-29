@@ -7,7 +7,7 @@
       </div>
 
       <p class="mt-6 text-ink-soft leading-relaxed max-w-[46ch] md:ml-auto md:text-right" v-reveal>
-        {{ t('A clear path from first hello to real, visible progress. Every step planned, nothing left to chance.', 'Jasna droga od pierwszego „cześć” do realnych, widocznych postępów. Każdy etap przemyślany, nic na przypadek.') }}
+        {{ t('A clear path from the first meeting to visible progress. Every step is thought through, planned, and tailored to the student\'s needs.', 'Jasna droga od pierwszego spotkania do widocznych postępów. Każdy etap jest przemyślany, zaplanowany i dopasowany do potrzeb ucznia.') }}
       </p>
 
       <!-- Five steps, laid out as an actual staircase -->

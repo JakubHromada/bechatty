@@ -3,13 +3,8 @@
     <div class="section-wrap flex items-center justify-between h-[var(--nav-h)]">
 
       <!-- Brand: the logo's rust chat bubble, redrawn crisp, + serif wordmark -->
-      <a href="#home" class="flex items-center gap-2.5 group" aria-label="BeChatty, home">
-        <span class="brand-mark shrink-0 transition-transform duration-500 group-hover:rotate-[-6deg]" aria-hidden="true">
-          <span class="chat-dots"><i></i><i></i><i></i></span>
-        </span>
-        <span class="brand-word text-[1.5rem] leading-none">
-          <span class="italic text-terra">Be</span><span class="text-walnut">Chatty</span>
-        </span>
+      <a href="#home" class="flex items-center group" aria-label="BeChatty, home">
+        <img src="/logo-summer.png" alt="BeChatty" class="brand-logo transition-transform duration-500 group-hover:rotate-[-2deg]" />
       </a>
 
       <!-- Desktop links -->
@@ -17,9 +12,10 @@
         <li v-for="link in navLinks" :key="link.href">
           <a
             :href="link.href"
-            class="nav-link text-sm"
-            :class="{ 'nav-link--active': activeId === link.href.slice(1) }"
-            :aria-current="activeId === link.href.slice(1) ? 'true' : undefined"
+            @click="onNavClick(link)"
+            class="nav-link text-base"
+            :class="{ 'nav-link--active': activeId === link.spyId }"
+            :aria-current="activeId === link.spyId ? 'true' : undefined"
           >{{ t(link.en, link.pl) }}</a>
         </li>
       </ul>
@@ -55,13 +51,13 @@
           <a
             v-for="link in navLinks" :key="link.href"
             :href="link.href"
-            @click="menuOpen = false"
-            class="mobile-link flex items-center justify-between py-3 px-1 font-semibold text-sm"
-            :class="activeId === link.href.slice(1) ? 'text-terra-deep' : 'text-ink'"
-            :aria-current="activeId === link.href.slice(1) ? 'true' : undefined"
+            @click="onNavClick(link); menuOpen = false"
+            class="mobile-link flex items-center justify-between py-3 px-1 font-semibold text-base"
+            :class="activeId === link.spyId ? 'text-terra-deep' : 'text-ink'"
+            :aria-current="activeId === link.spyId ? 'true' : undefined"
           >
             {{ t(link.en, link.pl) }}
-            <i class="fas fa-arrow-right text-xs" :class="activeId === link.href.slice(1) ? 'text-terra-deep' : 'text-ink-mute'" aria-hidden="true"></i>
+            <i class="fas fa-arrow-right text-xs" :class="activeId === link.spyId ? 'text-terra-deep' : 'text-ink-mute'" aria-hidden="true"></i>
           </a>
         </div>
         <a href="#contact" @click="menuOpen = false" class="btn-primary btn-sm w-full mt-4">
@@ -81,18 +77,31 @@ const menuOpen = ref(false)
 const activeId = ref('home')
 
 const navLinks = [
-  { href: '#about',    en: 'About',        pl: 'O mnie'        },
-  { href: '#lessons',  en: 'How it works', pl: 'Jak to działa' },
-  { href: '#services', en: 'Pricing',      pl: 'Cennik'        },
-  { href: '#reviews',  en: 'Reviews',      pl: 'Opinie'        },
-  { href: '#contact',  en: 'Contact',      pl: 'Kontakt'       },
+  { href: '#about',    spyId: 'about',    en: 'About',        pl: 'O mnie'        },
+  { href: '#lessons',  spyId: 'lessons',  en: 'Offer',        pl: 'Oferta'        },
+  { href: '#pricing',  spyId: 'services', en: 'Pricing',      pl: 'Cennik'        },
+  { href: '#reviews',  spyId: 'reviews',  en: 'Reviews',      pl: 'Opinie'        },
+  { href: '#contact',  spyId: 'contact',  en: 'Contact',      pl: 'Kontakt'       },
 ]
+
+// Clicking a link (e.g. "Cennik", which jumps to #pricing near the tail
+// end of the services section) can land past the mid-viewport band the
+// scroll-spy watches, handing the highlight to the next section instead.
+// Set the active link immediately and hold it until the jump's smooth
+// scroll settles, then let the spy take back over.
+let spySuppressedUntil = 0
+function onNavClick(link) {
+  activeId.value = link.spyId
+  spySuppressedUntil = Date.now() + 1000
+}
 
 let spy = null
 onMounted(() => {
   const ids = ['home', 'about', 'lessons', 'services', 'reviews', 'contact']
   spy = new IntersectionObserver(
-    entries => entries.forEach(e => { if (e.isIntersecting) activeId.value = e.target.id }),
+    entries => entries.forEach(e => {
+      if (e.isIntersecting && Date.now() >= spySuppressedUntil) activeId.value = e.target.id
+    }),
     { rootMargin: '-45% 0px -50% 0px', threshold: 0 }
   )
   ids.forEach(id => { const el = document.getElementById(id); if (el) spy.observe(el) })
@@ -107,23 +116,9 @@ onUnmounted(() => { spy?.disconnect() })
   border-bottom: 2px solid var(--rule);
 }
 
-/* The wordmark speaks in the logo's serif voice */
-.brand-word {
-  font-family: var(--font-display);
-  font-optical-sizing: auto;
-  font-weight: 640; letter-spacing: -0.02em;
-}
-.brand-word .italic { font-weight: 500; color: var(--terra-mid); }  /* pastel coral is too pale at wordmark size */
-
-/* the rust speech bubble from the logo mark (round: it's conversation) */
-.brand-mark {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 36px; height: 32px;
-  border-radius: 11px 11px 11px 3px;
-  background: var(--terra);
-  color: var(--linen);
-}
-.brand-mark .chat-dots { font-size: 0.72rem; }
+/* The logo asset: cropped to its content box, its own cream ground
+   matches --linen closely enough to sit flush on the nav. */
+.brand-logo { height: 64px; width: auto; display: block; }
 
 .mobile-menu { background: var(--linen); border-top: 1.5px solid var(--rule); }
 .mobile-link + .mobile-link { border-top: 1px solid var(--line); }

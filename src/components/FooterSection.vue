@@ -9,7 +9,7 @@
 
         <div class="md:col-span-5">
           <p class="text-sm leading-relaxed max-w-[36ch] footer-mute">
-            {{ t('Warm, professional online English lessons for teenagers and adults: exam preparation, conversation and lasting fluency.', 'Ciepłe, profesjonalne lekcje angielskiego online dla młodzieży i dorosłych: przygotowanie do egzaminów, konwersacje i trwała swoboda.') }}
+            {{ t('Practical and professional online English lessons for teenagers and adults.', 'Praktyczne i profesjonalne lekcje angielskiego online dla młodzieży i dorosłych.') }}
           </p>
           <a href="#contact" class="btn-primary btn-sm mt-6 footer-cta">
             {{ t('Book a trial lesson', 'Umów lekcję próbną') }}
@@ -43,15 +43,8 @@
 
       </div>
 
-      <div class="footer-rule mt-14 pt-6 flex flex-col gap-3 md:flex-row md:items-center md:justify-between text-xs">
-        <p class="footer-mute">&copy; 2026 BeChatty. {{ t('Online English School. All rights reserved.', 'Internetowa szkoła języka angielskiego. Wszelkie prawa zastrzeżone.') }}</p>
-        <p class="footer-mute italic">
-          {{ t('Website built by BeChatty.', 'Strona wykonana przez BeChatty.') }}
-          {{ t('Like it?', 'Podoba Ci się?') }}
-          <a href="mailto:jakubhromada@gmail.com" class="not-italic font-semibold footer-link" style="color:var(--linen)">
-            {{ t('Get in touch', 'Skontaktuj się') }}
-          </a>
-        </p>
+      <div class="footer-rule mt-14 pt-6 text-xs">
+        <p class="footer-mute">&copy; 2026 BeChatty. {{ t('English language school online. All rights reserved.', 'Szkoła języka angielskiego online. Wszelkie prawa zastrzeżone.') }}</p>
       </div>
     </div>
   </footer>

@@ -11,9 +11,9 @@
         <span class="num text-[2rem] leading-none text-walnut">5.0</span>
         <span class="flex flex-col items-start">
           <span class="flex gap-0.5 text-terra-deep text-sm" aria-hidden="true"><i v-for="n in 5" :key="'rs'+n" class="fas fa-star"></i></span>
-          <span class="text-xs text-ink-soft mt-1">{{ t('from real student reviews', 'z prawdziwych opinii uczniów') }}</span>
+          <span class="text-xs text-ink-soft mt-1">{{ t('from real student and parent reviews', 'z prawdziwych opinii uczniów i rodziców') }}</span>
         </span>
-        <span class="sr-only">{{ t('Rated 5 out of 5 from real student reviews', 'Ocena 5 na 5 z prawdziwych opinii uczniów') }}</span>
+        <span class="sr-only">{{ t('Rated 5 out of 5 from real student and parent reviews', 'Ocena 5 na 5 z prawdziwych opinii uczniów i rodziców') }}</span>
       </div>
 
       <!-- The pinned parent story: linen ink on walnut, the rare dark moment -->
@@ -84,6 +84,11 @@ const featuredOpen = ref(false)
 
 const reviews = [
   {
+    initial: 'G', name: 'Grzegorz', date: '16 lipca 2026',
+    en: { text: 'I definitely recommend classes with Ola. She prepared our son excellently for the 8th-grade English exam. The learning process was of a very high standard, and the tutor showed great consistency in passing on knowledge along with full commitment. She\'s a reliable person who genuinely cares about real progress. Complete professionalism. Exam result: 96%.', label: '8th-grade exam preparation, parent\'s review' },
+    pl: { text: 'Zdecydowanie polecam zajęcia z Panią Olą. Świetnie przygotowała naszego syna do egzaminu ósmoklasisty z języka angielskiego. Nauka przebiegała na bardzo wysokim poziomie, a korepetytorka wykazała się dużą konsekwencją w przekazywaniu wiedzy oraz pełnym zaangażowaniem. To rzetelna osoba, której zależy na realnych postępach ucznia. Pełen profesjonalizm. Wynik egzaminu 96%.', label: 'Przygotowanie do egzaminu ósmoklasisty, opinia rodzica' },
+  },
+  {
     initial: 'M', name: 'Madzia', date: '7 stycznia 2026',
     en: { text: 'I have lessons preparing me for the extended Matura exam, but I also had conversation lessons. I rate them 5/5 and I am really very satisfied. The teacher is incredibly kind and supportive, and the atmosphere in class is great, which makes me feel relaxed and not afraid to speak English. Lessons go by very quickly, yet I take away a lot of concrete knowledge. I can see great progress in myself. I also really appreciate that when I come with a problem from school (e.g. grammar or tasks), the teacher can explain everything and teach me even within one lesson. I wholeheartedly recommend lessons to anyone who wants to prepare well for the exam and genuinely improve their English.', label: 'Matura preparation & conversation' },
     pl: { text: 'Mam zajęcia przygotowujące do matury rozszerzonej, ale miałam też lekcje konwersacji. Oceniam je na 5/5 i jestem naprawdę bardzo zadowolona. Pani jest niezwykle miła i wspierająca, a atmosfera na zajęciach jest świetna, dzięki czemu czuję się swobodnie i nie boję się mówić po angielsku. Lekcje mijają bardzo szybko, a jednocześnie wynoszę z nich dużo konkretów. Widzę u siebie duży postęp. Bardzo cenię też to, że gdy przyjdę z jakimś problemem ze szkoły (np. z gramatyki albo zadaniami), Pani potrafi mi wszystko wytłumaczyć i nauczyć mnie tego nawet w trakcie jednej lekcji. Zdecydowanie polecam zajęcia każdemu, kto chce się dobrze przygotować do egzaminu i realnie poprawić swój angielski.', label: 'Przygotowanie do matury i konwersacje' },
@@ -150,29 +155,30 @@ const rest = computed(() => reviews.filter(r => !r.featured))
   border-radius: var(--radius);
 }
 
-/* The parent's story on walnut: the palette's biggest moment */
+/* The parent's story, pinned wide at the top — same palette as the
+   regular message cards below, so it reads as one of them, just bigger. */
 .feature-panel {
-  background: var(--walnut);
+  background: var(--surface);
+  border: 1.5px solid var(--border-mid);
   border-radius: var(--radius);
   padding: clamp(1.75rem, 4vw, 2.75rem);
-  color: var(--linen);
+  color: var(--ink);
 }
-.feature-stars { color: var(--sun); }   /* Tangy stars glow on the ink panel */
+.feature-stars { color: var(--terra-deep); }
 .feature-tag {
   display: inline-flex; align-items: center;
   padding: 0.3rem 0.75rem;
-  border: 1.5px solid color-mix(in oklch, var(--linen) 45%, transparent);
+  border: 1.5px solid var(--sage-deep);
   border-radius: var(--radius);
   font-size: 0.76rem; font-weight: 700; letter-spacing: 0.02em;
-  color: var(--linen);
+  color: var(--sage-deep);
 }
 .feature-quote {
   font-size: 1.05rem; line-height: 1.75;
-  color: color-mix(in oklch, var(--linen) 92%, var(--walnut));
+  color: var(--ink-soft);
 }
-.feature-toggle { color: var(--linen); }
-.feature-name { color: #fff; }
-.feature-meta { color: color-mix(in oklch, var(--linen) 72%, var(--walnut)); }
+.feature-name { color: var(--ink); }
+.feature-meta { color: var(--ink-mute); }
 
 /* line clamp for the collapsed featured quote */
 .line-clamp-6 {
