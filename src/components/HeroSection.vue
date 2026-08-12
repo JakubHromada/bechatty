@@ -5,11 +5,11 @@
     @mousemove="onHeroMouseMove"
     @mouseleave="bubbles = []"
   >
-    <div class="section-wrap w-full flex-1 flex flex-col justify-center pt-8 pb-10 lg:pt-6 lg:pb-8">
-      <div class="flex flex-col gap-12 lg:grid lg:grid-cols-12 lg:gap-x-16 lg:items-center">
+    <div class="section-wrap w-full flex-1 flex flex-col justify-center pt-8 pb-10 min-[900px]:pt-6 min-[900px]:pb-8">
+      <div class="flex flex-col gap-12 min-[900px]:grid min-[900px]:grid-cols-12 min-[900px]:gap-x-16 min-[900px]:items-center">
 
         <!-- The teacher, in print: sharp frame, sage offset block, honest caption -->
-        <figure class="hero-photo order-2 lg:order-1 lg:col-span-6" v-reveal>
+        <figure class="hero-photo order-2 min-[900px]:order-1 min-[900px]:col-span-6" v-reveal>
           <div class="hero-photo__frame">
             <span class="hero-photo__offset" aria-hidden="true"></span>
             <span class="hero-photo__clip">
@@ -28,7 +28,7 @@
         </figure>
 
         <!-- The opening exchange: the answer in poster type -->
-        <div class="order-1 lg:order-2 lg:col-span-6 bubble-safe">
+        <div class="order-1 min-[900px]:order-2 min-[900px]:col-span-6 bubble-safe">
           <h1 class="hero-title text-walnut text-[clamp(2.5rem,4.8vw,4rem)] arrive a2" v-html="t(headline.en, headline.pl)"></h1>
 
           <p class="mt-6 text-ink-soft text-[1.1rem] leading-relaxed max-w-[44ch] arrive a3">
@@ -191,7 +191,7 @@ function onHeroMouseMove(e) {
 
 /* ── The photo block: sharp, ruled, offset in sage ── */
 .hero-photo { max-width: calc(27rem + 20px); margin-inline: auto; }
-@media (min-width: 1024px) {
+@media (min-width: 900px) {
   /* fills its (now wider) column, left-aligned toward the centre gap */
   .hero-photo { max-width: calc(30rem + 20px); margin-inline: 0 auto; }
   /* On shorter laptop screens a width-driven photo can outgrow the
@@ -224,7 +224,7 @@ function onHeroMouseMove(e) {
   font-size: 0.62rem; color: var(--ink-mute);
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
-@media (min-width: 1024px) {
+@media (min-width: 900px) {
   .hero-photo__cap { font-size: 0.78rem; }
 }
 
