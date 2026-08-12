@@ -190,17 +190,17 @@ function onHeroMouseMove(e) {
 }
 
 /* ── The photo block: sharp, ruled, offset in sage ── */
-.hero-photo { max-width: 27rem; margin-inline: auto; }
+.hero-photo { max-width: calc(27rem + 20px); margin-inline: auto; }
 @media (min-width: 1024px) {
   /* fills its (now wider) column, left-aligned toward the centre gap */
-  .hero-photo { max-width: 30rem; margin-inline: 0 auto; }
+  .hero-photo { max-width: calc(30rem + 20px); margin-inline: 0 auto; }
   /* On shorter laptop screens a width-driven photo can outgrow the
      viewport and push the stats band below the fold. Cap it against
      the space actually left after the nav, section padding, figure
      caption and band, so the band always stays on the first screen. */
-  .hero-photo__clip { max-height: calc(100dvh - var(--nav-h) - 200px); }
+  .hero-photo__clip { max-height: calc(100dvh - var(--nav-h) - 190px); }
 }
-.hero-photo__frame { position: relative; }
+.hero-photo__frame { position: relative; width: fit-content; }
 .hero-photo__offset {
   position: absolute; inset: 0; z-index: 0;
   transform: translate(14px, 14px);
@@ -209,17 +209,16 @@ function onHeroMouseMove(e) {
 }
 .hero-photo__clip {
   position: relative; z-index: 1;
-  display: block; aspect-ratio: 4 / 5; overflow: hidden;
+  display: block; width: auto; aspect-ratio: 3368 / 6000; overflow: hidden;
   border: 1.5px solid var(--walnut);
   border-radius: var(--radius);
 }
 .hero-photo__img {
   width: 100%; height: 100%;
-  /* the 2:3 source is a wide beach shot with a lot of open sky up top:
-     bottom-anchor the crop, then zoom in further so the sky is cut
-     back and she carries the frame instead of the horizon */
-  object-fit: cover; object-position: 50% 100%;
-  transform: scale(1.75); transform-origin: 50% 50%;
+  /* the source is a tall portrait already framed on her face; top-anchor
+     the crop so the crop trims off the desk/laptop below rather than
+     her head */
+  object-fit: cover; object-position: 50% 0%;
 }
 .hero-photo__cap {
   margin-top: 1.4rem;

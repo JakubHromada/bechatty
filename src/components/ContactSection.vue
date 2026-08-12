@@ -22,7 +22,7 @@
           <div class="flex flex-col gap-3">
             <div class="flex items-center gap-3 text-ink-soft text-sm">
               <i class="fas fa-envelope text-terra-deep w-5 text-center" aria-hidden="true"></i>
-              <a href="mailto:learnwithaleks@gmail.com" class="hover:text-walnut transition-colors">learnwithaleks@gmail.com</a>
+              <a href="mailto:bechattyschool@mail.com" class="hover:text-walnut transition-colors">bechattyschool@mail.com</a>
             </div>
             <div class="flex items-center gap-3 text-ink-soft text-sm">
               <i class="fas fa-phone text-terra-deep w-5 text-center" aria-hidden="true"></i>
@@ -119,13 +119,13 @@ const msgs = {
     required: 'Please fill in all required fields marked with *',
     email:    'Please enter a valid email address.',
     success:  '✓ Thank you! Your message has been received. I will get back to you soon.',
-    failure:  'Something went wrong. Please email learnwithaleks@gmail.com directly.',
+    failure:  'Something went wrong. Please email bechattyschool@mail.com directly.',
   },
   pl: {
     required: 'Proszę wypełnić wszystkie wymagane pola oznaczone *',
     email:    'Proszę podać prawidłowy adres email.',
     success:  '✓ Dziękuję! Twoja wiadomość została odebrana. Odezwę się wkrótce.',
-    failure:  'Coś poszło nie tak. Spróbuj napisać bezpośrednio na learnwithaleks@gmail.com',
+    failure:  'Coś poszło nie tak. Spróbuj napisać bezpośrednio na bechattyschool@mail.com',
   },
 }
 

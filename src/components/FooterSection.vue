@@ -29,8 +29,8 @@
         <div class="md:col-span-3 md:col-start-10">
           <p class="footer-label">{{ t('Get in touch', 'Kontakt') }}</p>
           <div class="flex flex-col gap-3 mt-4">
-            <a href="mailto:learnwithaleks@gmail.com" class="text-sm flex items-center gap-2.5 footer-link">
-              <i class="fas fa-envelope" style="color:var(--terra)" aria-hidden="true"></i>learnwithaleks@gmail.com
+            <a href="mailto:bechattyschool@mail.com" class="text-sm flex items-center gap-2.5 footer-link">
+              <i class="fas fa-envelope" style="color:var(--terra)" aria-hidden="true"></i>bechattyschool@mail.com
             </a>
             <a href="tel:+48783433335" class="text-sm flex items-center gap-2.5 footer-link">
               <i class="fas fa-phone" style="color:var(--terra)" aria-hidden="true"></i>(+48) 783 433 335

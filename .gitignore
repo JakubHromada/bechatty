@@ -2,6 +2,9 @@
 node_modules
 *.log
 explorations
+.env
+.env.*
+!.env.example
 TODOs.md
 RELEASE_NOTE*.md
 packages/server-renderer/basic.js
