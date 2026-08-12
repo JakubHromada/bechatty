@@ -215,10 +215,9 @@ function onHeroMouseMove(e) {
 }
 .hero-photo__img {
   width: 100%; height: 100%;
-  /* the source is a tall portrait already framed on her face; top-anchor
-     the crop so the crop trims off the desk/laptop below rather than
-     her head */
-  object-fit: cover; object-position: 50% 0%;
+  /* bottom-anchor the crop so it trims off the top of the frame (hair/
+     background headroom) rather than the desk/laptop at the bottom */
+  object-fit: cover; object-position: 50% 100%;
 }
 .hero-photo__cap {
   margin-top: 1.4rem;
