@@ -56,8 +56,8 @@ const steps = [
     pl: { title: 'Zajęcia online, wygodnie i skutecznie',     desc: 'Każda lekcja posiada jasno określone cele dydaktyczne oraz przemyślaną strukturę opartą na nowoczesnych metodach nauczania. Zajęcia odbywają się online, przez wygodną platformę, bez konieczności dojazdów lub wychodzenia z domu.' },
   },
   {
-    en: { title: 'Materials & self-study',  desc: 'I use original, authentic materials and proven, high-quality course books. After every lesson I send creative homework and self-study materials, because progress happens between lessons too.' },
-    pl: { title: 'Materiały i praca własna', desc: 'Korzystam z autorskich i autentycznych materiałów oraz sprawdzonych, wysokiej jakości podręczników dostępnych na rynku. Po każdej lekcji wysyłam kreatywne zadania domowe oraz materiały do pracy własnej, ponieważ postęp zachodzi również między zajęciami.' },
+    en: { title: 'Materials & self-study',  desc: 'I create my own materials from over 10 years of teaching experience, focused on living, everyday English — natural phrases and collocations you won\'t find in a textbook. I use proven course books mainly for exam preparation, supplementing them with my own flashcards and exercises. After every lesson I send creative homework, because progress happens between lessons too.' },
+    pl: { title: 'Materiały i praca własna', desc: 'Autorskie materiały tworzę na bazie ponad 10 lat doświadczenia, skupiając się na żywym, codziennym angielskim — naturalnych zwrotach i kolokacjach. Sprawdzone podręczniki wykorzystuję głównie przy przygotowaniach do egzaminów, uzupełniając je własnymi fiszkami i ćwiczeniami. Po każdej lekcji wysyłam kreatywne zadania domowe, bo postęp zachodzi też między zajęciami.' },
   },
   {
     en: { title: 'Progress monitoring & feedback',  desc: 'I regularly update you on your progress, share tips and ideas on how to learn effectively and which resources to use. I support and motivate you to keep going.' },

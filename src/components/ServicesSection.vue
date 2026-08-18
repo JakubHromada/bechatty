@@ -104,7 +104,7 @@ const services = [
         'Concrete skills ready for immediate use',
       ],
       levels: 'A2/B1 and above', format: 'Individual or in pairs', duration: '30 minutes',
-      note: 'For people who already have solid foundations but want to break the language barrier, or simply want to start speaking freely.',
+      note: 'For people who already have solid foundations but want to break the language barrier and start speaking freely.',
     },
     pl: {
       title: 'Angielski w praktyce',
@@ -118,7 +118,7 @@ const services = [
         'Konkretne umiejętności gotowe do natychmiastowego użycia',
       ],
       levels: 'od A2/B1', format: 'Indywidualnie lub w parach', duration: '30 minut',
-      note: 'Dla osób, które posiadają już solidne podstawy ale chcą przełamać barierę językową lub po prostu chcą się rozgadać.',
+      note: 'Dla osób, które posiadają już solidne podstawy ale chcą przełamać barierę językową i się rozgadać.',
     },
   },
   {
@@ -189,7 +189,7 @@ const services = [
         'Practical tips and proven exam frameworks',
       ],
       levels: null, format: 'Individual or in pairs', duration: '55 minutes',
-      note: 'I recommend starting preparation around 2 years before the exam. Thanks to a well-planned process and consistent work, my students achieve average scores above 90%.',
+      note: 'We start preparation well in advance. Thanks to a well-planned process and consistent work, my students achieve great results.',
     },
     pl: {
       title: 'Angielski na egzaminie',
@@ -203,15 +203,18 @@ const services = [
         'Praktyczne wskazówki i sprawdzone schematy egzaminacyjne',
       ],
       levels: null, format: 'Indywidualnie lub w parach', duration: '55 minut',
-      note: 'Polecam rozpocząć przygotowania około 2 lata przed egzaminem. Dzięki dobrze zaplanowanemu procesowi i konsekwentnej pracy moi uczniowie osiągają średnie wyniki powyżej 90%.',
+      note: 'Przygotowania zaczynamy odpowiednio wcześniej. Dzięki dobrze zaplanowanemu procesowi i konsekwentnej pracy moi uczniowie osiągają świetne wyniki.',
     },
   },
 ]
 
 // Quick-scan reassurances beside the intro
 const facts = [
-  { icon: 'fas fa-laptop',      en: 'Online lessons', pl: 'Lekcje online' },
-  { icon: 'fas fa-layer-group', en: 'Levels A0-C1',   pl: 'Poziomy A0-C1' },
+  { icon: 'fas fa-laptop',        en: 'Online lessons',        pl: 'Lekcje online' },
+  { icon: 'fas fa-comments',      en: 'Conversations',         pl: 'Konwersacje' },
+  { icon: 'fas fa-book-open',     en: 'Comprehensive English',  pl: 'Angielski kompleksowo' },
+  { icon: 'fas fa-file-alt',      en: 'Exams',                 pl: 'Egzaminy' },
+  { icon: 'fas fa-layer-group',   en: 'Levels A1-C1',          pl: 'Poziomy A1-C1' },
 ]
 </script>
 

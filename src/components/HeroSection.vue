@@ -76,15 +76,15 @@ const { t } = useLanguage()
 
 const headline = {
   en: 'Speak English with <em>confidence</em>, not hesitation.',
-  pl: 'Mów po angielsku <em>pewnie</em>, bez blokady.',
+  pl: 'Mów po angielsku <em>pewnie</em> i bez blokady.',
   subEn: 'Practical and professional online English lessons for teenagers and adults.',
-  subPl: 'Praktyczne i profesjonalne lekcje angielskiego online dla młodzieży i dorosłych.',
+  subPl: 'Praktyczne i skuteczne lekcje języka angielskiego online dla młodzieży i dorosłych.',
 }
 
 const stats = [
   { value: '10+',  en: 'years of teaching', pl: 'lat doświadczenia' },
   { value: '250+', en: 'students taught',   pl: 'uczniów' },
-  { value: '90%+', en: 'avg. exam results', pl: 'średnie wyniki egzaminów' },
+  { value: '5.0★', en: 'avg. student rating', pl: 'średnia ocena uczniów' },
 ]
 
 // A little word floats up as the cursor moves through the hero — a nod to
@@ -189,18 +189,17 @@ function onHeroMouseMove(e) {
   padding-bottom: 0.09em;
 }
 
-/* ── The photo block: sharp, ruled, offset in sage ── */
-.hero-photo { max-width: calc(27rem + 20px); margin-inline: auto; }
+/* ── The photo block: sharp, ruled, offset in sage ──
+   Grid, not fit-content: the caption (nowrap) sets the column's
+   max-content width, and the frame stretches to match it — so the
+   photo is always exactly as wide as its caption line, in either
+   language, with no hardcoded px guess. */
+.hero-photo { display: grid; max-width: calc(27rem + 20px); margin-inline: auto; }
+.hero-photo__frame { position: relative; width: 100%; }
 @media (min-width: 900px) {
   /* fills its (now wider) column, left-aligned toward the centre gap */
-  .hero-photo { max-width: calc(30rem + 20px); margin-inline: 0 auto; }
-  /* On shorter laptop screens a width-driven photo can outgrow the
-     viewport and push the stats band below the fold. Cap it against
-     the space actually left after the nav, section padding, figure
-     caption and band, so the band always stays on the first screen. */
-  .hero-photo__clip { max-height: calc(100dvh - var(--nav-h) - 190px); }
+  .hero-photo { max-width: calc(34rem + 20px); margin-inline: 0 auto; }
 }
-.hero-photo__frame { position: relative; width: fit-content; }
 .hero-photo__offset {
   position: absolute; inset: 0; z-index: 0;
   transform: translate(14px, 14px);
@@ -209,7 +208,7 @@ function onHeroMouseMove(e) {
 }
 .hero-photo__clip {
   position: relative; z-index: 1;
-  display: block; width: auto; aspect-ratio: 3368 / 6000; overflow: hidden;
+  display: block; width: 100%; aspect-ratio: 3368 / 6000; overflow: hidden;
   border: 1.5px solid var(--walnut);
   border-radius: var(--radius);
 }

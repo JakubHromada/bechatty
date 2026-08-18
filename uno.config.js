@@ -9,9 +9,9 @@ export default defineConfig({
 
   theme: {
     colors: {
-      // ── TRIAL PALETTE: "Blue & Orange Pastel" (schemecolor.com) ──
+      // ── PALETTE: "Blue & Orange Pastel" summer palette (schemecolor.com) ──
       // Names keep their brand ROLE (sage = everyday, terra = warm peak,
-      // walnut = ink anchor); values are swapped for the trial.
+      // walnut = ink anchor).
       // Hex mirrors the CSS custom properties in style.css; keep the two in sync.
       bg:      { DEFAULT: '#FAF4EA', alt: '#FDF9F2' },   // cream ground + warm-white band
       surface: '#FFFDF8',                                // lifted warm-white boards / inputs

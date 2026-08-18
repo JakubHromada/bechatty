@@ -6,20 +6,20 @@
    Buttons, boards, inputs, photos = 3px corners, walnut rules,
    solid offset blocks instead of soft shadows (letterpress feel).
    Chat bubbles and avatars = fully rounded. Nothing else curves.
-   PALETTE: brand sage green (--sage) restored after the "Blue &
-   Orange Pastel" trial; --terra/--sun/--sand stay from that trial
-   (Vibrant Coral / Tangy / Waffle, schemecolor.com). Var names keep
-   their ROLE meaning (--sage = everyday colour, --terra = warm peak,
-   --walnut = ink and dark anchor, --linen = ground), so swapping any
-   of these is just a token change. Pastel oranges are too light for
-   white labels, so CTAs run dark ink text on coral, and each accent
+   PALETTE: "Blue & Orange Pastel" summer palette (schemecolor.com):
+   Wedgwood Blue #779ECC · Pale Blue #9FC0DE · Waffle #F2C894 ·
+   Tangy #FFB347 · Vibrant Coral #FF985A. Var names keep their ROLE
+   meaning (--sage = everyday colour, --terra = warm peak, --walnut =
+   ink and dark anchor, --linen = ground), so swapping any of these
+   is just a token change. Pastel oranges are too light for white
+   labels, so CTAs run dark ink text on coral, and each accent
    carries a derived text-safe deep shade, same discipline as before.
    ============================================================ */
 :root {
   /* ── Scheme source colours ─────────────────────────── */
   --linen:          #FAF4EA;   /* cream paper ground, tuned to the pastels            */
-  --sage:           #8FA89C;   /* brand sage: everyday colour, offsets, bands         */
-  --sage-deep:      #44615A;   /* sage taken dark enough for AA text (~6:1)           */
+  --sage:           #779ECC;   /* Wedgwood Blue: everyday colour, offsets, bands      */
+  --sage-deep:      #3D6289;   /* blue taken dark enough for AA text (~5.8:1)         */
   --terra:          #FF985A;   /* Vibrant Coral: fills, CTA (ink label ~5.4:1)        */
   --terra-mid:      #D96828;   /* coral for display-size accents (~3.2:1, large only) */
   --terra-deep:     #A9531F;   /* deep coral: small accent text (~4.9:1)              */
