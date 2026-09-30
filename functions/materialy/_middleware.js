@@ -1,15 +1,25 @@
 // Cloudflare Pages middleware: guards every request under /materialy/.
 //
-// Without a valid login cookie the visitor gets the login page below. The form
-// posts the password back to the same URL; the right password sets a signed
-// cookie for 24 hours and redirects to the page the visitor asked for.
+// Without a valid login cookie the visitor gets the login page below. Its
+// script posts the password in the background: a wrong password shows the
+// error in place, the right one sets a signed cookie for 24 hours and reloads
+// the same URL. Nothing is added to the browser history, so Back leaves the
+// materials in one step.
+//
+// Without JavaScript the plain form posts instead, and both outcomes redirect
+// to a normal GET (a short-lived cookie carries the error), so the history
+// never holds a form post that the browser would offer to resubmit.
 //
 // The password comes from the MATERIALS_PASSWORD variable, set as a secret in
 // the Cloudflare Pages dashboard (Settings → Variables and Secrets). If it is
 // not set, every request is refused. Changing it logs everyone out.
 
 const COOKIE = 'vb_auth'
+const ERROR_COOKIE = 'vb_err'
 const MAX_AGE = 60 * 60 * 24 // 24 hours, in seconds
+
+const WRONG_PASSWORD = 'Niepoprawne hasło, spróbuj ponownie.'
+const TRY_AGAIN = 'Coś poszło nie tak, spróbuj ponownie.'
 
 export async function onRequest({ request, env, next }) {
   const secret = env.MATERIALS_PASSWORD
@@ -26,24 +36,26 @@ export async function onRequest({ request, env, next }) {
   }
 
   if (request.method === 'POST') {
+    const fromScript = request.headers.get('X-Login') === 'fetch'
     const form = await request.formData().catch(() => null)
     const password = String(form?.get('password') ?? '')
-    if (await safeEqual(normalize(password), normalize(secret))) {
+    const headers = new Headers({ 'Cache-Control': 'no-store' })
+    const ok = await safeEqual(normalize(password), normalize(secret))
+
+    if (ok) {
       const expires = Math.floor(Date.now() / 1000) + MAX_AGE
       const token = `${expires}.${await sign(String(expires), secret)}`
-      return new Response(null, {
-        status: 303,
-        headers: {
-          Location: new URL(request.url).pathname,
-          'Set-Cookie': `${COOKIE}=${token}; Path=/materialy; Max-Age=${MAX_AGE}; HttpOnly; Secure; SameSite=Lax`,
-          'Cache-Control': 'no-store',
-        },
-      })
+      headers.append('Set-Cookie', `${COOKIE}=${token}; Path=/materialy; Max-Age=${MAX_AGE}; HttpOnly; Secure; SameSite=Lax`)
+    } else if (!fromScript) {
+      headers.append('Set-Cookie', `${ERROR_COOKIE}=1; Path=/materialy; Max-Age=60; HttpOnly; Secure; SameSite=Lax`)
     }
-    return loginPage(true)
+
+    if (fromScript) return new Response(null, { status: ok ? 204 : 401, headers })
+    headers.set('Location', new URL(request.url).pathname)
+    return new Response(null, { status: 303, headers })
   }
 
-  return loginPage(false)
+  return loginPage(readCookie(request, ERROR_COOKIE) === '1')
 }
 
 // Same rule as the original page: spaces around it and letter case don't matter.
@@ -51,9 +63,14 @@ function normalize(value) {
   return value.trim().toLowerCase()
 }
 
-async function hasValidCookie(request, secret) {
+function readCookie(request, name) {
   const cookies = request.headers.get('Cookie') ?? ''
-  const match = cookies.match(new RegExp(`(?:^|;\\s*)${COOKIE}=(\\d+)\\.([0-9a-f]+)`))
+  const match = cookies.match(new RegExp(`(?:^|;\\s*)${name}=([^;]*)`))
+  return match ? match[1] : null
+}
+
+async function hasValidCookie(request, secret) {
+  const match = (readCookie(request, COOKIE) ?? '').match(/^(\d+)\.([0-9a-f]+)$/)
   if (!match) return false
   const [, expires, signature] = match
   if (Number(expires) < Date.now() / 1000) return false
@@ -156,16 +173,45 @@ body{
   <label class="sr-only" for="pwInput">Hasło</label>
   <input type="password" id="pwInput" name="password" placeholder="hasło" autocomplete="current-password" required autofocus>
   <button type="submit">Wejdź</button>
-  <div class="gate-error" role="alert">${wrongPassword ? 'Niepoprawne hasło, spróbuj ponownie.' : ''}</div>
+  <div class="gate-error" id="pwError" role="alert">${wrongPassword ? WRONG_PASSWORD : ''}</div>
 </form>
+<script>
+const form = document.querySelector('form')
+const input = document.getElementById('pwInput')
+const button = form.querySelector('button')
+const error = document.getElementById('pwError')
+
+form.addEventListener('submit', async (event) => {
+  event.preventDefault()
+  error.textContent = ''
+  button.disabled = true
+  try {
+    const response = await fetch(location.href, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'X-Login': 'fetch' },
+    })
+    if (response.ok) {
+      location.reload()
+      return
+    }
+    error.textContent = response.status === 401 ? '${WRONG_PASSWORD}' : '${TRY_AGAIN}'
+  } catch {
+    error.textContent = '${TRY_AGAIN}'
+  }
+  input.value = ''
+  input.focus()
+  button.disabled = false
+})
+</script>
 </body>
 </html>`
-  return new Response(html, {
-    status: 401,
-    headers: {
-      'Content-Type': 'text/html; charset=utf-8',
-      'Cache-Control': 'no-store',
-      'X-Robots-Tag': 'noindex',
-    },
+  const headers = new Headers({
+    'Content-Type': 'text/html; charset=utf-8',
+    'Cache-Control': 'no-store',
+    'X-Robots-Tag': 'noindex',
   })
+  // The error message from a no-JavaScript attempt is shown once, then cleared.
+  if (wrongPassword) headers.append('Set-Cookie', `${ERROR_COOKIE}=; Path=/materialy; Max-Age=0; HttpOnly; Secure; SameSite=Lax`)
+  return new Response(html, { status: 401, headers })
 }
