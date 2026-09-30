@@ -61,6 +61,7 @@ const footerLinks = [
   { href: '#services', en: 'Services', pl: 'Oferta'  },
   { href: '#reviews',  en: 'Reviews',  pl: 'Opinie'  },
   { href: '#contact',  en: 'Contact',  pl: 'Kontakt' },
+  { href: '/materialy/', en: 'Student materials', pl: 'Materiały dla uczniów' },
 ]
 </script>
 

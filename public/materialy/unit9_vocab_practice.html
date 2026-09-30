@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Vocabulary Bank 9 — Egzamin Ósmoklasisty</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Be Chatty — summer palette */
+  --paper:#F7F0E8;
+  --paper2:#F2E4CE;
+  --ink:#2C4A5E;
+  --teal:#779ECC;
+  --teal-d:#4A6D96;
+  --coral:#FF985A;
+  --coral-d:#C4632E;
+  --sun:#FFB347;
+  --sun-d:#D9922E;
+  --violet:#4C6B85;
+  --violet-d:#38505F;
+  --pink:#F2C894;
+  --green:#6FA98A;
+  --line: rgba(44,74,94,0.14);
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:
+    radial-gradient(circle at 8% 12%, rgba(119,158,204,0.14) 0, transparent 40%),
+    radial-gradient(circle at 92% 88%, rgba(255,152,90,0.12) 0, transparent 42%),
+    var(--paper);
+  background-attachment:fixed;
+  font-family:'Figtree',sans-serif;
+  color:var(--ink);
+  min-height:100vh;
+  padding:28px 18px 70px;
+}
+.wrap{max-width:980px;margin:0 auto;}
+
+/* ---------- header ---------- */
+header.top{
+  position:relative;
+  margin-bottom:26px;
+  padding:22px 26px;
+  background:var(--ink);
+  border-radius:22px;
+  color:var(--paper);
+  overflow:hidden;
+}
+header.top::before{
+  content:"";
+  position:absolute; inset:0;
+  background-image:radial-gradient(rgba(251,243,228,0.06) 1px, transparent 1px);
+  background-size:14px 14px;
+}
+.tape{
+  position:absolute; top:-10px; left:36px;
+  width:110px; height:34px;
+  background:var(--sun);
+  transform:rotate(-6deg);
+  opacity:0.95;
+  box-shadow:0 3px 6px rgba(0,0,0,0.25);
+}
+header.top h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(26px,4vw,38px);
+  margin:6px 0 2px;
+  position:relative;
+  letter-spacing:0.3px;
+}
+header.top p{
+  margin:0;
+  opacity:0.75;
+  font-size:14.5px;
+  position:relative;
+}
+.badge{
+  display:inline-block;
+  background:var(--coral);
+  color:var(--ink);
+  font-family:'Playfair Display',serif;
+  font-weight:600;
+  font-size:13px;
+  padding:4px 12px;
+  border-radius:999px;
+  margin-bottom:10px;
+  position:relative;
+}
+
+/* ---------- topic nav ---------- */
+.topic-scroll{
+  display:flex; flex-wrap:wrap; gap:9px;
+  margin-bottom:22px;
+}
+.chip{
+  font-family:'Figtree',sans-serif;
+  font-weight:700;
+  font-size:13.5px;
+  padding:9px 15px;
+  border-radius:12px;
+  border:2.5px solid var(--ink);
+  background:var(--paper);
+  color:var(--ink);
+  cursor:pointer;
+  box-shadow:3px 3px 0 var(--ink);
+  transition:transform .12s ease, box-shadow .12s ease;
+  white-space:nowrap;
+}
+.chip:hover{transform:translate(-1px,-1px); box-shadow:4px 4px 0 var(--ink);}
+.chip.active{
+  background:var(--c-active,var(--teal));
+  color:var(--ink);
+  transform:translate(2px,2px);
+  box-shadow:1px 1px 0 var(--ink);
+}
+
+/* ---------- panel ---------- */
+.panel{
+  background:#fff;
+  border:2.5px solid var(--ink);
+  border-radius:22px;
+  box-shadow:7px 7px 0 var(--ink);
+  padding:26px 26px 30px;
+  position:relative;
+}
+.panel-head{
+  display:flex; justify-content:space-between; align-items:flex-start;
+  flex-wrap:wrap; gap:14px;
+  margin-bottom:18px;
+}
+.panel-head h2{
+  font-family:'Playfair Display',serif;
+  font-size:24px;
+  margin:0 0 3px;
+}
+.panel-head .sub{
+  font-size:14px; color:#6a6d74;
+}
+.count-pill{
+  font-family:'Figtree',sans-serif;
+  font-weight:700;
+  font-size:12.5px;
+  background:var(--paper2);
+  border:2px solid var(--ink);
+  border-radius:999px;
+  padding:5px 12px;
+}
+
+.mode-nav{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:22px;}
+.mode-btn{
+  font-family:'Figtree',sans-serif;
+  font-weight:700;
+  font-size:13px;
+  padding:8px 14px;
+  border-radius:10px;
+  border:2px solid var(--ink);
+  background:#fff;
+  cursor:pointer;
+}
+.mode-btn.active{background:var(--ink); color:var(--paper);}
+
+/* ---------- flashcards ---------- */
+.fc-stage{display:flex; flex-direction:column; align-items:center; gap:18px;}
+.fc-card{
+  width:100%; max-width:440px; height:230px;
+  perspective:1200px;
+  cursor:pointer;
+}
+.fc-inner{
+  position:relative; width:100%; height:100%;
+  transition:transform .5s cubic-bezier(.4,.2,.2,1);
+  transform-style:preserve-3d;
+}
+.fc-card.flipped .fc-inner{transform:rotateY(180deg);}
+.fc-face{
+  position:absolute; inset:0;
+  border-radius:18px;
+  border:2.5px solid var(--ink);
+  display:flex; align-items:center; justify-content:center;
+  text-align:center;
+  padding:22px;
+  backface-visibility:hidden;
+  font-family:'Playfair Display',serif;
+  font-weight:600;
+  font-size:26px;
+  box-shadow:6px 6px 0 var(--ink);
+}
+.fc-face.front{background:var(--sun);}
+.fc-face.back{background:var(--teal); color:#fff; transform:rotateY(180deg);}
+.fc-hint{font-size:12px; font-family:'Figtree',sans-serif; font-weight:600; opacity:.6; margin-top:-6px;}
+.fc-controls{display:flex; gap:10px; align-items:center;}
+.icon-btn{
+  border:2px solid var(--ink); background:#fff; border-radius:10px;
+  width:42px; height:42px; font-size:18px; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+}
+.icon-btn:hover{background:var(--paper2);}
+.progress-track{
+  width:100%; max-width:440px; height:8px; border-radius:6px; background:var(--paper2);
+  overflow:hidden; border:1.5px solid var(--ink);
+}
+.progress-fill{height:100%; background:var(--violet); width:0%; transition:width .3s ease;}
+
+/* ---------- matching ---------- */
+.match-grid{display:grid; grid-template-columns:1fr 1fr; gap:24px;}
+.match-col{display:flex; flex-direction:column; gap:8px;}
+.match-item{
+  border:2px solid var(--ink); border-radius:10px; padding:10px 12px;
+  background:#fff; cursor:pointer; font-weight:600; font-size:14px;
+  transition:all .15s ease;
+}
+.match-item:hover{background:var(--paper2);}
+.match-item.selected{background:var(--sun);}
+.match-item.matched{background:var(--green); color:#fff; opacity:.55; cursor:default; pointer-events:none;}
+.match-item.wrong{background:var(--coral); color:#fff; animation:shake .3s;}
+@keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-4px);}75%{transform:translateX(4px);}}
+.match-meta{display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; font-size:13.5px; font-weight:700;}
+
+/* ---------- MC ---------- */
+.mc-word{
+  font-family:'Playfair Display',serif; font-size:28px; font-weight:600;
+  background:var(--paper2); border:2.5px solid var(--ink); border-radius:16px;
+  padding:24px; text-align:center; margin-bottom:20px;
+}
+.mc-options{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+.mc-opt{
+  border:2px solid var(--ink); border-radius:12px; padding:14px 16px;
+  background:#fff; cursor:pointer; font-weight:600; font-size:14.5px; text-align:left;
+}
+.mc-opt:hover{background:var(--paper2);}
+.mc-opt.correct{background:var(--green); color:#fff;}
+.mc-opt.incorrect{background:var(--coral); color:#fff;}
+.mc-opt[disabled]{cursor:default;}
+
+/* ---------- fill ---------- */
+.fill-prompt{
+  font-family:'Playfair Display',serif; font-size:22px; font-weight:600;
+  background:var(--paper2); border:2.5px solid var(--ink); border-radius:16px;
+  padding:22px; text-align:center; margin-bottom:18px;
+}
+.fill-row{display:flex; gap:10px; margin-bottom:12px;}
+.fill-row input{
+  flex:1; font-size:16px; font-family:'Figtree',sans-serif; font-weight:600;
+  padding:12px 14px; border:2px solid var(--ink); border-radius:10px;
+}
+.btn{
+  font-family:'Figtree',sans-serif; font-weight:700; font-size:14px;
+  padding:12px 18px; border-radius:10px; border:2px solid var(--ink);
+  background:var(--violet); color:#fff; cursor:pointer;
+  box-shadow:3px 3px 0 var(--ink);
+}
+.btn:hover{transform:translate(-1px,-1px); box-shadow:4px 4px 0 var(--ink);}
+.btn.secondary{background:#fff; color:var(--ink);}
+.fill-feedback{font-weight:700; font-size:14px; min-height:20px; margin-bottom:10px;}
+.fill-feedback.ok{color:var(--teal-d);}
+.fill-feedback.bad{color:var(--coral-d);}
+
+/* ---------- score / end ---------- */
+.score-box{
+  text-align:center; padding:30px 20px;
+}
+.score-box .big{font-family:'Playfair Display',serif; font-size:44px;}
+.score-box p{color:#6a6d74;}
+
+footer{
+  text-align:center; margin-top:26px; font-size:12.5px; color:#8a8d94;
+}
+.brandmark{
+  position:absolute; top:22px; right:26px;
+  display:flex; align-items:center; gap:8px;
+  opacity:0.92;
+}
+.brand-bubbles{position:relative; width:30px; height:24px; flex:none;}
+.brand-bubbles i{
+  position:absolute; display:block; border-radius:7px;
+}
+.brand-bubbles i:nth-child(1){
+  width:18px; height:16px; background:var(--sun); left:0; top:2px;
+}
+.brand-bubbles i:nth-child(2){
+  width:18px; height:16px; background:var(--teal); left:10px; top:0;
+}
+.brand-word{
+  font-family:'Figtree',sans-serif; font-weight:800; font-size:11.5px;
+  letter-spacing:1.5px; color:var(--paper);
+}
+@media (max-width:560px){
+  .match-grid{grid-template-columns:1fr 1fr; gap:10px;}
+  .mc-options{grid-template-columns:1fr;}
+  .panel{padding:18px 16px 24px;}
+}
+.back{
+  display:inline-block; margin-bottom:14px;
+  font-weight:700; font-size:14px;
+  color:var(--ink); text-decoration:none;
+}
+.back:hover{text-decoration:underline;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="./">← Wszystkie unity</a>
+
+  <header class="top">
+    <div class="tape"></div>
+    <div class="brandmark"><div class="brand-bubbles"><i></i><i></i></div><span class="brand-word">BE CHATTY</span></div>
+    <span class="badge">UNIT 9</span>
+    <h1>Vocabulary Bank — Ćwicz i zapamiętaj</h1>
+    <p>Sztuka, kultura i media · wybierz temat, wybierz tryb, ćwicz do skutku.</p>
+  </header>
+
+  <div class="topic-scroll" id="topicNav"></div>
+
+  <div class="panel" id="panel">
+    <!-- filled by JS -->
+  </div>
+
+  <footer>Be Chatty · Zrobione na podstawie Twojego Vocabulary Bank 9 · powodzenia na egzaminie! 🍀</footer>
+</div>
+
+<script>
+/* ============ DATA ============ */
+const TOPICS = [
+  {
+    "id": "artgeneral",
+    "title": "Sztuka — ogólne",
+    "en": "Art — general",
+    "color": "--sun",
+    "words": [
+      {
+        "en": "architecture",
+        "pl": "architektura"
+      },
+      {
+        "en": "ceramics",
+        "pl": "ceramika"
+      },
+      {
+        "en": "cinema",
+        "pl": "kino"
+      },
+      {
+        "en": "dance",
+        "pl": "taniec"
+      },
+      {
+        "en": "music",
+        "pl": "muzyka"
+      },
+      {
+        "en": "painting",
+        "pl": "malarstwo, obraz"
+      },
+      {
+        "en": "sculpture",
+        "pl": "rzeźba"
+      },
+      {
+        "en": "theatre",
+        "pl": "teatr"
+      }
+    ]
+  },
+  {
+    "id": "painting",
+    "title": "Malarstwo",
+    "en": "Painting",
+    "color": "--sun",
+    "words": [
+      {
+        "en": "background",
+        "pl": "tło"
+      },
+      {
+        "en": "exhibition",
+        "pl": "wystawa"
+      },
+      {
+        "en": "landscape",
+        "pl": "pejzaż"
+      },
+      {
+        "en": "museum",
+        "pl": "muzeum"
+      },
+      {
+        "en": "portrait",
+        "pl": "portret"
+      },
+      {
+        "en": "sketch",
+        "pl": "szkic"
+      },
+      {
+        "en": "studio",
+        "pl": "studio, pracownia, atelier"
+      }
+    ]
+  },
+  {
+    "id": "musicgeneral",
+    "title": "Muzyka — przymiotniki i ogólne",
+    "en": "Music — general",
+    "color": "--pink",
+    "words": [
+      {
+        "en": "calming",
+        "pl": "uspokajający"
+      },
+      {
+        "en": "concert",
+        "pl": "koncert"
+      },
+      {
+        "en": "fast",
+        "pl": "szybki"
+      },
+      {
+        "en": "hard",
+        "pl": "trudny"
+      },
+      {
+        "en": "loud",
+        "pl": "głośny"
+      },
+      {
+        "en": "music charts",
+        "pl": "listy przebojów"
+      },
+      {
+        "en": "opera singer",
+        "pl": "śpiewak operowy"
+      },
+      {
+        "en": "relaxing",
+        "pl": "relaksujący"
+      },
+      {
+        "en": "sad",
+        "pl": "smutny"
+      },
+      {
+        "en": "slow",
+        "pl": "wolny"
+      },
+      {
+        "en": "soft",
+        "pl": "miękki"
+      },
+      {
+        "en": "soundtrack",
+        "pl": "ścieżka dźwiękowa"
+      },
+      {
+        "en": "title",
+        "pl": "tytuł"
+      },
+      {
+        "en": "happy",
+        "pl": "szczęśliwy"
+      }
+    ]
+  },
+  {
+    "id": "instruments",
+    "title": "Instrumenty muzyczne",
+    "en": "Music instruments",
+    "color": "--pink",
+    "words": [
+      {
+        "en": "cello",
+        "pl": "wiolonczela"
+      },
+      {
+        "en": "cymbal",
+        "pl": "talerz perkusyjny"
+      },
+      {
+        "en": "drum",
+        "pl": "bębenek"
+      },
+      {
+        "en": "flute",
+        "pl": "flet"
+      },
+      {
+        "en": "guitar",
+        "pl": "gitara"
+      },
+      {
+        "en": "harp",
+        "pl": "harfa"
+      },
+      {
+        "en": "percussion instrument",
+        "pl": "instrument perkusyjny"
+      },
+      {
+        "en": "piano",
+        "pl": "pianino"
+      },
+      {
+        "en": "saxophone",
+        "pl": "saksofon"
+      },
+      {
+        "en": "string instrument",
+        "pl": "instrument strunowy"
+      },
+      {
+        "en": "tambourine",
+        "pl": "tamburyn"
+      },
+      {
+        "en": "trumpet",
+        "pl": "trąbka"
+      },
+      {
+        "en": "violin",
+        "pl": "skrzypce"
+      },
+      {
+        "en": "wind instrument",
+        "pl": "instrument dęty"
+      }
+    ]
+  },
+  {
+    "id": "musictypes",
+    "title": "Rodzaje muzyki",
+    "en": "Types of music",
+    "color": "--pink",
+    "words": [
+      {
+        "en": "classical",
+        "pl": "klasyczna"
+      },
+      {
+        "en": "country",
+        "pl": "country"
+      },
+      {
+        "en": "folk",
+        "pl": "folkowa"
+      },
+      {
+        "en": "heavy metal",
+        "pl": "heavy metal"
+      },
+      {
+        "en": "jazz",
+        "pl": "jazz"
+      },
+      {
+        "en": "pop",
+        "pl": "pop"
+      },
+      {
+        "en": "punk rock",
+        "pl": "punk rock"
+      },
+      {
+        "en": "rock",
+        "pl": "rock"
+      }
+    ]
+  },
+  {
+    "id": "theatre",
+    "title": "Teatr",
+    "en": "Theatre",
+    "color": "--teal",
+    "words": [
+      {
+        "en": "act",
+        "pl": "akt sztuki"
+      },
+      {
+        "en": "actor in the lead role",
+        "pl": "aktor grający główną rolę"
+      },
+      {
+        "en": "actor in the supporting role",
+        "pl": "aktor drugoplanowy"
+      },
+      {
+        "en": "applause",
+        "pl": "aplauz"
+      },
+      {
+        "en": "audition",
+        "pl": "przesłuchanie"
+      },
+      {
+        "en": "backstage",
+        "pl": "za kulisami"
+      },
+      {
+        "en": "cast",
+        "pl": "obsada"
+      },
+      {
+        "en": "costume",
+        "pl": "kostium, strój"
+      },
+      {
+        "en": "interval",
+        "pl": "przerwa w teatrze"
+      },
+      {
+        "en": "performance",
+        "pl": "przedstawienie"
+      },
+      {
+        "en": "plot",
+        "pl": "fabuła"
+      },
+      {
+        "en": "rehearsal",
+        "pl": "próba"
+      },
+      {
+        "en": "stage",
+        "pl": "scena"
+      },
+      {
+        "en": "perform live",
+        "pl": "występować na żywo"
+      }
+    ]
+  },
+  {
+    "id": "films",
+    "title": "Filmy",
+    "en": "Films",
+    "color": "--violet",
+    "words": [
+      {
+        "en": "animated film",
+        "pl": "film animowany"
+      },
+      {
+        "en": "comedy",
+        "pl": "komedia"
+      },
+      {
+        "en": "documentary",
+        "pl": "film dokumentalny"
+      },
+      {
+        "en": "horror film",
+        "pl": "horror"
+      },
+      {
+        "en": "musical",
+        "pl": "musical"
+      },
+      {
+        "en": "romantic film",
+        "pl": "film o miłości"
+      },
+      {
+        "en": "western",
+        "pl": "western"
+      },
+      {
+        "en": "be based on",
+        "pl": "być opartym na"
+      },
+      {
+        "en": "be set in",
+        "pl": "być umiejscowionym w"
+      },
+      {
+        "en": "box office success",
+        "pl": "hit, przebój kasowy"
+      },
+      {
+        "en": "critic",
+        "pl": "krytyk"
+      },
+      {
+        "en": "direct",
+        "pl": "reżyserować"
+      },
+      {
+        "en": "gripping plot",
+        "pl": "porywająca akcja"
+      },
+      {
+        "en": "keep you on the edge of your seat",
+        "pl": "trzymać w napięciu"
+      },
+      {
+        "en": "moving",
+        "pl": "poruszający"
+      },
+      {
+        "en": "predictable",
+        "pl": "przewidywalny"
+      },
+      {
+        "en": "unexpected twist",
+        "pl": "nieoczekiwany zwrot akcji"
+      },
+      {
+        "en": "waste of time",
+        "pl": "strata czasu"
+      },
+      {
+        "en": "Don't miss...!",
+        "pl": "Nie przegap...!"
+      }
+    ]
+  },
+  {
+    "id": "literature",
+    "title": "Literatura",
+    "en": "Literature",
+    "color": "--violet",
+    "words": [
+      {
+        "en": "adventure",
+        "pl": "przygodowy"
+      },
+      {
+        "en": "biography",
+        "pl": "biografia"
+      },
+      {
+        "en": "detective story",
+        "pl": "powieść detektywistyczna"
+      },
+      {
+        "en": "fantasy",
+        "pl": "fantastyka, fantasy"
+      },
+      {
+        "en": "fiction",
+        "pl": "literatura piękna"
+      },
+      {
+        "en": "front/back cover",
+        "pl": "przednia/tylna okładka"
+      },
+      {
+        "en": "historical drama",
+        "pl": "dramat historyczny"
+      },
+      {
+        "en": "horror",
+        "pl": "horror"
+      },
+      {
+        "en": "mystery",
+        "pl": "powieść kryminalna"
+      },
+      {
+        "en": "non-fiction",
+        "pl": "literatura faktu"
+      },
+      {
+        "en": "romance",
+        "pl": "romans"
+      }
+    ]
+  },
+  {
+    "id": "media",
+    "title": "Media",
+    "en": "The media",
+    "color": "--coral",
+    "words": [
+      {
+        "en": "advert",
+        "pl": "reklama"
+      },
+      {
+        "en": "channel",
+        "pl": "kanał telewizyjny"
+      },
+      {
+        "en": "chat show",
+        "pl": "talk show"
+      },
+      {
+        "en": "download",
+        "pl": "pobierać z internetu"
+      },
+      {
+        "en": "headline",
+        "pl": "nagłówek"
+      },
+      {
+        "en": "interviewer",
+        "pl": "dziennikarz przeprowadzający wywiad"
+      },
+      {
+        "en": "magazine",
+        "pl": "magazyn, czasopismo"
+      },
+      {
+        "en": "newsflash",
+        "pl": "wiadomości z ostatniej chwili"
+      },
+      {
+        "en": "newsreader",
+        "pl": "prezenter wiadomości"
+      },
+      {
+        "en": "podcast",
+        "pl": "podcast"
+      },
+      {
+        "en": "programme",
+        "pl": "program"
+      },
+      {
+        "en": "soap opera",
+        "pl": "opera mydlana"
+      },
+      {
+        "en": "social media",
+        "pl": "media społecznościowe"
+      },
+      {
+        "en": "sitcom",
+        "pl": "serial komediowy"
+      },
+      {
+        "en": "presenter",
+        "pl": "prezenter"
+      },
+      {
+        "en": "sports section",
+        "pl": "dział sportowy"
+      },
+      {
+        "en": "sports show",
+        "pl": "program sportowy"
+      },
+      {
+        "en": "front page",
+        "pl": "pierwsza strona"
+      }
+    ]
+  },
+  {
+    "id": "phrases",
+    "title": "Użyteczne zwroty",
+    "en": "Useful phrases",
+    "color": "--ink",
+    "modes": [
+      "flashcards",
+      "matching"
+    ],
+    "words": [
+      {
+        "en": "What kind of music do you like to listen to?",
+        "pl": "Jakiego rodzaju muzyki słuchasz?"
+      },
+      {
+        "en": "Have you seen the latest film by...?",
+        "pl": "Widziałeś najnowszy film w reżyserii...?"
+      },
+      {
+        "en": "What's your favourite film?",
+        "pl": "Jaki jest twój ulubiony film?"
+      },
+      {
+        "en": "Which is your favourite actor/director?",
+        "pl": "Kto jest twoim ulubionym aktorem/reżyserem?"
+      },
+      {
+        "en": "Who's your favourite writer?",
+        "pl": "Kto jest twoim ulubionym pisarzem?"
+      },
+      {
+        "en": "What books do you like reading?",
+        "pl": "Jakie książki lubisz czytać?"
+      },
+      {
+        "en": "Have you been to any exhibitions lately?",
+        "pl": "Byłeś/Byłaś ostatnio na jakichś wystawach?"
+      },
+      {
+        "en": "Do you know what's on at the theatre?",
+        "pl": "Wiesz, co grają w teatrze?"
+      }
+    ]
+  }
+];
+
+const MODE_LABELS = {flashcards:'🗂️ Fiszki', matching:'🔗 Dopasuj', mc:'✅ Test ABCD', fill:'✍️ Uzupełnij'};
+const ALL_MODES = ['flashcards','matching','mc','fill'];
+
+let state = { topicIndex:0, mode:'flashcards' };
+
+/* ============ helpers ============ */
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
+  return a;
+}
+function normalize(s){
+  return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9 ]/g,'').replace(/\s+/g,' ').trim();
+}
+function acceptableAnswers(en){
+  let base = en.replace('(e)','#E#');
+  let tokens = base.split(' ');
+  let idx = tokens.findIndex(t=>t.includes('/'));
+  let variants;
+  if(idx!==-1){
+    const [a,b] = tokens[idx].split('/');
+    const t1=[...tokens]; t1[idx]=a;
+    const t2=[...tokens]; t2[idx]=b;
+    variants=[t1.join(' '), t2.join(' ')];
+  } else {
+    variants=[base];
+  }
+  variants = variants.flatMap(v => v.includes('#E#') ? [v.replace('#E#',''), v.replace('#E#','e')] : [v]);
+  return [...new Set(variants.map(normalize))];
+}
+
+/* ============ nav render ============ */
+const topicNav = document.getElementById('topicNav');
+TOPICS.forEach((t,i)=>{
+  const btn=document.createElement('button');
+  btn.className='chip'+(i===state.topicIndex?' active':'');
+  btn.style.setProperty('--c-active', `var(${t.color})`);
+  btn.textContent=t.title;
+  btn.onclick=()=>{state.topicIndex=i; state.mode=(TOPICS[i].modes||ALL_MODES)[0]; renderAll();};
+  topicNav.appendChild(btn);
+});
+
+function renderTopicNav(){
+  [...topicNav.children].forEach((c,i)=>c.classList.toggle('active', i===state.topicIndex));
+}
+
+/* ============ panel render ============ */
+const panel = document.getElementById('panel');
+
+function renderAll(){
+  renderTopicNav();
+  const topic = TOPICS[state.topicIndex];
+  const modes = topic.modes || ALL_MODES;
+  if(!modes.includes(state.mode)) state.mode = modes[0];
+
+  let html = `
+    <div class="panel-head">
+      <div>
+        <h2>${topic.title}</h2>
+        <div class="sub">${topic.en}</div>
+      </div>
+      <div class="count-pill">${topic.words.length} słówek</div>
+    </div>
+    <div class="mode-nav" id="modeNav"></div>
+    <div id="modeBody"></div>
+  `;
+  panel.innerHTML = html;
+
+  const modeNav = document.getElementById('modeNav');
+  modes.forEach(m=>{
+    const b=document.createElement('button');
+    b.className='mode-btn'+(m===state.mode?' active':'');
+    b.textContent=MODE_LABELS[m];
+    b.onclick=()=>{state.mode=m; renderAll();};
+    modeNav.appendChild(b);
+  });
+
+  const body = document.getElementById('modeBody');
+  if(state.mode==='flashcards') renderFlashcards(body, topic);
+  if(state.mode==='matching') renderMatching(body, topic);
+  if(state.mode==='mc') renderMC(body, topic);
+  if(state.mode==='fill') renderFill(body, topic);
+}
+
+/* ============ FLASHCARDS ============ */
+function renderFlashcards(body, topic){
+  let order = shuffle(topic.words.map((_,i)=>i));
+  let idx = 0, flipped=false;
+
+  body.innerHTML = `
+    <div class="fc-stage">
+      <div class="progress-track"><div class="progress-fill" id="fcProgress"></div></div>
+      <div class="fc-card" id="fcCard">
+        <div class="fc-inner">
+          <div class="fc-face front" id="fcFront"></div>
+          <div class="fc-face back" id="fcBack"></div>
+        </div>
+      </div>
+      <div class="fc-hint">kliknij kartę, żeby ją odwrócić</div>
+      <div class="fc-controls">
+        <button class="icon-btn" id="fcPrev">←</button>
+        <button class="btn secondary" id="fcShuffle">🔀 Przetasuj</button>
+        <button class="icon-btn" id="fcNext">→</button>
+      </div>
+    </div>
+  `;
+  const card=document.getElementById('fcCard');
+  const front=document.getElementById('fcFront');
+  const back=document.getElementById('fcBack');
+  const progress=document.getElementById('fcProgress');
+
+  function show(){
+    const w = topic.words[order[idx]];
+    front.textContent = w.en;
+    back.textContent = w.pl;
+    flipped=false;
+    card.classList.remove('flipped');
+    progress.style.width = ((idx+1)/order.length*100)+'%';
+  }
+  card.onclick=()=>{flipped=!flipped; card.classList.toggle('flipped',flipped);};
+  document.getElementById('fcNext').onclick=()=>{idx=(idx+1)%order.length; show();};
+  document.getElementById('fcPrev').onclick=()=>{idx=(idx-1+order.length)%order.length; show();};
+  document.getElementById('fcShuffle').onclick=()=>{order=shuffle(topic.words.map((_,i)=>i)); idx=0; show();};
+  show();
+}
+
+/* ============ MATCHING ============ */
+function renderMatching(body, topic){
+  const roundSize = Math.min(8, topic.words.length);
+  let pool = shuffle(topic.words.map((_,i)=>i)).slice(0, roundSize);
+  let mistakes=0, matchedCount=0;
+  let selLeft=null, selRight=null, locking=false;
+
+  const leftOrder = shuffle(pool);
+  const rightOrder = shuffle(pool);
+
+  body.innerHTML = `
+    <div class="match-meta">
+      <span>Dopasuj pary (${roundSize})</span>
+      <span id="matchScore">Błędy: 0</span>
+    </div>
+    <div class="match-grid">
+      <div class="match-col" id="colLeft"></div>
+      <div class="match-col" id="colRight"></div>
+    </div>
+    <div style="margin-top:18px;"><button class="btn secondary" id="matchNew">🔀 Nowa runda</button></div>
+  `;
+  const colLeft=document.getElementById('colLeft');
+  const colRight=document.getElementById('colRight');
+  const scoreEl=document.getElementById('matchScore');
+
+  leftOrder.forEach(i=>{
+    const d=document.createElement('div');
+    d.className='match-item'; d.textContent=topic.words[i].en; d.dataset.idx=i;
+    d.onclick=()=>pick('left', i, d);
+    colLeft.appendChild(d);
+  });
+  rightOrder.forEach(i=>{
+    const d=document.createElement('div');
+    d.className='match-item'; d.textContent=topic.words[i].pl; d.dataset.idx=i;
+    d.onclick=()=>pick('right', i, d);
+    colRight.appendChild(d);
+  });
+
+  function pick(side, i, el){
+    if(locking || el.classList.contains('matched')) return;
+    if(side==='left'){
+      if(selLeft) selLeft.el.classList.remove('selected');
+      selLeft={idx:i, el}; el.classList.add('selected');
+    } else {
+      if(selRight) selRight.el.classList.remove('selected');
+      selRight={idx:i, el}; el.classList.add('selected');
+    }
+    if(selLeft && selRight){
+      locking=true;
+      if(selLeft.idx===selRight.idx){
+        selLeft.el.classList.remove('selected'); selRight.el.classList.remove('selected');
+        selLeft.el.classList.add('matched'); selRight.el.classList.add('matched');
+        matchedCount++;
+        selLeft=null; selRight=null; locking=false;
+        if(matchedCount===roundSize){
+          setTimeout(()=>{
+            body.innerHTML = `<div class="score-box"><div class="big">🎉</div><p>Runda ukończona! Błędy: ${mistakes}</p><button class="btn" id="againBtn">Jeszcze raz</button></div>`;
+            document.getElementById('againBtn').onclick=()=>renderMatching(body, topic);
+          }, 400);
+        }
+      } else {
+        mistakes++; scoreEl.textContent='Błędy: '+mistakes;
+        selLeft.el.classList.add('wrong'); selRight.el.classList.add('wrong');
+        setTimeout(()=>{
+          selLeft.el.classList.remove('selected','wrong');
+          selRight.el.classList.remove('selected','wrong');
+          selLeft=null; selRight=null; locking=false;
+        }, 500);
+      }
+    }
+  }
+  document.getElementById('matchNew').onclick=()=>renderMatching(body, topic);
+}
+
+/* ============ MULTIPLE CHOICE ============ */
+function renderMC(body, topic){
+  let order = shuffle(topic.words.map((_,i)=>i));
+  let idx=0, score=0, answered=false;
+
+  body.innerHTML = `
+    <div class="progress-track" style="margin-bottom:16px;"><div class="progress-fill" id="mcProgress"></div></div>
+    <div class="mc-word" id="mcWord"></div>
+    <div class="mc-options" id="mcOptions"></div>
+    <div style="margin-top:16px; display:flex; justify-content:space-between; align-items:center;">
+      <span id="mcScore" style="font-weight:700; font-size:13.5px;">Wynik: 0/0</span>
+      <button class="btn secondary" id="mcNext" style="display:none;">Dalej →</button>
+    </div>
+  `;
+  const wordEl=document.getElementById('mcWord');
+  const optsEl=document.getElementById('mcOptions');
+  const scoreEl=document.getElementById('mcScore');
+  const nextBtn=document.getElementById('mcNext');
+  const progress=document.getElementById('mcProgress');
+
+  function question(){
+    if(idx>=order.length){
+      body.innerHTML = `<div class="score-box"><div class="big">✅ ${score}/${order.length}</div><p>Ukończono test.</p><button class="btn" id="againBtn">Jeszcze raz</button></div>`;
+      document.getElementById('againBtn').onclick=()=>renderMC(body, topic);
+      return;
+    }
+    answered=false;
+    const w = topic.words[order[idx]];
+    wordEl.textContent = w.en;
+    progress.style.width = (idx/order.length*100)+'%';
+    let distractors = shuffle(topic.words.filter(x=>x.pl!==w.pl)).slice(0,3).map(x=>x.pl);
+    const options = shuffle([w.pl, ...distractors]);
+    optsEl.innerHTML='';
+    options.forEach(opt=>{
+      const b=document.createElement('button');
+      b.className='mc-opt'; b.textContent=opt;
+      b.onclick=()=>{
+        if(answered) return;
+        answered=true;
+        if(opt===w.pl){ b.classList.add('correct'); score++; }
+        else {
+          b.classList.add('incorrect');
+          [...optsEl.children].find(c=>c.textContent===w.pl).classList.add('correct');
+        }
+        [...optsEl.children].forEach(c=>c.disabled=true);
+        scoreEl.textContent = `Wynik: ${score}/${idx+1}`;
+        nextBtn.style.display='inline-block';
+      };
+      optsEl.appendChild(b);
+    });
+    nextBtn.style.display='none';
+  }
+  nextBtn.onclick=()=>{idx++; question();};
+  question();
+}
+
+/* ============ FILL IN THE GAP ============ */
+function renderFill(body, topic){
+  let order = shuffle(topic.words.map((_,i)=>i));
+  let idx=0, score=0;
+
+  body.innerHTML = `
+    <div class="progress-track" style="margin-bottom:16px;"><div class="progress-fill" id="fillProgress"></div></div>
+    <div class="fill-prompt" id="fillPrompt"></div>
+    <div class="fill-row">
+      <input type="text" id="fillInput" placeholder="wpisz po angielsku..." autocomplete="off">
+      <button class="btn" id="fillCheck">Sprawdź</button>
+    </div>
+    <div class="fill-feedback" id="fillFeedback"></div>
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <span style="font-weight:700; font-size:13.5px;" id="fillScore">Wynik: 0/0</span>
+      <button class="btn secondary" id="fillNext" style="display:none;">Dalej →</button>
+    </div>
+  `;
+  const promptEl=document.getElementById('fillPrompt');
+  const input=document.getElementById('fillInput');
+  const checkBtn=document.getElementById('fillCheck');
+  const feedback=document.getElementById('fillFeedback');
+  const scoreEl=document.getElementById('fillScore');
+  const nextBtn=document.getElementById('fillNext');
+  const progress=document.getElementById('fillProgress');
+
+  function question(){
+    if(idx>=order.length){
+      body.innerHTML = `<div class="score-box"><div class="big">✍️ ${score}/${order.length}</div><p>Ukończono ćwiczenie.</p><button class="btn" id="againBtn">Jeszcze raz</button></div>`;
+      document.getElementById('againBtn').onclick=()=>renderFill(body, topic);
+      return;
+    }
+    const w = topic.words[order[idx]];
+    promptEl.textContent = w.pl;
+    progress.style.width = (idx/order.length*100)+'%';
+    input.value=''; input.disabled=false; input.focus();
+    feedback.textContent=''; feedback.className='fill-feedback';
+    checkBtn.style.display='inline-block';
+    nextBtn.style.display='none';
+  }
+  function check(){
+    const w = topic.words[order[idx]];
+    const ok = acceptableAnswers(w.en).includes(normalize(input.value));
+    if(ok){
+      feedback.textContent='✔ Dobrze!'; feedback.className='fill-feedback ok';
+      score++;
+    } else {
+      feedback.textContent='✘ Poprawna odpowiedź: '+w.en; feedback.className='fill-feedback bad';
+    }
+    input.disabled=true;
+    checkBtn.style.display='none';
+    nextBtn.style.display='inline-block';
+    scoreEl.textContent = `Wynik: ${score}/${idx+1}`;
+  }
+  checkBtn.onclick=check;
+  input.onkeydown=(e)=>{if(e.key==='Enter' && !input.disabled) check();};
+  nextBtn.onclick=()=>{idx++; question();};
+  question();
+}
+
+renderAll();
+</script>
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Vocabulary Bank — Egzamin Ósmoklasisty</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F7F0E8;
+  --ink:#2C4A5E;
+  --teal:#779ECC;
+  --coral:#FF985A;
+  --sun:#FFB347;
+  --violet:#4C6B85;
+  --pink:#F2C894;
+  --green:#6FA98A;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:
+    radial-gradient(circle at 8% 12%, rgba(119,158,204,0.14) 0, transparent 40%),
+    radial-gradient(circle at 92% 88%, rgba(255,152,90,0.12) 0, transparent 42%),
+    var(--paper);
+  background-attachment:fixed;
+  font-family:'Figtree',sans-serif;
+  color:var(--ink);
+  min-height:100vh;
+}
+.wrap{max-width:980px;margin:0 auto;padding:28px 18px 70px;}
+
+header.top{
+  position:relative;
+  margin-bottom:26px;
+  padding:26px 26px;
+  background:var(--ink);
+  border-radius:22px;
+  color:var(--paper);
+  overflow:hidden;
+  display:flex; align-items:center; gap:20px; flex-wrap:wrap;
+}
+header.top::before{
+  content:"";
+  position:absolute; inset:0;
+  background-image:radial-gradient(rgba(251,243,228,0.06) 1px, transparent 1px);
+  background-size:14px 14px;
+}
+.tape{
+  position:absolute; top:-10px; left:36px;
+  width:110px; height:34px;
+  background:var(--sun);
+  transform:rotate(-6deg);
+  opacity:0.95;
+  box-shadow:0 3px 6px rgba(0,0,0,0.25);
+}
+header.top img.logo{
+  width:64px; height:64px; border-radius:16px; position:relative;
+  background:var(--paper); padding:6px; flex:none; object-fit:contain;
+}
+header.top .headtext{position:relative;}
+header.top h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(24px,4vw,36px);
+  margin:6px 0 2px;
+  position:relative;
+}
+header.top p{
+  margin:0;
+  opacity:0.75;
+  font-size:14.5px;
+  position:relative;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(220px, 1fr));
+  gap:16px;
+}
+.card{
+  display:block;
+  text-decoration:none;
+  color:var(--ink);
+  background:#fff;
+  border:2.5px solid var(--ink);
+  border-radius:18px;
+  padding:18px;
+  box-shadow:5px 5px 0 var(--ink);
+  transition:transform .12s ease, box-shadow .12s ease;
+  position:relative;
+  overflow:hidden;
+}
+.card:hover{transform:translate(-2px,-2px); box-shadow:7px 7px 0 var(--ink);}
+.card .num{
+  font-family:'Playfair Display',serif;
+  font-weight:700;
+  font-size:13px;
+  display:inline-block;
+  padding:3px 11px;
+  border-radius:999px;
+  border:2px solid var(--ink);
+  margin-bottom:10px;
+}
+.card h3{
+  font-family:'Playfair Display',serif;
+  font-size:19px;
+  margin:0 0 4px;
+}
+.card .sub{
+  font-size:13px;
+  color:#6a6d74;
+}
+
+footer{
+  text-align:center; margin-top:26px; font-size:12.5px; color:#8a8d94;
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <div class="tape"></div>
+    <img class="logo" src="/logo-summer.png" alt="Be Chatty">
+    <div class="headtext">
+      <h1>Vocabulary Bank — Egzamin Ósmoklasisty</h1>
+      <p>Wybierz unit i ćwicz słówka: fiszki, dopasowywanie, test ABCD, uzupełnianie luk.</p>
+    </div>
+  </header>
+
+  <div class="grid" id="unitGrid"></div>
+
+  <footer>Be Chatty · Powodzenia na egzaminie! 🍀</footer>
+</div>
+
+<script>
+const UNITS = [
+  {n:1, title:"Wygląd i charakter", file:"unit1_vocab_practice.html"},
+  {n:2, title:"Dom i mieszkanie", file:"unit2_vocab_practice.html"},
+  {n:3, title:"Szkoła", file:"unit3_vocab_practice.html"},
+  {n:4, title:"Praca i zawody", file:"unit4_vocab_practice.html"},
+  {n:5, title:"Rodzina i relacje", file:"unit5_vocab_practice.html"},
+  {n:6, title:"Jedzenie", file:"unit6_vocab_practice.html"},
+  {n:7, title:"Zakupy i usługi", file:"unit7_vocab_practice.html"},
+  {n:8, title:"Podróże i wakacje", file:"unit8_vocab_practice.html"},
+  {n:9, title:"Sztuka, kultura i media", file:"unit9_vocab_practice.html"},
+  {n:10, title:"Sport", file:"unit10_vocab_practice.html"},
+  {n:11, title:"Zdrowie", file:"unit11_vocab_practice.html"},
+  {n:12, title:"Technologia", file:"unit12_vocab_practice.html"},
+  {n:13, title:"Przyroda, pogoda i środowisko", file:"unit13_vocab_practice.html"},
+  {n:14, title:"Społeczeństwo, prawo i polityka", file:"unit14_vocab_practice.html"},
+];
+
+const grid = document.getElementById('unitGrid');
+const colors = ['--sun','--pink','--teal','--violet','--coral'];
+UNITS.forEach((u,i)=>{
+  const a = document.createElement('a');
+  a.className='card'; a.href=u.file;
+  a.innerHTML = `<span class="num" style="background:var(${colors[i%colors.length]})">UNIT ${u.n}</span>
+    <h3>${u.title}</h3>
+    <div class="sub">kliknij, aby otworzyć ćwiczenia</div>`;
+  grid.appendChild(a);
+});
+</script>
+</body>
+</html>
