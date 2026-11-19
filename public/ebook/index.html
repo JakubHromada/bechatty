@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Powiedz to po angielsku! Darmowy ebook BeChatty</title>
-<meta name="description" content="Darmowy ebook BeChatty: 25 codziennych zwrotów po angielsku z ćwiczeniami. Podaj email i odbierz go od razu.">
+<meta name="description" content="Darmowy ebook BeChatty: 25 codziennych zwrotów po angielsku z ćwiczeniami. Podaj email, a link do ebooka przyjdzie na Twoją skrzynkę.">
 <meta property="og:title" content="Powiedz to po angielsku! Darmowy ebook BeChatty">
 <meta property="og:description" content="25 codziennych zwrotów po angielsku z fiszkami, grami i quizem. Odbierz za darmo.">
 <meta property="og:type" content="website">
@@ -77,6 +77,7 @@ input[type=email]:focus{border-color:var(--navy);outline:none}
 .foot{text-align:center;font-size:13px;padding-block:8px 28px;opacity:.85}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 @media (prefers-reduced-motion:reduce){.btn{transition:none}}
+#sent:focus{outline:none}
 </style>
 </head>
 <body>
@@ -110,16 +111,16 @@ input[type=email]:focus{border-color:var(--navy);outline:none}
   <div class="wrap">
     <div class="card">
 
-      <!-- returning visitor who already signed up on this device -->
-      <div id="returning" hidden>
-        <h2>Masz już dostęp!</h2>
-        <p class="lead">Twój ebook czeka na Ciebie.</p>
-        <a class="btn" id="open-btn" href="#">Otwórz ebook →</a>
+      <!-- shown after a successful signup: the ebook link arrives by email only -->
+      <div id="sent" hidden tabindex="-1">
+        <h2>Sprawdź swoją skrzynkę!</h2>
+        <p class="lead">Wysłałam link do ebooka na adres <b id="sent-email"></b>. Otwórz wiadomość od BeChatty i kliknij link, żeby zacząć czytać.</p>
+        <p class="lead">Nie widzisz maila? Poczekaj kilka minut i zajrzyj do folderów <b>Spam</b> lub <b>Oferty</b>.</p>
       </div>
 
       <form id="form" novalidate>
         <h2>Odbierz ebook za darmo</h2>
-        <p class="lead">Podaj swój email, a ebook otworzy się od razu. Link wyślę Ci też na maila, żebyś mógł/mogła do niego wrócić w każdej chwili.</p>
+        <p class="lead">Podaj swój email, a wyślę Ci link do ebooka. Zachowaj tę wiadomość, żeby wracać do ebooka w każdej chwili.</p>
 
         <label class="field" for="email">Twój adres email</label>
         <input id="email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="np. ania@gmail.com" required>
@@ -131,7 +132,6 @@ input[type=email]:focus{border-color:var(--navy);outline:none}
 
         <button class="btn" id="submit" type="submit">Odbierz ebook →</button>
         <p class="msg err" id="error" role="alert" hidden></p>
-        <p class="msg ok" id="success" role="status" hidden></p>
 
         <p class="legal">Administratorem Twoich danych jest Aleksandra Susek-Hromada, BeChatty (NIP 5512651594). Twój adres email przetwarzam wyłącznie w celu wysyłki ebooka i newslettera, do czasu wypisania się. Szczegóły znajdziesz w <a href="/polityka-prywatnosci/">polityce prywatności</a>.</p>
       </form>
@@ -151,22 +151,12 @@ input[type=email]:focus{border-color:var(--navy);outline:none}
 const ML_ACCOUNT_ID = "2784585";
 const ML_FORM_ID = "203770351183726244";
 
-// ?dostep=bc25 is the access code the ebook page checks (it strips it from the address bar)
-const EBOOK_URL = "/ebook/powiedz-to-po-angielsku-k7m2/?dostep=bc25";
-const KEY = "bc-ebook-access";
-
 const $ = id => document.getElementById(id);
 const form = $("form"), emailEl = $("email"), consentEl = $("consent"),
-      btn = $("submit"), errEl = $("error"), okEl = $("success");
-$("open-btn").href = EBOOK_URL;
-
-function hasAccess(){ try { return localStorage.getItem(KEY) === "1"; } catch(e){ return false; } }
-function grantAccess(){ try { localStorage.setItem(KEY, "1"); } catch(e){} }
-
-if (hasAccess()) { form.hidden = true; $("returning").hidden = false; }
+      btn = $("submit"), errEl = $("error");
 
 [emailEl, consentEl].forEach(el => el.addEventListener("input", () => { errEl.hidden = true; }));
-function showError(text){ okEl.hidden = true; errEl.textContent = text; errEl.hidden = false; }
+function showError(text){ errEl.textContent = text; errEl.hidden = false; }
 
 form.addEventListener("submit", async (ev) => {
   ev.preventDefault();
@@ -183,12 +173,12 @@ form.addEventListener("submit", async (ev) => {
     body.append("anticsrf", "true");
     const res = await fetch(`https://assets.mailerlite.com/jsonp/${ML_ACCOUNT_ID}/forms/${ML_FORM_ID}/subscribe`, { method: "POST", body, cache: "no-store" });
     const data = await res.json().catch(() => ({}));
-    // Only unlock when MailerLite explicitly confirms the signup
     if (!res.ok || data.success !== true) throw new Error("subscribe failed: " + JSON.stringify(data));
-    grantAccess();
-    okEl.textContent = "Gotowe! Otwieram ebook… Link wysłałam też na Twój email.";
-    okEl.hidden = false;
-    setTimeout(() => { location.href = EBOOK_URL; }, 1400);
+    // No redirect: the reader opens the ebook from the email
+    $("sent-email").textContent = email;
+    form.hidden = true;
+    const sent = $("sent"); sent.hidden = false; sent.focus();
+    sent.scrollIntoView({ block: "center", behavior: "smooth" });
   } catch (e) {
     console.error("[ebook]", e);
     showError("Coś poszło nie tak. Spróbuj jeszcze raz za chwilę albo napisz do mnie na Instagramie @be_chatty.");
