@@ -1,5 +1,6 @@
 <template>
   <nav class="nav sticky top-0 z-50">
+    <EbookTicker />
     <div class="section-wrap flex items-center justify-between h-[var(--nav-h)]">
 
       <!-- Brand: the logo's rust chat bubble, redrawn crisp, + serif wordmark -->
@@ -20,17 +21,8 @@
         </li>
       </ul>
 
-      <!-- Right: language + CTA + mobile toggle -->
+      <!-- Right: CTA + mobile toggle -->
       <div class="flex items-center gap-3">
-        <div class="lang-toggle" role="group" aria-label="Language">
-          <button
-            v-for="lang in ['pl','en']" :key="lang"
-            @click="setLang(lang)"
-            class="lang-btn"
-            :class="currentLang === lang ? 'lang-btn--active' : ''"
-            :aria-pressed="currentLang === lang ? 'true' : 'false'"
-          >{{ lang.toUpperCase() }}</button>
-        </div>
         <a href="#contact" class="btn-primary btn-sm hidden sm:inline-flex">{{ t('Book a trial lesson', 'Umów lekcję próbną') }}</a>
         <button
           @click="menuOpen = !menuOpen"
@@ -71,15 +63,16 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useLanguage } from '../composables/useLanguage'
+import EbookTicker from './EbookTicker.vue'
 
-const { currentLang, setLang, t } = useLanguage()
+const { t } = useLanguage()
 const menuOpen = ref(false)
 const activeId = ref('home')
 
 const navLinks = [
   { href: '#about',    spyId: 'about',    en: 'About',        pl: 'O mnie'        },
   { href: '#lessons',  spyId: 'lessons',  en: 'Offer',        pl: 'Oferta'        },
-  { href: '#pricing',  spyId: 'services', en: 'Pricing',      pl: 'Cennik'        },
+  { href: '#services', spyId: 'services', en: 'Pricing',      pl: 'Cennik'        },
   { href: '#reviews',  spyId: 'reviews',  en: 'Reviews',      pl: 'Opinie'        },
   { href: '#contact',  spyId: 'contact',  en: 'Contact',      pl: 'Kontakt'       },
 ]
@@ -97,7 +90,7 @@ function onNavClick(link) {
 
 let spy = null
 onMounted(() => {
-  const ids = ['home', 'about', 'lessons', 'services', 'reviews', 'contact']
+  const ids = ['home', 'about', 'lessons', 'services', 'reviews', 'ebook', 'contact']
   spy = new IntersectionObserver(
     entries => entries.forEach(e => {
       if (e.isIntersecting && Date.now() >= spySuppressedUntil) activeId.value = e.target.id

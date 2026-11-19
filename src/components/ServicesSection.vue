@@ -127,8 +127,8 @@ const services = [
     featured: true,
     tone: 'var(--terra-deep)',
     prices: {
-      en: [ { label: null, rows: [ { format: 'Individual', price: '120 zł' }, { format: 'In pairs', price: '80 zł' }, { format: 'Small group', price: '65 zł' } ] } ],
-      pl: [ { label: null, rows: [ { format: 'Indywidualnie', price: '120 zł' }, { format: 'W parach', price: '80 zł' }, { format: 'Kameralne grupy', price: '65 zł' } ] } ],
+      en: [ { label: null, rows: [ { format: 'Individual', price: '120 zł' }, { format: 'In pairs', price: '85 zł' }, { format: 'Small group', price: '65 zł' } ] } ],
+      pl: [ { label: null, rows: [ { format: 'Indywidualnie', price: '120 zł' }, { format: 'W parach', price: '85 zł' }, { format: 'Kameralne grupy', price: '65 zł' } ] } ],
     },
     en: {
       title: 'Comprehensive English',
@@ -166,13 +166,13 @@ const services = [
     prices: {
       en: [
         { label: '8th-grade exam',              rows: [ { format: 'Individual', price: '110 zł' }, { format: 'In pairs', price: '75 zł' } ] },
-        { label: 'Matura (basic & extended)',    rows: [ { format: 'Individual', price: '120 zł' }, { format: 'In pairs', price: '80 zł' } ] },
+        { label: 'Matura (basic & extended)',    rows: [ { format: 'Individual', price: '120 zł' }, { format: 'In pairs', price: '85 zł' } ] },
         { label: 'B2 First Exam',                rows: [ { format: 'Individual', price: '140 zł' }, { format: 'In pairs', price: '90 zł' } ] },
         { label: 'C1 Advanced Exam',             rows: [ { format: 'Individual', price: '150 zł' }, { format: 'In pairs', price: '100 zł' } ] },
       ],
       pl: [
         { label: 'Egzamin ósmoklasisty',              rows: [ { format: 'Indywidualnie', price: '110 zł' }, { format: 'W parach', price: '75 zł' } ] },
-        { label: 'Matura (podstawowa i rozszerzona)', rows: [ { format: 'Indywidualnie', price: '120 zł' }, { format: 'W parach', price: '80 zł' } ] },
+        { label: 'Matura (podstawowa i rozszerzona)', rows: [ { format: 'Indywidualnie', price: '120 zł' }, { format: 'W parach', price: '85 zł' } ] },
         { label: 'Egzamin B2 First',                  rows: [ { format: 'Indywidualnie', price: '140 zł' }, { format: 'W parach', price: '90 zł' } ] },
         { label: 'Egzamin C1 Advanced',                rows: [ { format: 'Indywidualnie', price: '150 zł' }, { format: 'W parach', price: '100 zł' } ] },
       ],
@@ -251,7 +251,7 @@ const facts = [
   margin-top: 1.75rem;
   padding-top: 1.4rem;
   border-top: 1.5px solid var(--walnut);
-  scroll-margin-top: calc(var(--nav-h) + 16px);
+  scroll-margin-top: calc(var(--header-h) + 16px);
 }
 @media (min-width: 1024px) { .price-block { margin-top: auto; } }
 .price-caption {

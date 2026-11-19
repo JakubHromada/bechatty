@@ -65,7 +65,9 @@
   /* ── Fluid rhythm ─────────────────────────────────── */
   --section-y:      clamp(4.5rem, 9vw, 8rem);
   --gutter:         clamp(1.25rem, 4vw, 2.5rem);
-  --nav-h:          78px;      /* sticky nav height; the hero fills the rest of the viewport */
+  --nav-h:          78px;      /* nav row height                                      */
+  --bar-h:          48px;      /* ebook ticker strip above the nav row                */
+  --header-h:       calc(var(--nav-h) + var(--bar-h)); /* whole sticky header; the hero fills the rest of the viewport */
 }
 
 /* ── Reset ─────────────────────────────────────────── */
@@ -100,7 +102,7 @@ body::after {
 /* Sticky-nav-aware anchor offset. Must equal the nav's full visual height
    (height + 2px bottom border) exactly: any larger and an anchor jump leaves
    a sliver of the previous section's colour band showing under the nav. */
-section[id] { scroll-margin-top: calc(var(--nav-h) + 2px); }
+section[id] { scroll-margin-top: calc(var(--header-h) + 2px); }
 
 /* Ruled seams: colour bands meet on a firm walnut rule — the page reads
    as one composed print sheet, not stacked web sections. */
@@ -274,21 +276,6 @@ p { text-wrap: pretty; }
 .nav-link--active { color: var(--ink); font-weight: 700; }
 .nav-link--active::after { transform: scaleX(1); }
 
-/* ── Language toggle: sharp segmented switch ───────── */
-.lang-toggle {
-  display: flex; align-items: stretch;
-  border: 1.5px solid var(--walnut); border-radius: var(--radius);
-  overflow: hidden;
-}
-.lang-btn {
-  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em;
-  padding: 0.38rem 0.62rem; border: none; cursor: pointer;
-  color: var(--ink-soft); background: transparent;
-  transition: color .2s ease, background .2s ease;
-}
-.lang-btn + .lang-btn { border-left: 1.5px solid var(--walnut); }
-.lang-btn--active { background: var(--walnut); color: var(--linen); }
-
 /* ── Mobile menu transition ────────────────────────── */
 .menu-slide-enter-active, .menu-slide-leave-active { transition: opacity .3s var(--ease-quint), transform .3s var(--ease-quint); }
 .menu-slide-enter-from, .menu-slide-leave-to { opacity: 0; transform: translateY(-8px); }
@@ -299,7 +286,6 @@ p { text-wrap: pretty; }
 .card-toggle-btn:focus-visible,
 a:focus-visible,
 button:focus-visible,
-.lang-btn:focus-visible,
 .input-field:focus-visible { outline: 2px solid var(--terra-deep); outline-offset: 3px; }
 
 /* ── Reduced motion ────────────────────────────────── */

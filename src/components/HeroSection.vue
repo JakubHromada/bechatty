@@ -174,7 +174,7 @@ function onHeroMouseMove(e) {
 /* The hero owns the whole first screen: viewport height minus the sticky
    nav. min-height (not height) so short viewports still fit the content;
    dvh keeps mobile address bars from causing layout jumps. */
-.hero { min-height: calc(100vh - var(--nav-h)); min-height: calc(100dvh - var(--nav-h)); }
+.hero { min-height: calc(100vh - var(--header-h)); min-height: calc(100dvh - var(--header-h)); }
 
 .hero-title { font-weight: 580; line-height: 1.06; letter-spacing: -0.024em; }
 
@@ -208,7 +208,7 @@ function onHeroMouseMove(e) {
 }
 .hero-photo__clip {
   position: relative; z-index: 1;
-  display: block; width: 100%; aspect-ratio: 3368 / 6000; overflow: hidden;
+  display: block; width: 100%; aspect-ratio: 3 / 4; overflow: hidden;
   border: 1.5px solid var(--walnut);
   border-radius: var(--radius);
 }
@@ -216,7 +216,7 @@ function onHeroMouseMove(e) {
   width: 100%; height: 100%;
   /* bottom-anchor the crop so it trims off the top of the frame (hair/
      background headroom) rather than the desk/laptop at the bottom */
-  object-fit: cover; object-position: 50% 100%;
+  object-fit: cover; object-position: 50% 28%;
 }
 .hero-photo__cap {
   margin-top: 1.4rem;

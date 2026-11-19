@@ -44,7 +44,8 @@
       </div>
 
       <div class="footer-rule mt-14 pt-6 text-xs">
-        <p class="footer-mute">&copy; 2026 BeChatty. {{ t('English language school online. All rights reserved.', 'Szkoła języka angielskiego online. Wszelkie prawa zastrzeżone.') }}</p>
+        <p class="footer-mute">&copy; 2026 BeChatty. {{ t('English language school online. All rights reserved.', 'Szkoła języka angielskiego online. Wszelkie prawa zastrzeżone.') }}
+          · <a href="/polityka-prywatnosci/" class="footer-link underline">{{ t('Privacy policy', 'Polityka prywatności') }}</a></p>
       </div>
     </div>
   </footer>
@@ -60,6 +61,7 @@ const footerLinks = [
   { href: '#lessons',  en: 'Lessons',  pl: 'Zajęcia' },
   { href: '#services', en: 'Services', pl: 'Oferta'  },
   { href: '#reviews',  en: 'Reviews',  pl: 'Opinie'  },
+  { href: '/ebook/',   en: 'Free ebook', pl: 'Darmowy ebook' },
   { href: '#contact',  en: 'Contact',  pl: 'Kontakt' },
 ]
 </script>

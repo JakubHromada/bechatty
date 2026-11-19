@@ -49,7 +49,7 @@
           <div class="flex flex-col gap-1.5">
             <label for="cf-name" class="text-sm font-bold text-ink">{{ t('Your Name *', 'Twoje imię *') }}</label>
             <input id="cf-name" ref="nameInput" v-model="form.name" type="text" class="input-field" aria-required="true"
-              :placeholder="t('e.g. Maria Smith', 'np. Maria Kowalska')" required />
+              :placeholder="t('e.g. Anna Smith', 'np. Anna Kowalska')" required />
           </div>
 
           <div class="flex flex-col gap-1.5">

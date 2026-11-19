@@ -1,30 +1,17 @@
 import { ref } from 'vue'
 
-function applyLang(lang) {
-  document.documentElement.lang = lang
-  document.title = lang === 'en'
-    ? 'BeChatty: Online English School'
-    : 'BeChatty: Nauczyciel angielskiego'
-}
+// Site is Polish-only for now — kept as a ref/t() pair so components
+// that call t(en, pl) don't need to change when English comes back.
+const currentLang = ref('pl')
 
-// Module-level ref - shared across all components (singleton)
-const currentLang = ref(localStorage.getItem('bechatty-lang') || 'pl')
-
-// Sync <html lang> + document.title to the stored preference on first load,
-// not only when the user clicks the toggle.
-applyLang(currentLang.value)
+document.documentElement.lang = currentLang.value
+document.title = 'BeChatty: Nauczyciel angielskiego'
 
 export function useLanguage() {
-  function setLang(lang) {
-    currentLang.value = lang
-    localStorage.setItem('bechatty-lang', lang)
-    applyLang(lang)
-  }
-
   /** Return English or Polish string based on current language */
   function t(en, pl) {
     return currentLang.value === 'en' ? en : pl
   }
 
-  return { currentLang, setLang, t }
+  return { currentLang, t }
 }

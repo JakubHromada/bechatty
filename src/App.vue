@@ -5,6 +5,7 @@
   <LessonsSection />
   <ServicesSection />
   <ReviewsSection />
+  <EbookSection />
   <ContactSection />
   <FooterSection />
 </template>
@@ -16,6 +17,7 @@ import AboutSection   from './components/AboutSection.vue'
 import LessonsSection  from './components/LessonsSection.vue'
 import ServicesSection from './components/ServicesSection.vue'
 import ReviewsSection from './components/ReviewsSection.vue'
+import EbookSection   from './components/EbookSection.vue'
 import ContactSection from './components/ContactSection.vue'
 import FooterSection  from './components/FooterSection.vue'
 </script>

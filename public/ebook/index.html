@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Powiedz to po angielsku! Darmowy ebook BeChatty</title>
+<meta name="description" content="Darmowy ebook BeChatty: 25 codziennych zwrotów po angielsku z ćwiczeniami. Podaj email i odbierz go od razu.">
+<meta property="og:title" content="Powiedz to po angielsku! Darmowy ebook BeChatty">
+<meta property="og:description" content="25 codziennych zwrotów po angielsku z fiszkami, grami i quizem. Odbierz za darmo.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://bechatty.pl/ebook/">
+<meta property="og:image" content="https://bechatty.pl/ebook/ola.jpg">
+<meta property="og:locale" content="pl_PL">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://bechatty.pl/ebook/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap">
+<style>
+/* Same look as the ebook itself: phone-first column, BeChatty pastels, one light theme by choice. */
+:root{
+  --wedgwood:#779ECC; --genx:#9FC0DE; --waffle:#F2C894; --tangy:#FFB347; --coral:#FF985A;
+  --navy:#2C4A5E; --linen:#FBF3E9; --paper:#FFFDF9; --grey:#5E6B75; --line:#E8DCCB;
+  --bad:#B4462B; --bad-bg:#FBE6DF; --ok:#2E7D5B; --ok-bg:#E3F3EA;
+  --coral-ink:#C2561C;
+  --f-display:"Playfair Display", Georgia, "Times New Roman", serif;
+  --f-body:"Noto Sans", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--linen);color:var(--navy);font-family:var(--f-body);font-size:17px;line-height:1.55}
+.wrap{max-width:720px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.15}
+a{color:var(--navy)}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--navy);outline-offset:2px}
+
+.topbar{display:flex;align-items:center;padding-block:18px}
+.brand{display:inline-flex;align-items:center;gap:10px;background:#fff;border-radius:999px;padding:8px 18px 8px 10px;font-weight:700;letter-spacing:.06em;font-size:14px;text-decoration:none}
+.sq{width:20px;height:20px;border-radius:6px;display:inline-block}
+.sq.t{background:var(--tangy)} .sq.w{background:var(--wedgwood)}
+
+.hero{background:var(--wedgwood)}
+.hero .wrap{padding-block:4px 40px}
+.photo{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 40%;max-height:560px;border-radius:28px;background:var(--genx)}
+.bubble{position:relative;background:var(--linen);border-radius:28px;padding:30px 24px 28px;margin:-64px 12px 0;text-align:center;box-shadow:0 10px 30px rgba(44,74,94,.18)}
+.eyebrow{font-weight:700;font-size:13px;letter-spacing:.12em;color:var(--coral-ink);text-transform:uppercase}
+.hero h1{font-size:clamp(34px,8vw,52px);margin-top:8px}
+.hero .sub{font-size:19px;margin:10px 0 0;font-weight:600}
+
+.inside{padding-block:32px 8px}
+.inside h2{font-size:clamp(24px,5.5vw,30px)}
+.list{list-style:none;padding:0;margin:16px 0 0;display:grid;gap:10px}
+.list li{display:flex;gap:12px;align-items:flex-start;background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:14px 16px}
+.list .dot{flex:0 0 auto;width:12px;height:12px;border-radius:4px;margin-top:7px}
+
+.signup{padding-block:24px 40px}
+.card{background:var(--paper);border:2px solid var(--navy);border-radius:24px;padding:24px 20px;box-shadow:6px 6px 0 var(--wedgwood)}
+.card h2{font-size:clamp(24px,5.5vw,30px)}
+.card .lead{margin:8px 0 18px}
+label.field{display:block;font-weight:700;font-size:15px;margin-bottom:6px}
+input[type=email]{width:100%;border:2px solid #C9BBA6;border-radius:14px;padding:14px 16px;background:#fff;font-size:17px}
+input[type=email]:focus{border-color:var(--navy);outline:none}
+.consent{display:flex;gap:12px;align-items:flex-start;margin-top:16px;font-size:14px;line-height:1.5;cursor:pointer}
+.consent input{flex:0 0 auto;width:22px;height:22px;margin:1px 0 0;accent-color:var(--navy);cursor:pointer}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:20px;border:2px solid var(--navy);border-radius:999px;padding:15px 22px;background:var(--coral);color:var(--navy);font-weight:700;font-size:18px;cursor:pointer;box-shadow:4px 4px 0 var(--navy);text-decoration:none;transition:transform .15s ease,box-shadow .15s ease}
+.btn:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--navy)}
+.btn:disabled{opacity:.6;cursor:wait;transform:none;box-shadow:4px 4px 0 var(--navy)}
+.msg{margin:14px 0 0;border-radius:12px;padding:10px 14px;font-size:15px}
+.msg.err{background:var(--bad-bg);color:var(--bad)}
+.msg.ok{background:var(--ok-bg);color:var(--ok)}
+.legal{margin:16px 0 0;font-size:12.5px;line-height:1.5;color:var(--grey)}
+[hidden]{display:none!important}
+
+.foot{text-align:center;font-size:13px;padding-block:8px 28px;opacity:.85}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media (prefers-reduced-motion:reduce){.btn{transition:none}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="topbar">
+      <a class="brand" href="/"><span class="sq t"></span><span class="sq w"></span>BECHATTY</a>
+    </div>
+    <img class="photo" src="/ebook/ola.jpg" width="800" height="1000" alt="Ola, nauczycielka angielskiego w BeChatty, uśmiecha się przy biurku">
+    <div class="bubble">
+      <div class="eyebrow">Darmowy ebook</div>
+      <h1>Powiedz to po angielsku!</h1>
+      <p class="sub">25 codziennych zwrotów</p>
+    </div>
+  </div>
+</header>
+
+<section class="inside">
+  <div class="wrap">
+    <h2>Co znajdziesz w środku?</h2>
+    <ul class="list">
+      <li><span class="dot" style="background:var(--tangy)"></span><span><b>25 praktycznych zwrotów</b>, dzięki którym zabrzmisz naturalnie w codziennych rozmowach.</span></li>
+      <li><span class="dot" style="background:var(--wedgwood)"></span><span><b>5 rozdziałów:</b> codzienne reakcje, pogoda i small talk, w restauracji, na lotnisku, u lekarza i w aptece.</span></li>
+      <li><span class="dot" style="background:var(--coral)"></span><span><b>Ćwiczenia po każdym rozdziale:</b> fiszki, łączenie w pary, wpisywanie i quiz.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="signup" id="odbierz">
+  <div class="wrap">
+    <div class="card">
+
+      <!-- returning visitor who already signed up on this device -->
+      <div id="returning" hidden>
+        <h2>Masz już dostęp!</h2>
+        <p class="lead">Twój ebook czeka na Ciebie.</p>
+        <a class="btn" id="open-btn" href="#">Otwórz ebook →</a>
+      </div>
+
+      <form id="form" novalidate>
+        <h2>Odbierz ebook za darmo</h2>
+        <p class="lead">Podaj swój email, a ebook otworzy się od razu. Link wyślę Ci też na maila, żebyś mógł/mogła do niego wrócić w każdej chwili.</p>
+
+        <label class="field" for="email">Twój adres email</label>
+        <input id="email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="np. ania@gmail.com" required>
+
+        <label class="consent">
+          <input id="consent" type="checkbox" required>
+          <span>Chcę otrzymać ebook i zapisać się na newsletter BeChatty: materiały do nauki angielskiego oraz informacje o nowych ebookach i zajęciach. Mogę wypisać się w każdej chwili jednym kliknięciem.</span>
+        </label>
+
+        <button class="btn" id="submit" type="submit">Odbierz ebook →</button>
+        <p class="msg err" id="error" role="alert" hidden></p>
+        <p class="msg ok" id="success" role="status" hidden></p>
+
+        <p class="legal">Administratorem Twoich danych jest Aleksandra Susek-Hromada, BeChatty (NIP 5512651594). Twój adres email przetwarzam wyłącznie w celu wysyłki ebooka i newslettera, do czasu wypisania się. Szczegóły znajdziesz w <a href="/polityka-prywatnosci/">polityce prywatności</a>.</p>
+      </form>
+
+    </div>
+  </div>
+</section>
+
+<div class="foot">BeChatty · szkoła języka angielskiego online · <a href="/">bechatty.pl</a></div>
+
+<script>
+/* ── MailerLite embedded form "Ebook formularz" (group: Ebook).
+   The numbers come from the form action in its HTML embed code:
+   https://assets.mailerlite.com/jsonp/ACCOUNT_ID/forms/FORM_ID/subscribe
+   Signing up there starts the "Ebook formularz Workflow" automation,
+   which emails the ebook link. */
+const ML_ACCOUNT_ID = "2784585";
+const ML_FORM_ID = "203770351183726244";
+
+// ?dostep=bc25 is the access code the ebook page checks (it strips it from the address bar)
+const EBOOK_URL = "/ebook/powiedz-to-po-angielsku-k7m2/?dostep=bc25";
+const KEY = "bc-ebook-access";
+
+const $ = id => document.getElementById(id);
+const form = $("form"), emailEl = $("email"), consentEl = $("consent"),
+      btn = $("submit"), errEl = $("error"), okEl = $("success");
+$("open-btn").href = EBOOK_URL;
+
+function hasAccess(){ try { return localStorage.getItem(KEY) === "1"; } catch(e){ return false; } }
+function grantAccess(){ try { localStorage.setItem(KEY, "1"); } catch(e){} }
+
+if (hasAccess()) { form.hidden = true; $("returning").hidden = false; }
+
+[emailEl, consentEl].forEach(el => el.addEventListener("input", () => { errEl.hidden = true; }));
+function showError(text){ okEl.hidden = true; errEl.textContent = text; errEl.hidden = false; }
+
+form.addEventListener("submit", async (ev) => {
+  ev.preventDefault();
+  errEl.hidden = true;
+  const email = emailEl.value.trim();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { showError("Wpisz poprawny adres email."); emailEl.focus(); return; }
+  if (!consentEl.checked) { showError("Zaznacz zgodę, żeby odebrać ebook."); consentEl.focus(); return; }
+
+  btn.disabled = true; btn.textContent = "Chwileczkę…";
+  try {
+    const body = new FormData();
+    body.append("fields[email]", email);
+    body.append("ml-submit", "1");
+    body.append("anticsrf", "true");
+    const res = await fetch(`https://assets.mailerlite.com/jsonp/${ML_ACCOUNT_ID}/forms/${ML_FORM_ID}/subscribe`, { method: "POST", body, cache: "no-store" });
+    const data = await res.json().catch(() => ({}));
+    // Only unlock when MailerLite explicitly confirms the signup
+    if (!res.ok || data.success !== true) throw new Error("subscribe failed: " + JSON.stringify(data));
+    grantAccess();
+    okEl.textContent = "Gotowe! Otwieram ebook… Link wysłałam też na Twój email.";
+    okEl.hidden = false;
+    setTimeout(() => { location.href = EBOOK_URL; }, 1400);
+  } catch (e) {
+    console.error("[ebook]", e);
+    showError("Coś poszło nie tak. Spróbuj jeszcze raz za chwilę albo napisz do mnie na Instagramie @be_chatty.");
+    btn.disabled = false; btn.textContent = "Odbierz ebook →";
+  }
+});
+</script>
+</body>
+</html>
