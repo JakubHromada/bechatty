@@ -63,6 +63,7 @@ const footerLinks = [
   { href: '#reviews',  en: 'Reviews',  pl: 'Opinie'  },
   { href: '/ebook/',   en: 'Free ebook', pl: 'Darmowy ebook' },
   { href: '#contact',  en: 'Contact',  pl: 'Kontakt' },
+  { href: '/materialy/index.html', en: 'Student materials', pl: 'Materiały dla uczniów' },
 ]
 </script>
 
